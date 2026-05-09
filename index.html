@@ -170,21 +170,46 @@
   /* Prevent body scroll when menu is open */
   body.menu-open { overflow: hidden; }
 
-  /* RESPONSIVE — show hamburger, hide desktop nav */
+  /* RESPONSIVE — TABLET (768px) */
   @media (max-width: 768px) {
+    /* Nav */
     nav { padding: 14px 20px; }
     .nav-links { display: none; }
     .nav-cta  { display: none; }
     .hamburger { display: flex; }
-    /* Featured section stacks on mobile */
+
+    /* Services — 2 columns on tablet */
+    .services { padding: 0 20px 64px; }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+
+    /* Featured — stack text + img-grid, img-grid stays 2 columns */
     .featured { padding: 64px 20px; }
     .featured-row { grid-template-columns: 1fr; gap: 32px; margin-bottom: 64px; }
     .featured-row > *:first-child { order: 1; }
     .featured-row > *:last-child  { order: 2; }
-    /* Services padding fix */
-    .services { padding: 0 20px 64px; }
-    /* Reviews stack nicely */
+    .img-grid { grid-template-columns: 1fr 1fr; }
+
+    /* Reviews */
     .stars-row { gap: 16px; }
+    .review-chip { max-width: 100%; width: 100%; }
+  }
+
+  /* RESPONSIVE — MOBILE (480px) */
+  @media (max-width: 480px) {
+    /* Services — single column */
+    .services { padding: 0 16px 56px; }
+    .services-grid { grid-template-columns: 1fr; }
+
+    /* Featured — img-grid stacks to single column */
+    .featured { padding: 48px 16px; }
+    .featured-row { gap: 24px; margin-bottom: 48px; }
+    .img-grid { grid-template-columns: 1fr; }
+    .img-grid img { height: 220px; }
+
+    /* Tighter padding on smaller screens */
+    .hero { padding: 0 16px; }
+    .about { padding: 64px 16px; }
+    .reviews { padding: 64px 16px; }
     .review-chip { max-width: 100%; width: 100%; }
   }
 
