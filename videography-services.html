@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Videography Services — Continuum Visual Studio</title>
+<style>
+  /* ── RESET & BASE ─────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Century Gothic', 'Gill Sans', Futura, 'Trebuchet MS', sans-serif;
+    background: #fff;
+    color: #111;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { text-decoration: none; color: inherit; }
+  img { display: block; width: 100%; }
+
+  /* ── CSS VARIABLES ────────────────────────────────────────────── */
+  :root {
+    --black: #111;
+    --white: #fff;
+    --grey-light: #f5f5f5;
+    --grey-mid: #e8e8e8;
+    --grey-text: #666;
+    --grey-muted: #999;
+    --radius-sm: 12px;
+    --radius-md: 20px;
+    --radius-lg: 28px;
+    --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  /* ── NAV ──────────────────────────────────────────────────────── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.94);
+    backdrop-filter: blur(10px);
+    border-bottom: 0.5px solid var(--grey-mid);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 48px;
+  }
+  .nav-logo { font-size: 15px; letter-spacing: 0.12em; }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a { font-size: 13px; letter-spacing: 0.08em; color: #555; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--black); }
+  .nav-cta {
+    background: var(--black); color: var(--white);
+    border: none; padding: 10px 22px; border-radius: 999px;
+    font-size: 12px; letter-spacing: 0.1em; cursor: pointer;
+    font-family: inherit; transition: opacity 0.2s;
+  }
+  .nav-cta:hover { opacity: 0.8; }
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+  }
+
+  /* ── PAGE HERO ────────────────────────────────────────────────── */
+  .page-hero {
+    padding: 80px 48px 64px;
+    border-bottom: 0.5px solid var(--grey-mid);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: end;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .page-hero-left .eyebrow {
+    font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--grey-muted); margin-bottom: 20px;
+  }
+  .page-hero-left h1 {
+    font-size: clamp(34px, 5vw, 60px);
+    font-weight: 300; line-height: 1.1; letter-spacing: 0.02em;
+  }
+  .page-hero-right p {
+    font-size: 16px; color: var(--grey-text); line-height: 1.85;
+    max-width: 480px; margin-left: auto;
+  }
+  .page-hero-meta {
+    display: flex; gap: 32px; padding: 28px 48px;
+    border-bottom: 0.5px solid var(--grey-mid);
+    max-width: 1280px; margin: 0 auto;
+  }
+  .meta-item { font-size: 12px; color: var(--grey-muted); letter-spacing: 0.1em; }
+  .meta-item strong { display: block; font-size: 14px; color: var(--black); font-weight: 400; margin-bottom: 4px; }
+  @media (max-width: 768px) {
+    .page-hero { grid-template-columns: 1fr; padding: 48px 20px 40px; gap: 24px; }
+    .page-hero-right p { margin-left: 0; }
+    .page-hero-meta { padding: 20px; gap: 20px; flex-wrap: wrap; }
+  }
+
+  /* ── CATEGORY NAV (STICKY TOC) ───────────────────────────────── */
+  .cat-nav {
+    position: sticky; top: 57px; z-index: 90;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(8px);
+    border-bottom: 0.5px solid var(--grey-mid);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .cat-nav::-webkit-scrollbar { display: none; }
+  .cat-nav-inner {
+    display: flex; gap: 0;
+    max-width: 1280px; margin: 0 auto;
+    padding: 0 48px;
+  }
+  .cat-nav-inner a {
+    font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--grey-muted); padding: 16px 20px;
+    white-space: nowrap; border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .cat-nav-inner a:hover { color: var(--black); border-color: var(--black); }
+  @media (max-width: 768px) {
+    .cat-nav-inner { padding: 0 16px; }
+    .cat-nav-inner a { padding: 14px 14px; font-size: 11px; }
+  }
+
+  /* ── CATEGORY SECTION ─────────────────────────────────────────── */
+  .category-section {
+    max-width: 1280px; margin: 0 auto;
+    padding: 80px 48px;
+    border-bottom: 0.5px solid var(--grey-mid);
+  }
+  .category-section:last-child { border-bottom: none; }
+
+  .category-header {
+    display: grid; grid-template-columns: 1fr 2fr;
+    gap: 48px; align-items: start;
+    margin-bottom: 56px;
+  }
+  .category-label {
+    font-size: 11px; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--grey-muted); margin-bottom: 14px;
+  }
+  .category-header h2 {
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 300; letter-spacing: 0.03em; line-height: 1.2;
+  }
+  .category-desc {
+    font-size: 15px; color: var(--grey-text); line-height: 1.85;
+    max-width: 560px; align-self: end; padding-top: 28px;
+  }
+
+  /* ── VIDEO THUMBNAIL CARD ─────────────────────────────────────── */
+  /*
+   * Videography pages show still thumbnails (BTS / stills) from shoots.
+   * Video embeds can be added inside .video-embed-slot if needed.
+   * Play icon overlay is purely decorative CSS — replace with real
+   * <video> or <iframe> embed when video files are available.
+   */
+  .video-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--grey-light);
+    cursor: pointer;
+  }
+  .video-card::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0);
+    transition: background var(--transition);
+    pointer-events: none;
+  }
+  .video-card:hover::after { background: rgba(0,0,0,0.12); }
+  .video-card img {
+    transition: transform var(--transition);
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .video-card:hover img { transform: scale(1.04); }
+  .play-icon {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    width: 52px; height: 52px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform var(--transition), opacity var(--transition);
+    z-index: 2; pointer-events: none;
+    opacity: 0;
+  }
+  .play-icon svg { width: 18px; height: 18px; fill: var(--black); margin-left: 3px; }
+  .video-card:hover .play-icon { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+  /* ── VIDEO EMBED SLOT ─────────────────────────────────────────── */
+  /* Replace img inside .video-embed-slot with an iframe or video tag */
+  .video-embed-slot {
+    position: relative;
+    background: var(--black);
+    overflow: hidden;
+  }
+  .video-embed-slot iframe,
+  .video-embed-slot video {
+    width: 100%; height: 100%;
+    border: none; display: block;
+    object-fit: cover;
+  }
+
+  /* ── EDITORIAL IMAGE LAYOUTS ──────────────────────────────────── */
+
+  /* Layout A: Hero + 2 columns */
+  .layout-a {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 14px;
+  }
+  .layout-a .img-hero { grid-column: 1 / -1; }
+
+  /* Layout B: 3-column strip + 1 wide */
+  .layout-b { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .layout-b .img-wide { grid-column: 1 / -1; }
+
+  /* Layout C: Asymmetric 2:1 split */
+  .layout-c { display: grid; grid-template-columns: 2fr 1fr; gap: 14px; }
+  .layout-c .col-stack { display: flex; flex-direction: column; gap: 14px; }
+
+  /* Layout D: 2x2 masonry-feel */
+  .layout-d { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .layout-d .img-wide { grid-column: 1 / -1; }
+
+  /* Layout E: 1:1:1 equal grid */
+  .layout-e { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+
+  /* Layout F: Staggered 4-col */
+  .layout-f { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+
+  /* ── IMAGE HOVER EFFECT ──────────────────────────────────────── */
+  .img-wrap {
+    overflow: hidden;
+    background: var(--grey-light);
+    position: relative;
+  }
+  .img-wrap::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0);
+    transition: background var(--transition);
+    pointer-events: none;
+  }
+  .img-wrap:hover::after { background: rgba(0,0,0,0.08); }
+  .img-wrap img {
+    transition: transform var(--transition), filter var(--transition);
+    filter: brightness(0.98);
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .img-wrap:hover img { transform: scale(1.035); filter: brightness(1.02); }
+
+  /* Heights per layout slot */
+  .layout-a .img-hero .img-wrap,
+  .layout-a .img-hero .video-card   { border-radius: 28px; height: 480px; }
+  .layout-a .img-side .img-wrap,
+  .layout-a .img-side .video-card   { border-radius: 20px; height: 280px; }
+  .layout-b .img-tall .img-wrap,
+  .layout-b .img-tall .video-card   { border-radius: 20px; height: 400px; }
+  .layout-b .img-wide .img-wrap,
+  .layout-b .img-wide .video-card   { border-radius: 28px; height: 360px; }
+  .layout-c .img-primary .img-wrap,
+  .layout-c .img-primary .video-card{ border-radius: 28px; height: 500px; }
+  .layout-c .col-stack .img-wrap,
+  .layout-c .col-stack .video-card  { border-radius: 20px; height: 242px; }
+  .layout-d .img-tall .img-wrap,
+  .layout-d .img-tall .video-card   { border-radius: 20px; height: 380px; }
+  .layout-d .img-short .img-wrap,
+  .layout-d .img-short .video-card  { border-radius: 20px; height: 260px; }
+  .layout-d .img-wide .img-wrap,
+  .layout-d .img-wide .video-card   { border-radius: 28px; height: 320px; }
+  .layout-e .img-wrap,
+  .layout-e .video-card             { border-radius: 20px; height: 320px; }
+  .layout-f .img-wrap,
+  .layout-f .video-card             { border-radius: 20px; height: 300px; }
+
+  /* ── RESPONSIVE ──────────────────────────────────────────────── */
+  @media (max-width: 1024px) {
+    .layout-f { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .category-section { padding: 56px 20px; }
+    .category-header { grid-template-columns: 1fr; gap: 16px; }
+    .category-desc { padding-top: 0; }
+    .layout-a { grid-template-columns: 1fr; }
+    .layout-a .img-hero .img-wrap,
+    .layout-a .img-hero .video-card { height: 280px; }
+    .layout-a .img-side .img-wrap,
+    .layout-a .img-side .video-card { height: 220px; }
+    .layout-b { grid-template-columns: 1fr 1fr; }
+    .layout-b .img-tall .img-wrap, .layout-b .img-tall .video-card { height: 260px; }
+    .layout-b .img-wide .img-wrap, .layout-b .img-wide .video-card { height: 260px; }
+    .layout-c { grid-template-columns: 1fr; }
+    .layout-c .img-primary .img-wrap, .layout-c .img-primary .video-card { height: 300px; }
+    .layout-c .col-stack { flex-direction: row; }
+    .layout-c .col-stack .img-wrap, .layout-c .col-stack .video-card { height: 200px; }
+    .layout-d .img-tall .img-wrap, .layout-d .img-short .img-wrap,
+    .layout-d .img-tall .video-card, .layout-d .img-short .video-card { height: 220px; }
+    .layout-d .img-wide .img-wrap, .layout-d .img-wide .video-card { height: 220px; }
+    .layout-e { grid-template-columns: 1fr 1fr; }
+    .layout-e .img-wrap, .layout-e .video-card { height: 220px; }
+    .layout-f { grid-template-columns: 1fr 1fr; }
+    .layout-f .img-wrap, .layout-f .video-card { height: 200px; }
+  }
+  @media (max-width: 480px) {
+    .layout-b { grid-template-columns: 1fr; }
+    .layout-e { grid-template-columns: 1fr; }
+    .layout-f { grid-template-columns: 1fr 1fr; }
+    .layout-f .img-wrap, .layout-f .video-card { height: 160px; }
+  }
+
+  /* ── CTA STRIP ────────────────────────────────────────────────── */
+  .cta-strip {
+    background: var(--black); color: var(--white);
+    text-align: center; padding: 80px 24px;
+  }
+  .cta-strip h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 300; margin-bottom: 16px; }
+  .cta-strip p { color: #aaa; font-size: 15px; line-height: 1.8; max-width: 520px; margin: 0 auto 36px; }
+  .btn-white {
+    background: var(--white); color: var(--black);
+    border: 1.5px solid var(--white); padding: 13px 32px;
+    border-radius: 999px; font-size: 12px; letter-spacing: 0.1em;
+    cursor: pointer; font-family: inherit; transition: opacity 0.2s;
+    display: inline-block; margin: 6px;
+  }
+  .btn-white:hover { opacity: 0.85; }
+  .btn-outline-white {
+    background: transparent; color: var(--white);
+    border: 1.5px solid rgba(255,255,255,0.4); padding: 13px 32px;
+    border-radius: 999px; font-size: 12px; letter-spacing: 0.1em;
+    cursor: pointer; font-family: inherit; transition: background 0.2s, color 0.2s, border-color 0.2s;
+    display: inline-block; margin: 6px;
+  }
+  .btn-outline-white:hover { background: var(--white); color: var(--black); border-color: var(--white); }
+
+  /* ── FOOTER ───────────────────────────────────────────────────── */
+  footer {
+    background: #f2f2f2; padding: 32px 24px;
+    text-align: center; font-size: 12px; color: var(--grey-muted);
+    letter-spacing: 0.08em;
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════ NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">CONTINUUM</a>
+  <div class="nav-links">
+    <a href="#" class="active">Services</a>
+    <a href="#">Portfolio</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+  </div>
+  <button class="nav-cta">Book A Session</button>
+</nav>
+
+<!-- ════════════════════════════════════════════════════ PAGE HERO -->
+<header>
+  <div class="page-hero">
+    <div class="page-hero-left">
+      <p class="eyebrow">Our Services</p>
+      <h1>Videography<br>Services</h1>
+    </div>
+    <div class="page-hero-right">
+      <p>From cinematic brand films to live event coverage and music video production — we bring motion, story, and emotion to every frame. Our videography team combines technical precision with creative direction to deliver video content that moves people.</p>
+    </div>
+  </div>
+  <div class="page-hero-meta">
+    <div class="meta-item"><strong>4K Production</strong>Cinema-Grade Equipment</div>
+    <div class="meta-item"><strong>Editing Included</strong>Colour Graded &amp; Sound Mixed</div>
+    <div class="meta-item"><strong>Delivery</strong>Web, Broadcast &amp; Social Formats</div>
+    <div class="meta-item"><strong>Location</strong>Johannesburg &amp; Surrounds</div>
+  </div>
+</header>
+
+<!-- ════════════════════════════════════════════════════ CATEGORY NAV -->
+<nav class="cat-nav" aria-label="Service categories">
+  <div class="cat-nav-inner">
+    <a href="#corporate-video">Corporate Videos</a>
+    <a href="#music-video">Music Videos</a>
+    <a href="#event-coverage">Event Coverage</a>
+    <a href="#weddings">Weddings</a>
+    <a href="#marketing">Marketing Content</a>
+    <a href="#training">Training Videos</a>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════════════ CATEGORIES -->
+<main>
+
+  <!-- ─── CORPORATE VIDEOS ─────────────────────────────────────── -->
+  <section class="category-section" id="corporate-video">
+    <div class="category-header">
+      <div>
+        <p class="category-label">01 — Videography</p>
+        <h2>Corporate Videos</h2>
+      </div>
+      <p class="category-desc">Professional corporate video production for company profiles, CEO messages, investor presentations, internal communications, and product explainers. Scripted or documentary-style — we handle concept, production, and post.</p>
+    </div>
+    <!-- Layout A: Hero + 2 side — use video-card for stills with play icon -->
+    <div class="layout-a">
+      <div class="img-hero">
+        <div class="video-card">
+          <img src="IMAGE_URL_HERE" alt="Corporate video production — CEO message filming setup">
+          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+      </div>
+      <div class="img-side">
+        <div class="video-card">
+          <img src="IMAGE_URL_HERE" alt="Corporate video — behind the scenes camera crew">
+          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+      </div>
+      <div class="img-side">
+        <div class="video-card">
+          <img src="IMAGE_URL_HERE" alt="Corporate film production — office interview setup">
+          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── MUSIC VIDEOS ─────────────────────────────────────────── -->
+  <section class="category-section" id="music-video">
+    <div class="category-header">
+      <div>
+        <p class="category-label">02 — Videography</p>
+        <h2>Music Videos</h2>
+      </div>
+      <p class="category-desc">Cinematic, high-energy, and visually distinctive music video production. We collaborate closely with artists and labels to create a visual language that amplifies the music — from concept and storyboard to final colour grade.</p>
+    </div>
+    <!-- Layout C: Asymmetric 2:1 -->
+    <div class="layout-c">
+      <div class="img-primary">
+        <div class="video-card">
+          <img src="IMAGE_URL_HERE" alt="Music video production — artist performance cinematic still">
+          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+      </div>
+      <div class="col-stack">
+        <div class="video-card">
+          <img src="IMAGE_URL_HERE" alt="Music video BTS — lighting rig and camera setup">
+          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="video-card">
+          <img src="IMAGE_URL_HERE" alt="Music video still — colour graded editorial frame">
+          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── EVENT COVERAGE ───────────────────────────────────────── -->
+  <section class="category-section" id="event-coverage">
+    <div class="category-header">
+      <div>
+        <p class="category-label">03 — Videography</p>
+        <h2>Event Coverage</h2>
+      </div>
+      <p class="category-desc">Full-day event videography for conferences, award ceremonies, product launches, festivals, and activations. Multi-camera setups, same-day highlight reels, and full uncut footage packages available.</p>
+    </div>
+    <!-- Layout B: 3-column + wide -->
+    <div class="layout-b">
+      <div class="img-tall">
+        <div class="video-card">
+          <img src="IMAGE_URL_HERE" alt="Event videography — conference keynote wide shot">
+          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+      </div>
+      <div class="img-tall">
+        <div class="video-card">
+          <img src="IMAGE_URL_HERE" alt="Event coverage — award ceremony highlight reel still">
+          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+      </div>
+      <div class="img-tall">
+        <div class="video-card">
+          <img src="IMAGE_URL_HERE" alt="Event filming — crowd reaction cinematic shot">
+          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+      </div>
+      <div class="img-wide">
+        <div class="video-card">
+          <img src="IMAGE_URL_HERE" alt="Event coverage — drone aerial wide shot of venue">
+          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── WEDDINGS ─────────────────────────────────────────────── -->
+  <section class="category-section" id="weddings">
+    <div class="category-header">
+      <div>
+        <p class="category-label">04 — Videography</p>
+        <h2>Weddings</h2>
+      </div>
+      <p class="category-desc">Beautifully crafted wedding films that relive every emotion — the nervous laughter, the vows, the first dance. Delivered as a cinematic feature film and social edit, colour graded and soundtracked to perfection.</p>
+    </div>
+    <!-- Layout D: 2x2 masonry -->
+    <div class="layout-d">
+      <div class="img-tall">
+        <div class="video-card">
+          <img src="IMAGE_URL_HERE" alt="Wedding videography — ceremony aisle cinematic shot">
+          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+      </div>
+      <div class="img-short">
+        <div class="video-card">
+          <img src="IMAGE_URL_HERE" alt="Wedding film — couple portrait at golden hour">
+          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+      </div>
+      <div class="img-short">
+        <div class="video-card">
+          <img src="IMAGE_URL_HERE" alt="Wedding video still — first dance floor moment">
+          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+      </div>
+      <div class="img-tall">
+        <div class="video-card">
+          <img src="IMAGE_URL_HERE" alt="Wedding cinematography — vows exchange close up">
+          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+      </div>
+      <div class="img-wide">
+        <div class="video-card">
+          <img src="IMAGE_URL_HERE" alt="Wedding film — reception venue aerial establishing shot">
+          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── MARKETING CONTENT ─────────────────────────────────────── -->
+  <section class="category-section" id="marketing">
+    <div class="category-header">
+      <div>
+        <p class="category-label">05 — Videography</p>
+        <h2>Marketing Content</h2>
+      </div>
+      <p class="category-desc">Short-form and long-form marketing video content designed for digital platforms — social media reels, YouTube ads, website hero videos, and brand campaigns. Scroll-stopping content crafted to convert and captivate.</p>
+    </div>
+    <!-- Layout E: Equal 3-column -->
+    <div class="layout-e">
+      <div class="video-card">
+        <img src="IMAGE_URL_HERE" alt="Marketing video — product reveal cinematic shot">
+        <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="video-card">
+        <img src="IMAGE_URL_HERE" alt="Social media reel — lifestyle brand content shoot">
+        <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="video-card">
+        <img src="IMAGE_URL_HERE" alt="Marketing content — brand campaign hero video frame">
+        <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="video-card">
+        <img src="IMAGE_URL_HERE" alt="Instagram reel production — vertical format video">
+        <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="video-card">
+        <img src="IMAGE_URL_HERE" alt="YouTube ad production — talking head interview setup">
+        <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="video-card">
+        <img src="IMAGE_URL_HERE" alt="Brand video — product demo and explainer footage">
+        <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TRAINING VIDEOS ──────────────────────────────────────── -->
+  <section class="category-section" id="training">
+    <div class="category-header">
+      <div>
+        <p class="category-label">06 — Videography</p>
+        <h2>Training Videos</h2>
+      </div>
+      <p class="category-desc">Clear, professional training and e-learning video production for corporate onboarding, safety demonstrations, skills development, and educational platforms. Studio or workplace settings — scripted and fully produced.</p>
+    </div>
+    <!-- Layout F: 4-col grid -->
+    <div class="layout-f">
+      <div class="video-card">
+        <img src="IMAGE_URL_HERE" alt="Training video production — presenter on set">
+        <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="video-card">
+        <img src="IMAGE_URL_HERE" alt="Corporate training video — safety demonstration shoot">
+        <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="video-card">
+        <img src="IMAGE_URL_HERE" alt="E-learning video — green screen studio production">
+        <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="video-card">
+        <img src="IMAGE_URL_HERE" alt="Training content — workplace skills demonstration">
+        <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="video-card">
+        <img src="IMAGE_URL_HERE" alt="Training video — two-camera interview format">
+        <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="video-card">
+        <img src="IMAGE_URL_HERE" alt="Corporate e-learning — animated slide video insert">
+        <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ════════════════════════════════════════════════════ CTA -->
+<section class="cta-strip">
+  <h2>Let's Make Something Worth Watching</h2>
+  <p>Whether it's a 30-second reel or a full-day production, we bring cinematic quality and creative focus to every project. Based in Kempton Park — filming across Johannesburg.</p>
+  <a href="#" class="btn-white">WhatsApp Us</a>
+  <a href="#" class="btn-outline-white">Back to Services</a>
+</section>
+
+<!-- ════════════════════════════════════════════════════ FOOTER -->
+<footer>
+  Continuum Visual Studio &bull; Kempton Park &bull; Johannesburg &bull; Photography &amp; Videography
+</footer>
+
+</body>
+</html>

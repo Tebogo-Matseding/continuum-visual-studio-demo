@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lifestyle Photography — Continuum Visual Studio</title>
+<style>
+  /* ── RESET & BASE ─────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Century Gothic', 'Gill Sans', Futura, 'Trebuchet MS', sans-serif;
+    background: #fff;
+    color: #111;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { text-decoration: none; color: inherit; }
+  img { display: block; width: 100%; }
+
+  /* ── CSS VARIABLES ────────────────────────────────────────────── */
+  :root {
+    --black: #111;
+    --white: #fff;
+    --grey-light: #f5f5f5;
+    --grey-mid: #e8e8e8;
+    --grey-text: #666;
+    --grey-muted: #999;
+    --radius-sm: 12px;
+    --radius-md: 20px;
+    --radius-lg: 28px;
+    --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  /* ── NAV ──────────────────────────────────────────────────────── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.94);
+    backdrop-filter: blur(10px);
+    border-bottom: 0.5px solid var(--grey-mid);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 48px;
+  }
+  .nav-logo { font-size: 15px; letter-spacing: 0.12em; }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a { font-size: 13px; letter-spacing: 0.08em; color: #555; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--black); }
+  .nav-cta {
+    background: var(--black); color: var(--white);
+    border: none; padding: 10px 22px; border-radius: 999px;
+    font-size: 12px; letter-spacing: 0.1em; cursor: pointer;
+    font-family: inherit; transition: opacity 0.2s;
+  }
+  .nav-cta:hover { opacity: 0.8; }
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+  }
+
+  /* ── PAGE HERO ────────────────────────────────────────────────── */
+  .page-hero {
+    padding: 80px 48px 64px;
+    border-bottom: 0.5px solid var(--grey-mid);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: end;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .page-hero-left .eyebrow {
+    font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--grey-muted); margin-bottom: 20px;
+  }
+  .page-hero-left h1 {
+    font-size: clamp(34px, 5vw, 60px);
+    font-weight: 300; line-height: 1.1; letter-spacing: 0.02em;
+  }
+  .page-hero-right p {
+    font-size: 16px; color: var(--grey-text); line-height: 1.85;
+    max-width: 480px; margin-left: auto;
+  }
+  .page-hero-meta {
+    display: flex; gap: 32px; padding: 28px 48px;
+    border-bottom: 0.5px solid var(--grey-mid);
+    max-width: 1280px; margin: 0 auto;
+  }
+  .meta-item { font-size: 12px; color: var(--grey-muted); letter-spacing: 0.1em; }
+  .meta-item strong { display: block; font-size: 14px; color: var(--black); font-weight: 400; margin-bottom: 4px; }
+  @media (max-width: 768px) {
+    .page-hero { grid-template-columns: 1fr; padding: 48px 20px 40px; gap: 24px; }
+    .page-hero-right p { margin-left: 0; }
+    .page-hero-meta { padding: 20px; gap: 20px; flex-wrap: wrap; }
+  }
+
+  /* ── CATEGORY NAV (STICKY TOC) ───────────────────────────────── */
+  .cat-nav {
+    position: sticky; top: 57px; z-index: 90;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(8px);
+    border-bottom: 0.5px solid var(--grey-mid);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .cat-nav::-webkit-scrollbar { display: none; }
+  .cat-nav-inner {
+    display: flex; gap: 0;
+    max-width: 1280px; margin: 0 auto;
+    padding: 0 48px;
+  }
+  .cat-nav-inner a {
+    font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--grey-muted); padding: 16px 20px;
+    white-space: nowrap; border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .cat-nav-inner a:hover { color: var(--black); border-color: var(--black); }
+  @media (max-width: 768px) {
+    .cat-nav-inner { padding: 0 16px; }
+    .cat-nav-inner a { padding: 14px 14px; font-size: 11px; }
+  }
+
+  /* ── CATEGORY SECTION ─────────────────────────────────────────── */
+  .category-section {
+    max-width: 1280px; margin: 0 auto;
+    padding: 80px 48px;
+    border-bottom: 0.5px solid var(--grey-mid);
+  }
+  .category-section:last-child { border-bottom: none; }
+
+  .category-header {
+    display: grid; grid-template-columns: 1fr 2fr;
+    gap: 48px; align-items: start;
+    margin-bottom: 56px;
+  }
+  .category-label {
+    font-size: 11px; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--grey-muted); margin-bottom: 14px;
+  }
+  .category-header h2 {
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 300; letter-spacing: 0.03em; line-height: 1.2;
+  }
+  .category-desc {
+    font-size: 15px; color: var(--grey-text); line-height: 1.85;
+    max-width: 560px; align-self: end; padding-top: 28px;
+  }
+
+  /* ── EDITORIAL IMAGE LAYOUTS ──────────────────────────────────── */
+
+  /* Layout A: Hero + 2 columns */
+  .layout-a {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 14px;
+  }
+  .layout-a .img-hero { grid-column: 1 / -1; }
+
+  /* Layout B: 3-column strip + 1 wide */
+  .layout-b { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .layout-b .img-wide { grid-column: 1 / -1; }
+
+  /* Layout C: Asymmetric 2:1 split */
+  .layout-c { display: grid; grid-template-columns: 2fr 1fr; gap: 14px; }
+  .layout-c .col-stack { display: flex; flex-direction: column; gap: 14px; }
+
+  /* Layout D: 2x2 masonry-feel */
+  .layout-d { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .layout-d .img-wide { grid-column: 1 / -1; }
+
+  /* Layout E: 1:1:1 equal grid */
+  .layout-e { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+
+  /* Layout F: Staggered 4-col */
+  .layout-f { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+
+  /* ── IMAGE HOVER EFFECT ──────────────────────────────────────── */
+  .img-wrap {
+    overflow: hidden;
+    background: var(--grey-light);
+    position: relative;
+  }
+  .img-wrap::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0);
+    transition: background var(--transition);
+    pointer-events: none;
+  }
+  .img-wrap:hover::after { background: rgba(0,0,0,0.08); }
+  .img-wrap img {
+    transition: transform var(--transition), filter var(--transition);
+    filter: brightness(0.98);
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .img-wrap:hover img { transform: scale(1.035); filter: brightness(1.02); }
+
+  /* Heights per layout slot */
+  .layout-a .img-hero .img-wrap   { border-radius: 28px; height: 480px; }
+  .layout-a .img-side .img-wrap   { border-radius: 20px; height: 280px; }
+  .layout-b .img-tall .img-wrap   { border-radius: 20px; height: 400px; }
+  .layout-b .img-wide .img-wrap   { border-radius: 28px; height: 360px; }
+  .layout-c .img-primary .img-wrap{ border-radius: 28px; height: 500px; }
+  .layout-c .col-stack .img-wrap  { border-radius: 20px; height: 242px; }
+  .layout-d .img-tall .img-wrap   { border-radius: 20px; height: 380px; }
+  .layout-d .img-short .img-wrap  { border-radius: 20px; height: 260px; }
+  .layout-d .img-wide .img-wrap   { border-radius: 28px; height: 320px; }
+  .layout-e .img-wrap             { border-radius: 20px; height: 320px; }
+  .layout-f .img-wrap             { border-radius: 20px; height: 300px; }
+
+  /* ── RESPONSIVE ──────────────────────────────────────────────── */
+  @media (max-width: 1024px) {
+    .layout-f { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .category-section { padding: 56px 20px; }
+    .category-header { grid-template-columns: 1fr; gap: 16px; }
+    .category-desc { padding-top: 0; }
+    .layout-a { grid-template-columns: 1fr; }
+    .layout-a .img-hero .img-wrap { height: 280px; }
+    .layout-a .img-side .img-wrap { height: 220px; }
+    .layout-b { grid-template-columns: 1fr 1fr; }
+    .layout-b .img-tall .img-wrap { height: 260px; }
+    .layout-b .img-wide .img-wrap { height: 260px; }
+    .layout-c { grid-template-columns: 1fr; }
+    .layout-c .img-primary .img-wrap { height: 300px; }
+    .layout-c .col-stack { flex-direction: row; }
+    .layout-c .col-stack .img-wrap { height: 200px; }
+    .layout-d .img-tall .img-wrap,
+    .layout-d .img-short .img-wrap { height: 220px; }
+    .layout-d .img-wide .img-wrap  { height: 220px; }
+    .layout-e { grid-template-columns: 1fr 1fr; }
+    .layout-e .img-wrap { height: 220px; }
+    .layout-f { grid-template-columns: 1fr 1fr; }
+    .layout-f .img-wrap { height: 200px; }
+  }
+  @media (max-width: 480px) {
+    .layout-b { grid-template-columns: 1fr; }
+    .layout-e { grid-template-columns: 1fr; }
+    .layout-f { grid-template-columns: 1fr 1fr; }
+    .layout-f .img-wrap { height: 160px; }
+  }
+
+  /* ── CTA STRIP ────────────────────────────────────────────────── */
+  .cta-strip {
+    background: var(--black); color: var(--white);
+    text-align: center; padding: 80px 24px;
+  }
+  .cta-strip h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 300; margin-bottom: 16px; }
+  .cta-strip p { color: #aaa; font-size: 15px; line-height: 1.8; max-width: 520px; margin: 0 auto 36px; }
+  .btn-white {
+    background: var(--white); color: var(--black);
+    border: 1.5px solid var(--white); padding: 13px 32px;
+    border-radius: 999px; font-size: 12px; letter-spacing: 0.1em;
+    cursor: pointer; font-family: inherit; transition: opacity 0.2s;
+    display: inline-block; margin: 6px;
+  }
+  .btn-white:hover { opacity: 0.85; }
+  .btn-outline-white {
+    background: transparent; color: var(--white);
+    border: 1.5px solid rgba(255,255,255,0.4); padding: 13px 32px;
+    border-radius: 999px; font-size: 12px; letter-spacing: 0.1em;
+    cursor: pointer; font-family: inherit; transition: background 0.2s, color 0.2s, border-color 0.2s;
+    display: inline-block; margin: 6px;
+  }
+  .btn-outline-white:hover { background: var(--white); color: var(--black); border-color: var(--white); }
+
+  /* ── FOOTER ───────────────────────────────────────────────────── */
+  footer {
+    background: #f2f2f2; padding: 32px 24px;
+    text-align: center; font-size: 12px; color: var(--grey-muted);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── PLACEHOLDER (no src) ─────────────────────────────────────── */
+  img[src="IMAGE_URL_HERE"] {
+    background: linear-gradient(135deg, #ebebeb 0%, #f5f5f5 50%, #e8e8e8 100%);
+    min-height: 100%;
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════ NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">CONTINUUM</a>
+  <div class="nav-links">
+    <a href="#" class="active">Services</a>
+    <a href="#">Portfolio</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+  </div>
+  <button class="nav-cta">Book A Session</button>
+</nav>
+
+<!-- ════════════════════════════════════════════════════ PAGE HERO -->
+<header>
+  <div class="page-hero">
+    <div class="page-hero-left">
+      <p class="eyebrow">Our Services</p>
+      <h1>Lifestyle<br>Photography</h1>
+    </div>
+    <div class="page-hero-right">
+      <p>Life's most tender chapters — beautifully preserved. From a baby's first birthday to the quiet anticipation of new motherhood, our lifestyle sessions are warm, authentic, and timeless. Every session is crafted with patience, care, and an eye for the extraordinary in the everyday.</p>
+    </div>
+  </div>
+  <div class="page-hero-meta">
+    <div class="meta-item"><strong>Studio &amp; Outdoor</strong>Kempton Park &amp; Johannesburg</div>
+    <div class="meta-item"><strong>Session Length</strong>1 – 3 Hours</div>
+    <div class="meta-item"><strong>Delivery</strong>High-Res Digital Gallery</div>
+    <div class="meta-item"><strong>Packages</strong>Individual &amp; Family</div>
+  </div>
+</header>
+
+<!-- ════════════════════════════════════════════════════ CATEGORY NAV -->
+<nav class="cat-nav" aria-label="Service categories">
+  <div class="cat-nav-inner">
+    <a href="#maternity">Maternity Shoots</a>
+    <a href="#cakesmash">Cake Smash Sessions</a>
+    <a href="#graduation">Graduation Photography</a>
+    <a href="#couples">Couples Shoots</a>
+    <a href="#family">Family Portraits</a>
+    <a href="#outdoor">Outdoor Lifestyle</a>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════════════ CATEGORIES -->
+<main>
+
+  <!-- ─── MATERNITY ────────────────────────────────────────────── -->
+  <section class="category-section" id="maternity">
+    <div class="category-header">
+      <div>
+        <p class="category-label">01 — Lifestyle</p>
+        <h2>Maternity Shoots</h2>
+      </div>
+      <p class="category-desc">Elegant and empowering maternity sessions that honour the beauty of pregnancy. Studio and outdoor settings with curated backdrops, flowing fabrics, and family-inclusive options. A timeless celebration of one of life's most profound transitions.</p>
+    </div>
+    <!-- Layout C: Asymmetric 2:1 -->
+    <div class="layout-c">
+      <div class="img-primary">
+        <div class="img-wrap">
+          <img src="IMAGE_URL_HERE" alt="Maternity photography — studio portrait with draped fabric">
+        </div>
+      </div>
+      <div class="col-stack">
+        <div class="img-wrap">
+          <img src="IMAGE_URL_HERE" alt="Maternity shoot — outdoor golden hour portrait">
+        </div>
+        <div class="img-wrap">
+          <img src="IMAGE_URL_HERE" alt="Maternity session — couple together in garden">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CAKE SMASH ───────────────────────────────────────────── -->
+  <section class="category-section" id="cakesmash">
+    <div class="category-header">
+      <div>
+        <p class="category-label">02 — Lifestyle</p>
+        <h2>Cake Smash Sessions</h2>
+      </div>
+      <p class="category-desc">Joyful, playful, and absolutely unforgettable. Our cake smash sessions are fully styled with custom themes, birthday setups, outfit coordination, and the optional milk bath finale — capturing every giggle, expression, and messy moment.</p>
+    </div>
+    <!-- Layout A: Hero + 2 side -->
+    <div class="layout-a">
+      <div class="img-hero">
+        <div class="img-wrap">
+          <img src="IMAGE_URL_HERE" alt="Cake smash photography — baby with birthday cake wide shot">
+        </div>
+      </div>
+      <div class="img-side">
+        <div class="img-wrap">
+          <img src="IMAGE_URL_HERE" alt="Cake smash — close up baby face with frosting">
+        </div>
+      </div>
+      <div class="img-side">
+        <div class="img-wrap">
+          <img src="IMAGE_URL_HERE" alt="Cake smash milk bath finale — baby in floral tub">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── GRADUATION ───────────────────────────────────────────── -->
+  <section class="category-section" id="graduation">
+    <div class="category-header">
+      <div>
+        <p class="category-label">03 — Lifestyle</p>
+        <h2>Graduation Photography</h2>
+      </div>
+      <p class="category-desc">Celebrate the milestone in style. Whether it's matric farewell, a university degree, or a professional qualification, our graduation sessions are elegant, energetic, and made to be shared. Studio and campus-location options available.</p>
+    </div>
+    <!-- Layout B: 3-column + wide -->
+    <div class="layout-b">
+      <div class="img-tall">
+        <div class="img-wrap">
+          <img src="IMAGE_URL_HERE" alt="Graduation photography — studio portrait in regalia">
+        </div>
+      </div>
+      <div class="img-tall">
+        <div class="img-wrap">
+          <img src="IMAGE_URL_HERE" alt="Graduation shoot — outdoor campus with cap toss">
+        </div>
+      </div>
+      <div class="img-tall">
+        <div class="img-wrap">
+          <img src="IMAGE_URL_HERE" alt="Graduation session — family celebration portrait">
+        </div>
+      </div>
+      <div class="img-wide">
+        <div class="img-wrap">
+          <img src="IMAGE_URL_HERE" alt="Graduation group photo — friends celebrating together">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── COUPLES ──────────────────────────────────────────────── -->
+  <section class="category-section" id="couples">
+    <div class="category-header">
+      <div>
+        <p class="category-label">04 — Lifestyle</p>
+        <h2>Couples Shoots</h2>
+      </div>
+      <p class="category-desc">Romantic, candid, and effortlessly natural. Our couples sessions capture genuine connection — perfect for anniversaries, engagements, Valentine's Day, or simply celebrating your relationship. Indoor studio or scenic outdoor locations across Johannesburg.</p>
+    </div>
+    <!-- Layout D: 2x2 masonry -->
+    <div class="layout-d">
+      <div class="img-tall">
+        <div class="img-wrap">
+          <img src="IMAGE_URL_HERE" alt="Couples photography — intimate outdoor portrait">
+        </div>
+      </div>
+      <div class="img-short">
+        <div class="img-wrap">
+          <img src="IMAGE_URL_HERE" alt="Couples shoot — laughing together in studio">
+        </div>
+      </div>
+      <div class="img-short">
+        <div class="img-wrap">
+          <img src="IMAGE_URL_HERE" alt="Engagement photography — ring detail shot">
+        </div>
+      </div>
+      <div class="img-tall">
+        <div class="img-wrap">
+          <img src="IMAGE_URL_HERE" alt="Couples session — sunset silhouette portrait">
+        </div>
+      </div>
+      <div class="img-wide">
+        <div class="img-wrap">
+          <img src="IMAGE_URL_HERE" alt="Couples lifestyle — walking together wide landscape">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FAMILY PORTRAITS ─────────────────────────────────────── -->
+  <section class="category-section" id="family">
+    <div class="category-header">
+      <div>
+        <p class="category-label">05 — Lifestyle</p>
+        <h2>Family Portraits</h2>
+      </div>
+      <p class="category-desc">Real families. Real moments. Beautiful memories. We create a relaxed, fun environment where your family can just be themselves — and we capture the love, laughter, and connection that makes your story unique.</p>
+    </div>
+    <!-- Layout E: Equal 3-column -->
+    <div class="layout-e">
+      <div class="img-wrap">
+        <img src="IMAGE_URL_HERE" alt="Family portrait — parents with newborn studio session">
+      </div>
+      <div class="img-wrap">
+        <img src="IMAGE_URL_HERE" alt="Family photography — children playing outdoor">
+      </div>
+      <div class="img-wrap">
+        <img src="IMAGE_URL_HERE" alt="Family portrait — full family group shot">
+      </div>
+      <div class="img-wrap">
+        <img src="IMAGE_URL_HERE" alt="Family lifestyle — candid moment at home">
+      </div>
+      <div class="img-wrap">
+        <img src="IMAGE_URL_HERE" alt="Family portrait — siblings together">
+      </div>
+      <div class="img-wrap">
+        <img src="IMAGE_URL_HERE" alt="Family photography — three generations portrait">
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── OUTDOOR LIFESTYLE ────────────────────────────────────── -->
+  <section class="category-section" id="outdoor">
+    <div class="category-header">
+      <div>
+        <p class="category-label">06 — Lifestyle</p>
+        <h2>Outdoor Lifestyle Sessions</h2>
+      </div>
+      <p class="category-desc">Nature as your backdrop. We scout beautiful parks, gardens, and open landscapes across Johannesburg for golden-hour sessions that feel cinematic and alive. Perfect for personal branding, casual portraits, and content creation.</p>
+    </div>
+    <!-- Layout F: 4-col grid -->
+    <div class="layout-f">
+      <div class="img-wrap">
+        <img src="IMAGE_URL_HERE" alt="Outdoor lifestyle photography — field golden hour">
+      </div>
+      <div class="img-wrap">
+        <img src="IMAGE_URL_HERE" alt="Outdoor portrait — natural light in park">
+      </div>
+      <div class="img-wrap">
+        <img src="IMAGE_URL_HERE" alt="Lifestyle session — urban street portrait Johannesburg">
+      </div>
+      <div class="img-wrap">
+        <img src="IMAGE_URL_HERE" alt="Outdoor photography — botanical garden session">
+      </div>
+      <div class="img-wrap">
+        <img src="IMAGE_URL_HERE" alt="Outdoor lifestyle — candid laughing portrait">
+      </div>
+      <div class="img-wrap">
+        <img src="IMAGE_URL_HERE" alt="Lifestyle photography — sunset walk editorial">
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ════════════════════════════════════════════════════ CTA -->
+<section class="cta-strip">
+  <h2>Let's Capture Your Story</h2>
+  <p>Every milestone deserves a photographer who cares as much as you do. Reach out to discuss your session — we'd love to create something beautiful together.</p>
+  <a href="#" class="btn-white">WhatsApp Us</a>
+  <a href="#" class="btn-outline-white">Back to Services</a>
+</section>
+
+<!-- ════════════════════════════════════════════════════ FOOTER -->
+<footer>
+  Continuum Visual Studio &bull; Kempton Park &bull; Johannesburg &bull; Photography &amp; Videography
+</footer>
+
+</body>
+</html>
