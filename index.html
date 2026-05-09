@@ -6,7 +6,8 @@
 <title>Continuum Visual Studio</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Century Gothic', 'Gill Sans', Futura, 'Trebuchet MS', sans-serif; background: #fff; color: #111; }
+  html { overflow-x: hidden; }
+  body { font-family: 'Century Gothic', 'Gill Sans', Futura, 'Trebuchet MS', sans-serif; background: #fff; color: #111; overflow-x: hidden; }
   a { text-decoration: none; color: inherit; }
 
   /* NAV */
@@ -54,7 +55,10 @@
   /* MOBILE MENU OVERLAY */
   .mobile-menu {
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     z-index: 150;
     background: #fff;
     display: flex;
