@@ -182,12 +182,11 @@
     .services { padding: 0 20px 64px; }
     .services-grid { grid-template-columns: repeat(2, 1fr); }
 
-    /* Featured — stack text + img-grid, img-grid stays 2 columns */
+    /* Featured — stack text + img-grid */
     .featured { padding: 64px 20px; }
     .featured-row { grid-template-columns: 1fr; gap: 32px; margin-bottom: 64px; }
     .featured-row > *:first-child { order: 1; }
     .featured-row > *:last-child  { order: 2; }
-    .img-grid { grid-template-columns: 1fr 1fr; }
 
     /* Reviews */
     .stars-row { gap: 16px; }
@@ -200,11 +199,10 @@
     .services { padding: 0 16px 56px; }
     .services-grid { grid-template-columns: 1fr; }
 
-    /* Featured — img-grid stacks to single column */
+    /* Featured — tighter spacing */
     .featured { padding: 48px 16px; }
     .featured-row { gap: 24px; margin-bottom: 48px; }
-    .img-grid { grid-template-columns: 1fr; }
-    .img-grid img { height: 220px; }
+    .img-grid img { height: 160px; }
 
     /* Tighter padding on smaller screens */
     .hero { padding: 0 16px; }
@@ -246,12 +244,12 @@
   /* FEATURED */
   .featured { background: #f9f9f9; padding: 96px 48px; }
   .featured-inner { max-width: 1100px; margin: 0 auto; }
-  .featured-row { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; margin-bottom: 96px; }
+  .featured-row { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; margin-bottom: 96px; }
   .featured-row:last-child { margin-bottom: 0; }
   .featured-text h2 { font-size: clamp(24px, 3vw, 36px); font-weight: 300; letter-spacing: 0.04em; margin-bottom: 18px; }
   .featured-text p { font-size: 15px; color: #666; line-height: 1.8; }
-  .img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .img-grid img { border-radius: 16px; height: 180px; width: 100%; object-fit: cover; display: block; }
+  .img-grid { display: grid; grid-template-columns: 1fr; gap: 14px; width: 100%; justify-self: stretch; align-self: start; }
+  .img-grid img { border-radius: 16px; height: 260px; width: 100%; object-fit: cover; display: block; }
 
   /* REVIEWS */
   .reviews { padding: 96px 24px; text-align: center; }
@@ -383,8 +381,6 @@
       <div class="img-grid">
         <img src="" alt="Cake Smash Photography 1">
         <img src="" alt="Cake Smash Photography 2">
-        <img src="" alt="Cake Smash Photography 3">
-        <img src="" alt="Cake Smash Photography 4">
       </div>
     </div>
 
@@ -393,8 +389,6 @@
       <div class="img-grid">
         <img src="" alt="Maternity Photography 1">
         <img src="" alt="Maternity Photography 2">
-        <img src="" alt="Maternity Photography 3">
-        <img src="" alt="Maternity Photography 4">
       </div>
       <div class="featured-text">
         <h2>Maternity Photography</h2>
@@ -411,8 +405,6 @@
       <div class="img-grid">
         <img src="" alt="Studio Photography 1">
         <img src="" alt="Studio Photography 2">
-        <img src="" alt="Studio Photography 3">
-        <img src="" alt="Studio Photography 4">
       </div>
     </div>
 
@@ -421,8 +413,6 @@
       <div class="img-grid">
         <img src="" alt="Outdoor Photography 1">
         <img src="" alt="Outdoor Photography 2">
-        <img src="" alt="Outdoor Photography 3">
-        <img src="" alt="Outdoor Photography 4">
       </div>
       <div class="featured-text">
         <h2>Outdoor Photography</h2>
