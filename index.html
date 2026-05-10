@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <title>Continuum Visual Studio</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -271,7 +272,7 @@
     100% { transform: translateX(-50%); }
   }
   .review-chip { background: #f3f3f3; border-radius: 14px; padding: 20px 24px; text-align: left; width: 280px; flex-shrink: 0; }
-  .review-stars { color: #111; font-size: 13px; letter-spacing: 0.15em; margin-bottom: 8px; }
+  .review-stars { color: #D4A017; font-size: 13px; letter-spacing: 0.15em; margin-bottom: 8px; }
   .review-text { font-size: 13px; color: #555; line-height: 1.6; margin-bottom: 10px; }
   .review-name { font-size: 12px; color: #999; letter-spacing: 0.05em; }
 
@@ -298,7 +299,7 @@
   }
   .nav-dropdown > button:hover { color: #111; }
   .nav-dropdown > button .caret {
-    font-size: 9px; transition: transform 0.2s; display: inline-block;
+    font-size: 10px; transition: transform 0.2s; display: inline-block;
   }
   .nav-dropdown.open > button .caret { transform: rotate(180deg); }
 
@@ -323,7 +324,7 @@
   }
   .dl1-header:hover { background: #f5f5f5; }
   .dl1-header .caret {
-    font-size: 9px; color: #999; transition: transform 0.2s; display: inline-block;
+    font-size: 10px; color: #999; transition: transform 0.2s; display: inline-block;
   }
   .dl1-item.open .dl1-header .caret { transform: rotate(180deg); }
   .dl1-header a {
@@ -347,7 +348,7 @@
   }
   .dl2-header:hover { background: #f5f5f5; }
   .dl2-header .caret {
-    font-size: 8px; color: #bbb; transition: transform 0.2s; display: inline-block;
+    font-size: 10px; color: #bbb; transition: transform 0.2s; display: inline-block;
   }
   .dl2-item.open .dl2-header .caret { transform: rotate(180deg); }
 
@@ -388,7 +389,7 @@
     <a href="#services">Services</a>
     <div class="nav-dropdown" id="portfolioDropdown">
       <button id="portfolioBtn" aria-haspopup="true" aria-expanded="false">
-        Portfolio <span class="caret">▼</span>
+        Portfolio <i class="ti ti-chevron-down caret" aria-hidden="true"></i>
       </button>
       <div class="dropdown-l1" role="menu">
 
@@ -396,35 +397,35 @@
         <div class="dl1-item">
           <div class="dl1-header">
             <a href="lifestyle-photography.html">Lifestyle Photography</a>
-            <span class="caret">▼</span>
+            <i class="ti ti-chevron-down caret" aria-hidden="true"></i>
           </div>
           <div class="dropdown-l2">
             <div class="dl2-item">
-              <div class="dl2-header">Maternity <span class="caret">▼</span></div>
+              <div class="dl2-header">Maternity <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
               <div class="dropdown-l3">
                 <a href="lifestyle-categories/gallery-maternity.html">Maternity Gallery</a>
               </div>
             </div>
             <div class="dl2-item">
-              <div class="dl2-header">Cake Smash <span class="caret">▼</span></div>
+              <div class="dl2-header">Cake Smash <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
               <div class="dropdown-l3">
                 <a href="lifestyle-categories/gallery-cake-smash.html">Cake Smash Gallery</a>
               </div>
             </div>
             <div class="dl2-item">
-              <div class="dl2-header">Family <span class="caret">▼</span></div>
+              <div class="dl2-header">Family <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
               <div class="dropdown-l3">
                 <a href="lifestyle-categories/gallery-family.html">Family Gallery</a>
               </div>
             </div>
             <div class="dl2-item">
-              <div class="dl2-header">Outdoor <span class="caret">▼</span></div>
+              <div class="dl2-header">Outdoor <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
               <div class="dropdown-l3">
                 <a href="lifestyle-categories/gallery-outdoor.html">Outdoor Gallery</a>
               </div>
             </div>
             <div class="dl2-item">
-              <div class="dl2-header">Studio <span class="caret">▼</span></div>
+              <div class="dl2-header">Studio <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
               <div class="dropdown-l3">
                 <a href="lifestyle-categories/gallery-studio.html">Studio Gallery</a>
               </div>
@@ -436,41 +437,41 @@
         <div class="dl1-item">
           <div class="dl1-header">
             <a href="corporate-commercial.html">Corporate & Commercial</a>
-            <span class="caret">▼</span>
+            <i class="ti ti-chevron-down caret" aria-hidden="true"></i>
           </div>
           <div class="dropdown-l2">
             <div class="dl2-item">
-              <div class="dl2-header">Branding <span class="caret">▼</span></div>
+              <div class="dl2-header">Branding <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
               <div class="dropdown-l3">
                 <a href="corporate-categories/gallery-branding.html">Branding Gallery</a>
               </div>
             </div>
             <div class="dl2-item">
-              <div class="dl2-header">Business Photography <span class="caret">▼</span></div>
+              <div class="dl2-header">Business Photography <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
               <div class="dropdown-l3">
                 <a href="corporate-categories/gallery-business-photography.html">Business Photography Gallery</a>
               </div>
             </div>
             <div class="dl2-item">
-              <div class="dl2-header">Corporate Events <span class="caret">▼</span></div>
+              <div class="dl2-header">Corporate Events <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
               <div class="dropdown-l3">
                 <a href="corporate-categories/gallery-corporate-events.html">Corporate Events Gallery</a>
               </div>
             </div>
             <div class="dl2-item">
-              <div class="dl2-header">Fashion <span class="caret">▼</span></div>
+              <div class="dl2-header">Fashion <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
               <div class="dropdown-l3">
                 <a href="corporate-categories/gallery-fashion.html">Fashion Gallery</a>
               </div>
             </div>
             <div class="dl2-item">
-              <div class="dl2-header">Headshots <span class="caret">▼</span></div>
+              <div class="dl2-header">Headshots <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
               <div class="dropdown-l3">
                 <a href="corporate-categories/gallery-headshots.html">Headshots Gallery</a>
               </div>
             </div>
             <div class="dl2-item">
-              <div class="dl2-header">Website <span class="caret">▼</span></div>
+              <div class="dl2-header">Website <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
               <div class="dropdown-l3">
                 <a href="corporate-categories/gallery-website.html">Website Gallery</a>
               </div>
@@ -482,41 +483,41 @@
         <div class="dl1-item">
           <div class="dl1-header">
             <a href="videography-services.html">Videography</a>
-            <span class="caret">▼</span>
+            <i class="ti ti-chevron-down caret" aria-hidden="true"></i>
           </div>
           <div class="dropdown-l2">
             <div class="dl2-item">
-              <div class="dl2-header">Corporate Videos <span class="caret">▼</span></div>
+              <div class="dl2-header">Corporate Videos <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
               <div class="dropdown-l3">
                 <a href="videography-categories/gallery-corporate-videos.html">Corporate Videos Gallery</a>
               </div>
             </div>
             <div class="dl2-item">
-              <div class="dl2-header">Events Videos <span class="caret">▼</span></div>
+              <div class="dl2-header">Events Videos <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
               <div class="dropdown-l3">
                 <a href="videography-categories/gallery-events-videos.html">Events Videos Gallery</a>
               </div>
             </div>
             <div class="dl2-item">
-              <div class="dl2-header">Marketing <span class="caret">▼</span></div>
+              <div class="dl2-header">Marketing <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
               <div class="dropdown-l3">
                 <a href="videography-categories/gallery-marketing.html">Marketing Gallery</a>
               </div>
             </div>
             <div class="dl2-item">
-              <div class="dl2-header">Music Videos <span class="caret">▼</span></div>
+              <div class="dl2-header">Music Videos <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
               <div class="dropdown-l3">
                 <a href="videography-categories/gallery-music-videos.html">Music Videos Gallery</a>
               </div>
             </div>
             <div class="dl2-item">
-              <div class="dl2-header">Training <span class="caret">▼</span></div>
+              <div class="dl2-header">Training <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
               <div class="dropdown-l3">
                 <a href="videography-categories/gallery-training.html">Training Gallery</a>
               </div>
             </div>
             <div class="dl2-item">
-              <div class="dl2-header">Weddings <span class="caret">▼</span></div>
+              <div class="dl2-header">Weddings <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
               <div class="dropdown-l3">
                 <a href="videography-categories/gallery-weddings.html">Weddings Gallery</a>
               </div>
@@ -541,7 +542,7 @@
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Navigation menu">
   <a href="#services"  class="mobile-menu-link">Services</a>
   <div class="mobile-menu-link mobile-portfolio-toggle" id="mobilePortfolioToggle">
-    Portfolio <span class="caret">▼</span>
+    Portfolio <i class="ti ti-chevron-down caret" aria-hidden="true"></i>
   </div>
   <div class="mobile-portfolio-panel" id="mobilePortfolioPanel">
     <a href="lifestyle-photography.html" class="mobile-sub-link">— Lifestyle Photography</a>
