@@ -58,38 +58,29 @@
 
   /* ── PAGE HERO ────────────────────────────────────────────────── */
   .page-hero {
-    padding: 80px 48px 64px;
-    border-bottom: 0.5px solid var(--grey-mid);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
-    align-items: end;
-    max-width: 1280px;
-    margin: 0 auto;
+    height: 88vh;
+    background: linear-gradient(135deg, #f4f4f4 0%, #fff 50%, #ececec 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 24px;
   }
-  .page-hero-left .eyebrow {
+  .page-hero-inner { max-width: 1100px; }
+  .page-hero-inner .eyebrow {
     font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase;
-    color: var(--grey-muted); margin-bottom: 20px;
+    color: #888; margin-bottom: 24px;
   }
-  .page-hero-left h1 {
-    font-size: clamp(34px, 5vw, 60px);
-    font-weight: 300; line-height: 1.1; letter-spacing: 0.02em;
+  .page-hero-inner h1 {
+    font-size: clamp(40px, 7vw, 76px);
+    font-weight: 300; line-height: 1.1; margin-bottom: 24px;
   }
-  .page-hero-right p {
-    font-size: 16px; color: var(--grey-text); line-height: 1.85;
-    max-width: 480px; margin-left: auto;
+  .page-hero-inner p {
+    font-size: 17px; color: #666; max-width: 560px;
+    line-height: 1.7; margin: 0 auto;
   }
-  .page-hero-meta {
-    display: flex; gap: 32px; padding: 28px 48px;
-    border-bottom: 0.5px solid var(--grey-mid);
-    max-width: 1280px; margin: 0 auto;
-  }
-  .meta-item { font-size: 12px; color: var(--grey-muted); letter-spacing: 0.1em; }
-  .meta-item strong { display: block; font-size: 14px; color: var(--black); font-weight: 400; margin-bottom: 4px; }
-  @media (max-width: 768px) {
-    .page-hero { grid-template-columns: 1fr; padding: 48px 20px 40px; gap: 24px; }
-    .page-hero-right p { margin-left: 0; }
-    .page-hero-meta { padding: 20px; gap: 20px; flex-wrap: wrap; }
+  @media (max-width: 480px) {
+    .page-hero { padding: 0 16px; }
   }
 
   /* ── CATEGORY NAV (STICKY TOC) ───────────────────────────────── */
@@ -338,6 +329,21 @@
     text-align: center; font-size: 12px; color: var(--grey-muted);
     letter-spacing: 0.08em;
   }
+
+  /* ── VIEW GALLERY LINK ───────────────────────────────────────── */
+  .view-gallery-link {
+    display: inline-block;
+    margin-top: 28px;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--black);
+    border-bottom: 1px solid var(--black);
+    padding-bottom: 3px;
+    transition: letter-spacing 0.3s ease;
+  }
+  .view-gallery-link:hover { letter-spacing: 0.24em; }
+  
 </style>
 </head>
 <body>
@@ -346,10 +352,9 @@
 <nav>
   <a href="index.html" class="nav-logo">CONTINUUM</a>
   <div class="nav-links">
-    <a href="#" class="active">Services</a>
-    <a href="#">Portfolio</a>
-    <a href="#">About</a>
-    <a href="#">Contact</a>
+    <a href="index.html" class="active">Services</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="#cta">Contact</a>
   </div>
   <button class="nav-cta">Book A Session</button>
 </nav>
@@ -357,19 +362,11 @@
 <!-- ════════════════════════════════════════════════════ PAGE HERO -->
 <header>
   <div class="page-hero">
-    <div class="page-hero-left">
+    <div class="page-hero-inner">
       <p class="eyebrow">Our Services</p>
-      <h1>Videography<br>Services</h1>
-    </div>
-    <div class="page-hero-right">
+      <h1>Videography Services</h1>
       <p>From cinematic brand films to live event coverage and music video production — we bring motion, story, and emotion to every frame. Our videography team combines technical precision with creative direction to deliver video content that moves people.</p>
     </div>
-  </div>
-  <div class="page-hero-meta">
-    <div class="meta-item"><strong>4K Production</strong>Cinema-Grade Equipment</div>
-    <div class="meta-item"><strong>Editing Included</strong>Colour Graded &amp; Sound Mixed</div>
-    <div class="meta-item"><strong>Delivery</strong>Web, Broadcast &amp; Social Formats</div>
-    <div class="meta-item"><strong>Location</strong>Johannesburg &amp; Surrounds</div>
   </div>
 </header>
 
@@ -400,24 +397,23 @@
     <!-- Layout A: Hero + 2 side — use video-card for stills with play icon -->
     <div class="layout-a">
       <div class="img-hero">
-        <div class="video-card">
-          <img src="IMAGE_URL_HERE" alt="Corporate video production — CEO message filming setup">
-          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="video-embed-slot">
+          <video src="" controls></video>
         </div>
       </div>
       <div class="img-side">
-        <div class="video-card">
-          <img src="IMAGE_URL_HERE" alt="Corporate video — behind the scenes camera crew">
-          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="video-embed-slot">
+          <video src="" controls></video>
         </div>
       </div>
       <div class="img-side">
-        <div class="video-card">
-          <img src="IMAGE_URL_HERE" alt="Corporate film production — office interview setup">
-          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="video-embed-slot">
+          <video src="" controls></video>
         </div>
       </div>
     </div>
+
+      <a href="videography-categories/gallery-corporate-videos.html" class="view-gallery-link">View Gallery</a>
   </section>
 
   <!-- ─── MUSIC VIDEOS ─────────────────────────────────────────── -->
@@ -432,22 +428,21 @@
     <!-- Layout C: Asymmetric 2:1 -->
     <div class="layout-c">
       <div class="img-primary">
-        <div class="video-card">
-          <img src="IMAGE_URL_HERE" alt="Music video production — artist performance cinematic still">
-          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="video-embed-slot">
+          <video src="" controls></video>
         </div>
       </div>
       <div class="col-stack">
-        <div class="video-card">
-          <img src="IMAGE_URL_HERE" alt="Music video BTS — lighting rig and camera setup">
-          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="video-embed-slot">
+          <video src="" controls></video>
         </div>
-        <div class="video-card">
-          <img src="IMAGE_URL_HERE" alt="Music video still — colour graded editorial frame">
-          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="video-embed-slot">
+          <video src="" controls></video>
         </div>
       </div>
     </div>
+
+      <a href="videography-categories/gallery-music-videos.html" class="view-gallery-link">View Gallery</a>
   </section>
 
   <!-- ─── EVENT COVERAGE ───────────────────────────────────────── -->
@@ -462,30 +457,27 @@
     <!-- Layout B: 3-column + wide -->
     <div class="layout-b">
       <div class="img-tall">
-        <div class="video-card">
-          <img src="IMAGE_URL_HERE" alt="Event videography — conference keynote wide shot">
-          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="video-embed-slot">
+          <video src="" controls></video>
         </div>
       </div>
       <div class="img-tall">
-        <div class="video-card">
-          <img src="IMAGE_URL_HERE" alt="Event coverage — award ceremony highlight reel still">
-          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="video-embed-slot">
+          <video src="" controls></video>
         </div>
       </div>
       <div class="img-tall">
-        <div class="video-card">
-          <img src="IMAGE_URL_HERE" alt="Event filming — crowd reaction cinematic shot">
-          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="video-embed-slot">
+          <video src="" controls></video>
         </div>
       </div>
       <div class="img-wide">
-        <div class="video-card">
-          <img src="IMAGE_URL_HERE" alt="Event coverage — drone aerial wide shot of venue">
-          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="video-embed-slot">
+          <video src="" controls></video>
         </div>
       </div>
     </div>
+    <a href="videography-categories/gallery-events-videos.html" class="view-gallery-link">View Gallery</a>
   </section>
 
   <!-- ─── WEDDINGS ─────────────────────────────────────────────── -->
@@ -500,36 +492,33 @@
     <!-- Layout D: 2x2 masonry -->
     <div class="layout-d">
       <div class="img-tall">
-        <div class="video-card">
-          <img src="IMAGE_URL_HERE" alt="Wedding videography — ceremony aisle cinematic shot">
-          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="video-embed-slot">
+          <video src="" controls></video>
         </div>
       </div>
       <div class="img-short">
-        <div class="video-card">
-          <img src="IMAGE_URL_HERE" alt="Wedding film — couple portrait at golden hour">
-          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="video-embed-slot">
+          <video src="" controls></video>
         </div>
       </div>
       <div class="img-short">
-        <div class="video-card">
-          <img src="IMAGE_URL_HERE" alt="Wedding video still — first dance floor moment">
-          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="video-embed-slot">
+          <video src="" controls></video>
         </div>
       </div>
       <div class="img-tall">
-        <div class="video-card">
-          <img src="IMAGE_URL_HERE" alt="Wedding cinematography — vows exchange close up">
-          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="video-embed-slot">
+          <video src="" controls></video>
         </div>
       </div>
       <div class="img-wide">
-        <div class="video-card">
-          <img src="IMAGE_URL_HERE" alt="Wedding film — reception venue aerial establishing shot">
-          <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="video-embed-slot">
+          <video src="" controls></video>
         </div>
       </div>
     </div>
+
+      <a href="videography-categories/gallery-weddings.html" class="view-gallery-link">View Gallery</a>
   </section>
 
   <!-- ─── MARKETING CONTENT ─────────────────────────────────────── -->
@@ -543,31 +532,27 @@
     </div>
     <!-- Layout E: Equal 3-column -->
     <div class="layout-e">
-      <div class="video-card">
-        <img src="IMAGE_URL_HERE" alt="Marketing video — product reveal cinematic shot">
-        <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-      </div>
-      <div class="video-card">
-        <img src="IMAGE_URL_HERE" alt="Social media reel — lifestyle brand content shoot">
-        <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-      </div>
-      <div class="video-card">
-        <img src="IMAGE_URL_HERE" alt="Marketing content — brand campaign hero video frame">
-        <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-      </div>
-      <div class="video-card">
-        <img src="IMAGE_URL_HERE" alt="Instagram reel production — vertical format video">
-        <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-      </div>
-      <div class="video-card">
-        <img src="IMAGE_URL_HERE" alt="YouTube ad production — talking head interview setup">
-        <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-      </div>
-      <div class="video-card">
-        <img src="IMAGE_URL_HERE" alt="Brand video — product demo and explainer footage">
-        <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-      </div>
+      <div class="video-embed-slot">
+          <video src="" controls></video>
+        </div>
+      <div class="video-embed-slot">
+          <video src="" controls></video>
+        </div>
+      <div class="video-embed-slot">
+          <video src="" controls></video>
+        </div>
+      <div class="video-embed-slot">
+          <video src="" controls></video>
+        </div>
+      <div class="video-embed-slot">
+          <video src="" controls></video>
+        </div>
+      <div class="video-embed-slot">
+          <video src="" controls></video>
+        </div>
     </div>
+
+      <a href="videography-categories/gallery-marketing.html" class="view-gallery-link">View Gallery</a>
   </section>
 
   <!-- ─── TRAINING VIDEOS ──────────────────────────────────────── -->
@@ -581,37 +566,33 @@
     </div>
     <!-- Layout F: 4-col grid -->
     <div class="layout-f">
-      <div class="video-card">
-        <img src="IMAGE_URL_HERE" alt="Training video production — presenter on set">
-        <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-      </div>
-      <div class="video-card">
-        <img src="IMAGE_URL_HERE" alt="Corporate training video — safety demonstration shoot">
-        <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-      </div>
-      <div class="video-card">
-        <img src="IMAGE_URL_HERE" alt="E-learning video — green screen studio production">
-        <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-      </div>
-      <div class="video-card">
-        <img src="IMAGE_URL_HERE" alt="Training content — workplace skills demonstration">
-        <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-      </div>
-      <div class="video-card">
-        <img src="IMAGE_URL_HERE" alt="Training video — two-camera interview format">
-        <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-      </div>
-      <div class="video-card">
-        <img src="IMAGE_URL_HERE" alt="Corporate e-learning — animated slide video insert">
-        <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-      </div>
+      <div class="video-embed-slot">
+          <video src="" controls></video>
+        </div>
+      <div class="video-embed-slot">
+          <video src="" controls></video>
+        </div>
+      <div class="video-embed-slot">
+          <video src="" controls></video>
+        </div>
+      <div class="video-embed-slot">
+          <video src="" controls></video>
+        </div>
+      <div class="video-embed-slot">
+          <video src="" controls></video>
+        </div>
+      <div class="video-embed-slot">
+          <video src="" controls></video>
+        </div>
     </div>
+
+      <a href="videography-categories/gallery-training.html" class="view-gallery-link">View Gallery</a>
   </section>
 
 </main>
 
 <!-- ════════════════════════════════════════════════════ CTA -->
-<section class="cta-strip">
+<section class="cta-strip" id="cta">
   <h2>Let's Make Something Worth Watching</h2>
   <p>Whether it's a 30-second reel or a full-day production, we bring cinematic quality and creative focus to every project. Based in Kempton Park — filming across Johannesburg.</p>
   <a href="#" class="btn-white">WhatsApp Us</a>

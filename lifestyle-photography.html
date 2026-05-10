@@ -58,38 +58,29 @@
 
   /* ── PAGE HERO ────────────────────────────────────────────────── */
   .page-hero {
-    padding: 80px 48px 64px;
-    border-bottom: 0.5px solid var(--grey-mid);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
-    align-items: end;
-    max-width: 1280px;
-    margin: 0 auto;
+    height: 88vh;
+    background: linear-gradient(135deg, #f4f4f4 0%, #fff 50%, #ececec 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 24px;
   }
-  .page-hero-left .eyebrow {
+  .page-hero-inner { max-width: 720px; }
+  .page-hero-inner .eyebrow {
     font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase;
-    color: var(--grey-muted); margin-bottom: 20px;
+    color: #888; margin-bottom: 24px;
   }
-  .page-hero-left h1 {
-    font-size: clamp(34px, 5vw, 60px);
-    font-weight: 300; line-height: 1.1; letter-spacing: 0.02em;
+  .page-hero-inner h1 {
+    font-size: clamp(40px, 7vw, 76px);
+    font-weight: 300; line-height: 1.1; margin-bottom: 24px;
   }
-  .page-hero-right p {
-    font-size: 16px; color: var(--grey-text); line-height: 1.85;
-    max-width: 480px; margin-left: auto;
+  .page-hero-inner p {
+    font-size: 17px; color: #666; max-width: 560px;
+    line-height: 1.7; margin: 0 auto;
   }
-  .page-hero-meta {
-    display: flex; gap: 32px; padding: 28px 48px;
-    border-bottom: 0.5px solid var(--grey-mid);
-    max-width: 1280px; margin: 0 auto;
-  }
-  .meta-item { font-size: 12px; color: var(--grey-muted); letter-spacing: 0.1em; }
-  .meta-item strong { display: block; font-size: 14px; color: var(--black); font-weight: 400; margin-bottom: 4px; }
-  @media (max-width: 768px) {
-    .page-hero { grid-template-columns: 1fr; padding: 48px 20px 40px; gap: 24px; }
-    .page-hero-right p { margin-left: 0; }
-    .page-hero-meta { padding: 20px; gap: 20px; flex-wrap: wrap; }
+  @media (max-width: 480px) {
+    .page-hero { padding: 0 16px; }
   }
 
   /* ── CATEGORY NAV (STICKY TOC) ───────────────────────────────── */
@@ -272,6 +263,20 @@
     letter-spacing: 0.08em;
   }
 
+  /* ── VIEW GALLERY LINK ───────────────────────────────────────── */
+  .view-gallery-link {
+    display: inline-block;
+    margin-top: 28px;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--black);
+    border-bottom: 1px solid var(--black);
+    padding-bottom: 3px;
+    transition: letter-spacing 0.3s ease;
+  }
+  .view-gallery-link:hover { letter-spacing: 0.24em; }
+
   /* ── PLACEHOLDER (no src) ─────────────────────────────────────── */
   img[src="IMAGE_URL_HERE"] {
     background: linear-gradient(135deg, #ebebeb 0%, #f5f5f5 50%, #e8e8e8 100%);
@@ -285,10 +290,9 @@
 <nav>
   <a href="index.html" class="nav-logo">CONTINUUM</a>
   <div class="nav-links">
-    <a href="#" class="active">Services</a>
-    <a href="#">Portfolio</a>
-    <a href="#">About</a>
-    <a href="#">Contact</a>
+    <a href="index.html" class="active">Services</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="#cta">Contact</a>
   </div>
   <button class="nav-cta">Book A Session</button>
 </nav>
@@ -296,19 +300,11 @@
 <!-- ════════════════════════════════════════════════════ PAGE HERO -->
 <header>
   <div class="page-hero">
-    <div class="page-hero-left">
+    <div class="page-hero-inner">
       <p class="eyebrow">Our Services</p>
-      <h1>Lifestyle<br>Photography</h1>
-    </div>
-    <div class="page-hero-right">
+      <h1>Lifestyle Photography</h1>
       <p>Life's most tender chapters — beautifully preserved. From a baby's first birthday to the quiet anticipation of new motherhood, our lifestyle sessions are warm, authentic, and timeless. Every session is crafted with patience, care, and an eye for the extraordinary in the everyday.</p>
     </div>
-  </div>
-  <div class="page-hero-meta">
-    <div class="meta-item"><strong>Studio &amp; Outdoor</strong>Kempton Park &amp; Johannesburg</div>
-    <div class="meta-item"><strong>Session Length</strong>1 – 3 Hours</div>
-    <div class="meta-item"><strong>Delivery</strong>High-Res Digital Gallery</div>
-    <div class="meta-item"><strong>Packages</strong>Individual &amp; Family</div>
   </div>
 </header>
 
@@ -352,6 +348,7 @@
         </div>
       </div>
     </div>
+    <a href="lifestyle-categories/gallery-maternity.html" class="view-gallery-link">View Gallery</a>
   </section>
 
   <!-- ─── CAKE SMASH ───────────────────────────────────────────── -->
@@ -381,6 +378,7 @@
         </div>
       </div>
     </div>
+    <a href="lifestyle-categories/gallery-cake-smash.html" class="view-gallery-link">View Gallery</a>
   </section>
 
   <!-- ─── GRADUATION ───────────────────────────────────────────── -->
@@ -415,6 +413,7 @@
         </div>
       </div>
     </div>
+    <a href="lifestyle-categories/gallery-graduation.html" class="view-gallery-link">View Gallery</a>
   </section>
 
   <!-- ─── COUPLES ──────────────────────────────────────────────── -->
@@ -454,6 +453,7 @@
         </div>
       </div>
     </div>
+    <a href="lifestyle-categories/gallery-couples.html" class="view-gallery-link">View Gallery</a>
   </section>
 
   <!-- ─── FAMILY PORTRAITS ─────────────────────────────────────── -->
@@ -486,6 +486,7 @@
         <img src="IMAGE_URL_HERE" alt="Family photography — three generations portrait">
       </div>
     </div>
+    <a href="lifestyle-categories/gallery-family.html" class="view-gallery-link">View Gallery</a>
   </section>
 
   <!-- ─── OUTDOOR LIFESTYLE ────────────────────────────────────── -->
@@ -518,12 +519,13 @@
         <img src="IMAGE_URL_HERE" alt="Lifestyle photography — sunset walk editorial">
       </div>
     </div>
+    <a href="lifestyle-categories/gallery-outdoor.html" class="view-gallery-link">View Gallery</a>
   </section>
 
 </main>
 
 <!-- ════════════════════════════════════════════════════ CTA -->
-<section class="cta-strip">
+<section class="cta-strip" id="cta">
   <h2>Let's Capture Your Story</h2>
   <p>Every milestone deserves a photographer who cares as much as you do. Reach out to discuss your session — we'd love to create something beautiful together.</p>
   <a href="#" class="btn-white">WhatsApp Us</a>

@@ -58,38 +58,30 @@
 
   /* ── PAGE HERO ────────────────────────────────────────────────── */
   .page-hero {
-    padding: 80px 48px 64px;
-    border-bottom: 0.5px solid var(--grey-mid);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
-    align-items: end;
-    max-width: 1280px;
-    margin: 0 auto;
+    height: 88vh;
+    background: linear-gradient(135deg, #f4f4f4 0%, #fff 50%, #ececec 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 24px;
   }
-  .page-hero-left .eyebrow {
+  .page-hero-inner { max-width: 1100px; }
+  .page-hero-inner .eyebrow {
     font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase;
-    color: var(--grey-muted); margin-bottom: 20px;
+    color: #888; margin-bottom: 24px;
   }
-  .page-hero-left h1 {
-    font-size: clamp(34px, 5vw, 60px);
-    font-weight: 300; line-height: 1.1; letter-spacing: 0.02em;
+  .page-hero-inner h1 {
+    font-size: clamp(40px, 7vw, 76px);
+    font-weight: 300; line-height: 1.1; margin-bottom: 24px;
+    white-space: nowrap;
   }
-  .page-hero-right p {
-    font-size: 16px; color: var(--grey-text); line-height: 1.85;
-    max-width: 480px; margin-left: auto;
+  .page-hero-inner p {
+    font-size: 17px; color: #666; max-width: 560px;
+    line-height: 1.7; margin: 0 auto;
   }
-  .page-hero-meta {
-    display: flex; gap: 32px; padding: 28px 48px;
-    border-bottom: 0.5px solid var(--grey-mid);
-    max-width: 1280px; margin: 0 auto;
-  }
-  .meta-item { font-size: 12px; color: var(--grey-muted); letter-spacing: 0.1em; }
-  .meta-item strong { display: block; font-size: 14px; color: var(--black); font-weight: 400; margin-bottom: 4px; }
-  @media (max-width: 768px) {
-    .page-hero { grid-template-columns: 1fr; padding: 48px 20px 40px; gap: 24px; }
-    .page-hero-right p { margin-left: 0; }
-    .page-hero-meta { padding: 20px; gap: 20px; flex-wrap: wrap; }
+  @media (max-width: 480px) {
+    .page-hero { padding: 0 16px; }
   }
 
   /* ── CATEGORY NAV (STICKY TOC) ───────────────────────────────── */
@@ -288,6 +280,20 @@
     letter-spacing: 0.08em;
   }
 
+/* ── VIEW GALLERY LINK ───────────────────────────────────────── */
+  .view-gallery-link {
+    display: inline-block;
+    margin-top: 28px;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--black);
+    border-bottom: 1px solid var(--black);
+    padding-bottom: 3px;
+    transition: letter-spacing 0.3s ease;
+  }
+  .view-gallery-link:hover { letter-spacing: 0.24em; }
+
   /* ── PLACEHOLDER (no src) ─────────────────────────────────────── */
   img[src=""] {
     background: linear-gradient(135deg, #ebebeb 0%, #f5f5f5 50%, #e8e8e8 100%);
@@ -377,10 +383,9 @@
 <nav>
   <a href="index.html" class="nav-logo">CONTINUUM</a>
   <div class="nav-links">
-    <a href="#" class="active">Services</a>
-    <a href="#">Portfolio</a>
-    <a href="#">About</a>
-    <a href="#">Contact</a>
+    <a href="index.html" class="active">Services</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="#cta">Contact</a>
   </div>
   <button class="nav-cta">Book A Session</button>
 </nav>
@@ -388,19 +393,11 @@
 <!-- ════════════════════════════════════════════════════ PAGE HERO -->
 <header>
   <div class="page-hero">
-    <div class="page-hero-left">
+    <div class="page-hero-inner">
       <p class="eyebrow">Our Services</p>
-      <h1>Corporate &amp;<br>Commercial</h1>
-    </div>
-    <div class="page-hero-right">
+        <h1>Corporate &amp; Commercial</h1>
       <p>From executive headshots to full brand campaigns, we craft imagery that positions your business with confidence and clarity. Every frame is intentional — built to communicate professionalism, trust, and vision.</p>
     </div>
-  </div>
-  <div class="page-hero-meta">
-    <div class="meta-item"><strong>Studio &amp; On-Location</strong>Johannesburg &amp; Kempton Park</div>
-    <div class="meta-item"><strong>Turnaround</strong>5–10 Business Days</div>
-    <div class="meta-item"><strong>Formats</strong>Web, Print &amp; Social</div>
-    <div class="meta-item"><strong>Packages</strong>Half-Day &amp; Full-Day</div>
   </div>
 </header>
 
@@ -446,6 +443,7 @@
         </div>
       </div>
     </div>
+    <a href="corporate-categories/gallery-headshots.html" class="view-gallery-link">View Gallery</a>
   </section>
 
   <!-- ─── BRANDING SHOOTS ───────────────────────────────────── -->
@@ -473,6 +471,7 @@
         </div>
       </div>
     </div>
+    <a href="corporate-categories/gallery-branding.html" class="view-gallery-link">View Gallery</a>
   </section>
 
   <!-- ─── CORPORATE EVENTS ──────────────────────────────────── -->
@@ -507,6 +506,7 @@
         </div>
       </div>
     </div>
+    <a href="corporate-categories/gallery-corporate-events.html" class="view-gallery-link">View Gallery</a>
   </section>
 
   <!-- ─── WEBSITE IMAGERY ───────────────────────────────────── -->
@@ -546,6 +546,7 @@
         </div>
       </div>
     </div>
+    <a href="corporate-categories/gallery-website.html" class="view-gallery-link">View Gallery</a>
   </section>
 
   <!-- ─── FASHION CAMPAIGNS ─────────────────────────────────── -->
@@ -578,6 +579,7 @@
         <img src="IMAGE_URL_HERE" alt="Fashion brand lookbook — studio shoot">
       </div>
     </div>
+    <a href="corporate-categories/gallery-fashion.html" class="view-gallery-link">View Gallery</a>
   </section>
 
   <!-- ─── BUSINESS PHOTOGRAPHY ──────────────────────────────── -->
@@ -610,6 +612,7 @@
         <img src="IMAGE_URL_HERE" alt="Workplace photography — focused individual">
       </div>
     </div>
+    <a href="corporate-categories/gallery-business-photography.html" class="view-gallery-link">View Gallery</a>
   </section>
 
 </main>
@@ -728,7 +731,7 @@
 </section>
 
 <!-- ════════════════════════════════════════════════════ CTA -->
-<section class="cta-strip">
+<section class="cta-strip" id ="cta">
   <h2>Ready to Elevate Your Brand?</h2>
   <p>Let's build a visual identity that represents your business with the professionalism it deserves. Studios available in Kempton Park — on-location across Johannesburg.</p>
   <a href="#" class="btn-white">WhatsApp Us</a>
