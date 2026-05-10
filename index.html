@@ -190,7 +190,6 @@
 
     /* Reviews */
     .stars-row { gap: 16px; }
-    .review-chip { max-width: 100%; width: 100%; }
   }
 
   /* RESPONSIVE — MOBILE (480px) */
@@ -208,7 +207,6 @@
     .hero { padding: 0 16px; }
     .about { padding: 64px 16px; }
     .reviews { padding: 64px 16px; }
-    .review-chip { max-width: 100%; width: 100%; }
   }
 
   /* HERO */
@@ -256,8 +254,23 @@
   .reviews-eyebrow { font-size: 11px; letter-spacing: 0.35em; text-transform: uppercase; color: #888; margin-bottom: 16px; }
   .reviews h2 { font-size: clamp(24px, 3vw, 36px); font-weight: 300; letter-spacing: 0.04em; margin-bottom: 20px; }
   .reviews p { font-size: 15px; color: #666; line-height: 1.8; max-width: 640px; margin: 0 auto 48px; }
-  .stars-row { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
-  .review-chip { background: #f3f3f3; border-radius: 14px; padding: 16px 24px; text-align: left; max-width: 280px; }
+  .reviews-slider-wrap {
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+  }
+  .stars-row {
+    display: flex;
+    gap: 24px;
+    width: max-content;
+    animation: reviewsScroll 28s linear infinite;
+  }
+  .stars-row:hover { animation-play-state: paused; }
+  @keyframes reviewsScroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .review-chip { background: #f3f3f3; border-radius: 14px; padding: 20px 24px; text-align: left; width: 280px; flex-shrink: 0; }
   .review-stars { color: #111; font-size: 13px; letter-spacing: 0.15em; margin-bottom: 8px; }
   .review-text { font-size: 13px; color: #555; line-height: 1.6; margin-bottom: 10px; }
   .review-name { font-size: 12px; color: #999; letter-spacing: 0.05em; }
@@ -273,6 +286,97 @@
 
   /* FOOTER */
   footer { background: #f2f2f2; padding: 32px 24px; text-align: center; font-size: 12px; color: #999; letter-spacing: 0.08em; }
+
+  /* ── PORTFOLIO DROPDOWN ───────────────────────────────────────── */
+  .nav-dropdown { position: relative; }
+  .nav-dropdown > button {
+    background: none; border: none; padding: 0;
+    font-size: 13px; letter-spacing: 0.08em; color: #555;
+    font-family: inherit; cursor: pointer;
+    display: flex; align-items: center; gap: 5px;
+    transition: color 0.2s;
+  }
+  .nav-dropdown > button:hover { color: #111; }
+  .nav-dropdown > button .caret {
+    font-size: 9px; transition: transform 0.2s; display: inline-block;
+  }
+  .nav-dropdown.open > button .caret { transform: rotate(180deg); }
+
+  /* Level 1 — services panel */
+  .dropdown-l1 {
+    display: none; position: absolute; top: calc(100% + 14px); left: 50%;
+    transform: translateX(-50%);
+    background: #fff; border: 0.5px solid #e5e5e5;
+    border-radius: 14px; box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+    min-width: 210px; padding: 8px; z-index: 200;
+  }
+  .nav-dropdown.open .dropdown-l1 { display: block; }
+
+  /* Service row (level 1 item) */
+  .dl1-item { position: relative; border-radius: 10px; }
+  .dl1-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 14px; cursor: pointer;
+    font-size: 12px; letter-spacing: 0.08em; color: #111;
+    border-radius: 10px; user-select: none;
+    transition: background 0.15s;
+  }
+  .dl1-header:hover { background: #f5f5f5; }
+  .dl1-header .caret {
+    font-size: 9px; color: #999; transition: transform 0.2s; display: inline-block;
+  }
+  .dl1-item.open .dl1-header .caret { transform: rotate(180deg); }
+  .dl1-header a {
+    flex: 1; color: inherit; font-size: inherit; letter-spacing: inherit;
+  }
+
+  /* Level 2 — subcategories */
+  .dropdown-l2 {
+    display: none; padding: 2px 0 6px 12px;
+  }
+  .dl1-item.open .dropdown-l2 { display: block; }
+
+  /* Subcategory row (level 2 item) */
+  .dl2-item { position: relative; border-radius: 8px; }
+  .dl2-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 10px; cursor: pointer;
+    font-size: 11px; letter-spacing: 0.07em; color: #555;
+    border-radius: 8px; user-select: none;
+    transition: background 0.15s;
+  }
+  .dl2-header:hover { background: #f5f5f5; }
+  .dl2-header .caret {
+    font-size: 8px; color: #bbb; transition: transform 0.2s; display: inline-block;
+  }
+  .dl2-item.open .dl2-header .caret { transform: rotate(180deg); }
+
+  /* Level 3 — gallery link */
+  .dropdown-l3 {
+    display: none; padding: 2px 0 4px 12px;
+  }
+  .dl2-item.open .dropdown-l3 { display: block; }
+  .dropdown-l3 a {
+    display: block; padding: 7px 10px;
+    font-size: 11px; letter-spacing: 0.06em; color: #888;
+    border-radius: 6px; transition: background 0.15s, color 0.15s;
+  }
+  .dropdown-l3 a:hover { background: #f5f5f5; color: #111; }
+
+
+  .mobile-portfolio-toggle { cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+  .mobile-portfolio-toggle .caret { font-size: 10px; transition: transform 0.2s; }
+  .mobile-portfolio-toggle.open .caret { transform: rotate(180deg); }
+  .mobile-portfolio-panel { display: none; padding-left: 8px; }
+  .mobile-portfolio-panel.open { display: block; }
+  .mobile-sub-link {
+    display: block; padding: 10px 16px;
+    font-size: 13px; letter-spacing: 0.06em; color: #555;
+    border-radius: 8px; transition: background 0.15s;
+  }
+  .mobile-sub-link:hover { background: rgba(0,0,0,0.04); color: #111; }
+  .mobile-gallery-link { font-size: 12px; color: #999; padding: 7px 16px 7px 28px; }
+
 </style>
 </head>
 <body>
@@ -282,10 +386,149 @@
   <a href="#" class="nav-logo">CONTINUUM</a>
   <div class="nav-links">
     <a href="#services">Services</a>
-    <a href="#portfolio">Portfolio</a>
+    <div class="nav-dropdown" id="portfolioDropdown">
+      <button id="portfolioBtn" aria-haspopup="true" aria-expanded="false">
+        Portfolio <span class="caret">▼</span>
+      </button>
+      <div class="dropdown-l1" role="menu">
+
+        <!-- LIFESTYLE -->
+        <div class="dl1-item">
+          <div class="dl1-header">
+            <a href="lifestyle-photography.html">Lifestyle Photography</a>
+            <span class="caret">▼</span>
+          </div>
+          <div class="dropdown-l2">
+            <div class="dl2-item">
+              <div class="dl2-header">Maternity <span class="caret">▼</span></div>
+              <div class="dropdown-l3">
+                <a href="lifestyle-categories/gallery-maternity.html">Maternity Gallery</a>
+              </div>
+            </div>
+            <div class="dl2-item">
+              <div class="dl2-header">Cake Smash <span class="caret">▼</span></div>
+              <div class="dropdown-l3">
+                <a href="lifestyle-categories/gallery-cake-smash.html">Cake Smash Gallery</a>
+              </div>
+            </div>
+            <div class="dl2-item">
+              <div class="dl2-header">Family <span class="caret">▼</span></div>
+              <div class="dropdown-l3">
+                <a href="lifestyle-categories/gallery-family.html">Family Gallery</a>
+              </div>
+            </div>
+            <div class="dl2-item">
+              <div class="dl2-header">Outdoor <span class="caret">▼</span></div>
+              <div class="dropdown-l3">
+                <a href="lifestyle-categories/gallery-outdoor.html">Outdoor Gallery</a>
+              </div>
+            </div>
+            <div class="dl2-item">
+              <div class="dl2-header">Studio <span class="caret">▼</span></div>
+              <div class="dropdown-l3">
+                <a href="lifestyle-categories/gallery-studio.html">Studio Gallery</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CORPORATE & COMMERCIAL -->
+        <div class="dl1-item">
+          <div class="dl1-header">
+            <a href="corporate-commercial.html">Corporate & Commercial</a>
+            <span class="caret">▼</span>
+          </div>
+          <div class="dropdown-l2">
+            <div class="dl2-item">
+              <div class="dl2-header">Branding <span class="caret">▼</span></div>
+              <div class="dropdown-l3">
+                <a href="corporate-categories/gallery-branding.html">Branding Gallery</a>
+              </div>
+            </div>
+            <div class="dl2-item">
+              <div class="dl2-header">Business Photography <span class="caret">▼</span></div>
+              <div class="dropdown-l3">
+                <a href="corporate-categories/gallery-business-photography.html">Business Photography Gallery</a>
+              </div>
+            </div>
+            <div class="dl2-item">
+              <div class="dl2-header">Corporate Events <span class="caret">▼</span></div>
+              <div class="dropdown-l3">
+                <a href="corporate-categories/gallery-corporate-events.html">Corporate Events Gallery</a>
+              </div>
+            </div>
+            <div class="dl2-item">
+              <div class="dl2-header">Fashion <span class="caret">▼</span></div>
+              <div class="dropdown-l3">
+                <a href="corporate-categories/gallery-fashion.html">Fashion Gallery</a>
+              </div>
+            </div>
+            <div class="dl2-item">
+              <div class="dl2-header">Headshots <span class="caret">▼</span></div>
+              <div class="dropdown-l3">
+                <a href="corporate-categories/gallery-headshots.html">Headshots Gallery</a>
+              </div>
+            </div>
+            <div class="dl2-item">
+              <div class="dl2-header">Website <span class="caret">▼</span></div>
+              <div class="dropdown-l3">
+                <a href="corporate-categories/gallery-website.html">Website Gallery</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIDEOGRAPHY -->
+        <div class="dl1-item">
+          <div class="dl1-header">
+            <a href="videography-services.html">Videography</a>
+            <span class="caret">▼</span>
+          </div>
+          <div class="dropdown-l2">
+            <div class="dl2-item">
+              <div class="dl2-header">Corporate Videos <span class="caret">▼</span></div>
+              <div class="dropdown-l3">
+                <a href="videography-categories/gallery-corporate-videos.html">Corporate Videos Gallery</a>
+              </div>
+            </div>
+            <div class="dl2-item">
+              <div class="dl2-header">Events Videos <span class="caret">▼</span></div>
+              <div class="dropdown-l3">
+                <a href="videography-categories/gallery-events-videos.html">Events Videos Gallery</a>
+              </div>
+            </div>
+            <div class="dl2-item">
+              <div class="dl2-header">Marketing <span class="caret">▼</span></div>
+              <div class="dropdown-l3">
+                <a href="videography-categories/gallery-marketing.html">Marketing Gallery</a>
+              </div>
+            </div>
+            <div class="dl2-item">
+              <div class="dl2-header">Music Videos <span class="caret">▼</span></div>
+              <div class="dropdown-l3">
+                <a href="videography-categories/gallery-music-videos.html">Music Videos Gallery</a>
+              </div>
+            </div>
+            <div class="dl2-item">
+              <div class="dl2-header">Training <span class="caret">▼</span></div>
+              <div class="dropdown-l3">
+                <a href="videography-categories/gallery-training.html">Training Gallery</a>
+              </div>
+            </div>
+            <div class="dl2-item">
+              <div class="dl2-header">Weddings <span class="caret">▼</span></div>
+              <div class="dropdown-l3">
+                <a href="videography-categories/gallery-weddings.html">Weddings Gallery</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
     <a href="#contact">Contact</a>
   </div>
-  <button class="nav-cta">Book A Session</button>
+  <a href="#contact" class="nav-cta">Book A Session</a>
   <!-- Hamburger — visible on mobile only -->
   <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
     <span></span>
@@ -297,7 +540,31 @@
 <!-- MOBILE MENU OVERLAY -->
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Navigation menu">
   <a href="#services"  class="mobile-menu-link">Services</a>
-  <a href="#portfolio" class="mobile-menu-link">Portfolio</a>
+  <div class="mobile-menu-link mobile-portfolio-toggle" id="mobilePortfolioToggle">
+    Portfolio <span class="caret">▼</span>
+  </div>
+  <div class="mobile-portfolio-panel" id="mobilePortfolioPanel">
+    <a href="lifestyle-photography.html" class="mobile-sub-link">— Lifestyle Photography</a>
+    <a href="lifestyle-categories/gallery-maternity.html" class="mobile-sub-link mobile-gallery-link">↳ Maternity Gallery</a>
+    <a href="lifestyle-categories/gallery-cake-smash.html" class="mobile-sub-link mobile-gallery-link">↳ Cake Smash Gallery</a>
+    <a href="lifestyle-categories/gallery-family.html" class="mobile-sub-link mobile-gallery-link">↳ Family Gallery</a>
+    <a href="lifestyle-categories/gallery-outdoor.html" class="mobile-sub-link mobile-gallery-link">↳ Outdoor Gallery</a>
+    <a href="lifestyle-categories/gallery-studio.html" class="mobile-sub-link mobile-gallery-link">↳ Studio Gallery</a>
+    <a href="corporate-commercial.html" class="mobile-sub-link">— Corporate & Commercial</a>
+    <a href="corporate-categories/gallery-branding.html" class="mobile-sub-link mobile-gallery-link">↳ Branding Gallery</a>
+    <a href="corporate-categories/gallery-business-photography.html" class="mobile-sub-link mobile-gallery-link">↳ Business Photography Gallery</a>
+    <a href="corporate-categories/gallery-corporate-events.html" class="mobile-sub-link mobile-gallery-link">↳ Corporate Events Gallery</a>
+    <a href="corporate-categories/gallery-fashion.html" class="mobile-sub-link mobile-gallery-link">↳ Fashion Gallery</a>
+    <a href="corporate-categories/gallery-headshots.html" class="mobile-sub-link mobile-gallery-link">↳ Headshots Gallery</a>
+    <a href="corporate-categories/gallery-website.html" class="mobile-sub-link mobile-gallery-link">↳ Website Gallery</a>
+    <a href="videography-services.html" class="mobile-sub-link">— Videography</a>
+    <a href="videography-categories/gallery-corporate-videos.html" class="mobile-sub-link mobile-gallery-link">↳ Corporate Videos Gallery</a>
+    <a href="videography-categories/gallery-events-videos.html" class="mobile-sub-link mobile-gallery-link">↳ Events Videos Gallery</a>
+    <a href="videography-categories/gallery-marketing.html" class="mobile-sub-link mobile-gallery-link">↳ Marketing Gallery</a>
+    <a href="videography-categories/gallery-music-videos.html" class="mobile-sub-link mobile-gallery-link">↳ Music Videos Gallery</a>
+    <a href="videography-categories/gallery-training.html" class="mobile-sub-link mobile-gallery-link">↳ Training Gallery</a>
+    <a href="videography-categories/gallery-weddings.html" class="mobile-sub-link mobile-gallery-link">↳ Weddings Gallery</a>
+  </div>
   <div class="mobile-menu-divider"></div>
   <a href="#contact" class="mobile-menu-cta">Book A Session</a>
   <span class="mobile-menu-footer">Kempton Park &bull; Johannesburg</span>
@@ -425,21 +692,60 @@
   <p class="reviews-eyebrow">Client Experience</p>
   <h2>Proudly Backed By Positive Google Reviews</h2>
   <p>Our clients trust us to create professional, memorable, and high-quality visual experiences for businesses, families, brands, and special occasions.</p>
-  <div class="stars-row">
-    <div class="review-chip">
-      <div class="review-stars">★★★★★</div>
-      <p class="review-text">"Absolutely stunning work — our branding shoot exceeded every expectation."</p>
-      <span class="review-name">— Corporate Client, JHB</span>
-    </div>
-    <div class="review-chip">
-      <div class="review-stars">★★★★★</div>
-      <p class="review-text">"The cake smash photos were magical. Our little one looked so happy!"</p>
-      <span class="review-name">— Family Client, Kempton Park</span>
-    </div>
-    <div class="review-chip">
-      <div class="review-stars">★★★★★</div>
-      <p class="review-text">"Professional, creative, and so easy to work with. Highly recommend."</p>
-      <span class="review-name">— Brand Campaign Client</span>
+  <div class="reviews-slider-wrap">
+    <div class="stars-row">
+      <!-- original set -->
+      <div class="review-chip">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Thank you so much for a nice experience, I was very impressed with your work and professionalism. You made my daughter relax and enjoy her photoshoot."</p>
+        <span class="review-name">— Lucy L, May 2025</span>
+      </div>
+      <div class="review-chip">
+        <div class="review-stars">★★★★☆</div>
+        <p class="review-text">"Service from Continuum Studio is very professional and the delivery time is satisfactory. Thank you for capturing such beautiful memories for me, and making my day so perfect."</p>
+        <span class="review-name">— Ayanda M, December 2023</span>
+      </div>
+      <div class="review-chip">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"I had fun doing this photoshoot, I can't complain. The photographer was very friendly and patient as I had a 1 year old. I'm happy about the pictures I got."</p>
+        <span class="review-name">— Lenkeme L, December 2024</span>
+      </div>
+      <div class="review-chip">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Our experience with Continuum was awesome. Mr. Lee is very passionate about his work and very friendly. The quality of his work is top notch. We definitely going to use him again."</p>
+        <span class="review-name">— Maanda M, December 2023</span>
+      </div>
+      <div class="review-chip">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Lee truly lives up to expectations, he is so patient and kind. He makes you feel comfortable and he's accommodating. Truly great at what he does. I would 100% recommend!"</p>
+        <span class="review-name">— Sarah N, April 2024</span>
+      </div>
+      <!-- duplicate set for seamless loop -->
+      <div class="review-chip">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Thank you so much for a nice experience, I was very impressed with your work and professionalism. You made my daughter relax and enjoy her photoshoot."</p>
+        <span class="review-name">— Lucy L, May 2025</span>
+      </div>
+      <div class="review-chip">
+        <div class="review-stars">★★★★☆</div>
+        <p class="review-text">"Service from Continuum Studio is very professional and the delivery time is satisfactory. Thank you for capturing such beautiful memories for me, and making my day so perfect."</p>
+        <span class="review-name">— Ayanda M, December 2023</span>
+      </div>
+      <div class="review-chip">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"I had fun doing this photoshoot, I can't complain. The photographer was very friendly and patient as I had a 1 year old. I'm happy about the pictures I got."</p>
+        <span class="review-name">— Lenkeme L, December 2024</span>
+      </div>
+      <div class="review-chip">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Our experience with Continuum was awesome. Mr. Lee is very passionate about his work and very friendly. The quality of his work is top notch. We definitely going to use him again."</p>
+        <span class="review-name">— Maanda M, December 2023</span>
+      </div>
+      <div class="review-chip">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Lee truly lives up to expectations, he is so patient and kind. He makes you feel comfortable and he's accommodating. Truly great at what he does. I would 100% recommend!"</p>
+        <span class="review-name">— Sarah N, April 2024</span>
+      </div>
     </div>
   </div>
 </section>
@@ -490,6 +796,57 @@
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeMenu();
   });
+</script>
+
+
+<script>
+  // ── Portfolio dropdown (desktop) ──────────────────────────────
+  const portfolioBtn = document.getElementById('portfolioBtn');
+  const portfolioDrop = document.getElementById('portfolioDropdown');
+
+  portfolioBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const isOpen = portfolioDrop.classList.toggle('open');
+    portfolioBtn.setAttribute('aria-expanded', isOpen);
+  });
+
+  // Close when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!portfolioDrop.contains(e.target)) {
+      portfolioDrop.classList.remove('open');
+      portfolioBtn.setAttribute('aria-expanded', false);
+    }
+  });
+
+  // Level 1 accordion (service rows)
+  document.querySelectorAll('.dl1-header').forEach(function(header) {
+    header.addEventListener('click', function(e) {
+      // Don't fire if clicking the actual link
+      if (e.target.tagName === 'A') return;
+      e.stopPropagation();
+      const item = header.closest('.dl1-item');
+      item.classList.toggle('open');
+    });
+  });
+
+  // Level 2 accordion (subcategory rows)
+  document.querySelectorAll('.dl2-header').forEach(function(header) {
+    header.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const item = header.closest('.dl2-item');
+      item.classList.toggle('open');
+    });
+  });
+
+  // ── Portfolio panel (mobile) ───────────────────────────────────
+  const mobileToggle = document.getElementById('mobilePortfolioToggle');
+  const mobilePanel  = document.getElementById('mobilePortfolioPanel');
+  if (mobileToggle) {
+    mobileToggle.addEventListener('click', function() {
+      mobileToggle.classList.toggle('open');
+      mobilePanel.classList.toggle('open');
+    });
+  }
 </script>
 
 </body>
