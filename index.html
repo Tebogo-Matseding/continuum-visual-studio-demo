@@ -188,6 +188,8 @@
     .featured-row { grid-template-columns: 1fr; gap: 32px; margin-bottom: 64px; }
     .featured-row > *:first-child { order: 1; }
     .featured-row > *:last-child  { order: 2; }
+    .img-grid img { height: auto; aspect-ratio: 4 / 3; }
+    .featured-banner { height: auto; aspect-ratio: 16 / 9; }
 
     /* Reviews */
     .stars-row { gap: 16px; }
@@ -202,7 +204,8 @@
     /* Featured — tighter spacing */
     .featured { padding: 48px 16px; }
     .featured-row { gap: 24px; margin-bottom: 48px; }
-    .img-grid img { height: auto; aspect-ratio: 1 / 1; }
+    .img-grid img { height: auto; aspect-ratio: 4 / 3; }
+    .featured-banner { height: auto; aspect-ratio: 16 / 9; margin-top: 16px; }
 
     /* Tighter padding on smaller screens */
     .hero { padding: 0 16px; }
@@ -211,10 +214,70 @@
   }
 
   /* HERO */
-  .hero { height: 88vh; background: linear-gradient(135deg, #f4f4f4 0%, #fff 50%, #ececec 100%); display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 24px; }
-  .hero-eyebrow { font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase; color: #888; margin-bottom: 24px; }
-  .hero h1 { font-size: clamp(40px, 7vw, 76px); font-weight: 300; line-height: 1.1; margin-bottom: 24px; }
-  .hero p { font-size: 17px; color: #666; max-width: 560px; line-height: 1.7; margin: 0 auto 36px; }
+  .hero {
+    position: relative;
+    height: 88vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 24px;
+    overflow: hidden;
+  }
+  /* Slider sits behind everything */
+  .hero-slider {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .hero-slide {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+  }
+  .hero-slide.active { opacity: 1; }
+  /* Dark + frosted overlay so text stays readable */
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.62);
+    backdrop-filter: blur(1px);
+    z-index: 1;
+  }
+  /* Text content sits on top */
+  .hero-content {
+    position: relative;
+    z-index: 2;
+  }
+  .hero-eyebrow { font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase; color: #555; margin-bottom: 24px; }
+  .hero h1 { font-size: clamp(40px, 7vw, 76px); font-weight: 300; line-height: 1.1; margin-bottom: 24px; color: #111; }
+  .hero p { font-size: 17px; color: #444; max-width: 560px; line-height: 1.7; margin: 0 auto 36px; }
+  /* Dot indicators */
+  .hero-dots {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 2;
+  }
+  .hero-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1px solid rgba(0,0,0,0.35);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+  }
+  .hero-dot.active {
+    background: transparent;
+    border: 1.5px solid #111;
+    box-shadow: 0 0 0 1.5px rgba(17,17,17,0.15);
+  }
   .btn-group { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
   .btn-dark { display: inline-block; background: #111; color: #fff; border: 1.5px solid #111; padding: 13px 32px; border-radius: 999px; font-size: 12px; letter-spacing: 0.1em; cursor: pointer; font-family: inherit; transition: opacity 0.2s; }
   .btn-dark:hover { opacity: 0.8; }
@@ -250,6 +313,9 @@
   .img-grid { display: grid; grid-template-columns: 1fr; gap: 14px; width: 100%; justify-self: stretch; align-self: start; }
   .img-grid img { border-radius: 16px; height: 260px; width: 100%; object-fit: cover; display: block; }
 
+  /* Banner image shown below title+description in each featured row */
+  .featured-banner { border-radius: 16px; width: 100%; object-fit: cover; display: block; height: 280px; margin-top: 24px; }
+
   /* REVIEWS */
   .reviews { padding: 96px 24px; text-align: center; }
   .reviews-eyebrow { font-size: 11px; letter-spacing: 0.35em; text-transform: uppercase; color: #888; margin-bottom: 16px; }
@@ -272,7 +338,10 @@
     100% { transform: translateX(-50%); }
   }
   .review-chip { background: #f3f3f3; border-radius: 14px; padding: 20px 24px; text-align: left; width: 280px; flex-shrink: 0; }
-  .review-stars { color: #D4A017; font-size: 13px; letter-spacing: 0.15em; margin-bottom: 8px; }
+  .review-chip-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .review-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; flex-shrink: 0; background: #e0e0e0; border: 2px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.10); }
+  .review-chip-meta { display: flex; flex-direction: column; gap: 3px; }
+  .review-stars { color: #D4A017; font-size: 13px; letter-spacing: 0.15em; }
   .review-text { font-size: 13px; color: #555; line-height: 1.6; margin-bottom: 10px; }
   .review-name { font-size: 12px; color: #999; letter-spacing: 0.05em; }
 
@@ -387,6 +456,7 @@
   <a href="#" class="nav-logo">CONTINUUM</a>
   <div class="nav-links">
     <a href="#services">Services</a>
+    <a href="#testimonials">Testimonials</a>
     <div class="nav-dropdown" id="portfolioDropdown">
       <button id="portfolioBtn" aria-haspopup="true" aria-expanded="false">
         Portfolio <i class="ti ti-chevron-down caret" aria-hidden="true"></i>
@@ -413,9 +483,9 @@
               </div>
             </div>
             <div class="dl2-item">
-              <div class="dl2-header">Family <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
+              <div class="dl2-header">Weddings & Events <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
               <div class="dropdown-l3">
-                <a href="lifestyle-categories/gallery-family.html">Family Gallery</a>
+                <a href="lifestyle-categories/gallery-weddings-events.html">Weddings & Events Gallery</a>
               </div>
             </div>
             <div class="dl2-item">
@@ -446,12 +516,7 @@
                 <a href="corporate-categories/gallery-branding.html">Branding Gallery</a>
               </div>
             </div>
-            <div class="dl2-item">
-              <div class="dl2-header">Business Photography <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
-              <div class="dropdown-l3">
-                <a href="corporate-categories/gallery-business-photography.html">Business Photography Gallery</a>
-              </div>
-            </div>
+
             <div class="dl2-item">
               <div class="dl2-header">Corporate Events <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
               <div class="dropdown-l3">
@@ -470,12 +535,7 @@
                 <a href="corporate-categories/gallery-headshots.html">Headshots Gallery</a>
               </div>
             </div>
-            <div class="dl2-item">
-              <div class="dl2-header">Website <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
-              <div class="dropdown-l3">
-                <a href="corporate-categories/gallery-website.html">Website Gallery</a>
-              </div>
-            </div>
+
           </div>
         </div>
 
@@ -499,27 +559,9 @@
               </div>
             </div>
             <div class="dl2-item">
-              <div class="dl2-header">Marketing <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
-              <div class="dropdown-l3">
-                <a href="videography-categories/gallery-marketing.html">Marketing Gallery</a>
-              </div>
-            </div>
-            <div class="dl2-item">
               <div class="dl2-header">Music Videos <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
               <div class="dropdown-l3">
                 <a href="videography-categories/gallery-music-videos.html">Music Videos Gallery</a>
-              </div>
-            </div>
-            <div class="dl2-item">
-              <div class="dl2-header">Training <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
-              <div class="dropdown-l3">
-                <a href="videography-categories/gallery-training.html">Training Gallery</a>
-              </div>
-            </div>
-            <div class="dl2-item">
-              <div class="dl2-header">Weddings <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
-              <div class="dropdown-l3">
-                <a href="videography-categories/gallery-weddings.html">Weddings Gallery</a>
               </div>
             </div>
           </div>
@@ -541,6 +583,7 @@
 <!-- MOBILE MENU OVERLAY -->
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Navigation menu">
   <a href="#services"  class="mobile-menu-link">Services</a>
+  <a href="#testimonials" class="mobile-menu-link">Testimonials</a>
   <div class="mobile-menu-link mobile-portfolio-toggle" id="mobilePortfolioToggle">
     Portfolio <i class="ti ti-chevron-down caret" aria-hidden="true"></i>
   </div>
@@ -548,23 +591,18 @@
     <a href="lifestyle-photography.html" class="mobile-sub-link">— Lifestyle Photography</a>
     <a href="lifestyle-categories/gallery-maternity.html" class="mobile-sub-link mobile-gallery-link">↳ Maternity Gallery</a>
     <a href="lifestyle-categories/gallery-cake-smash.html" class="mobile-sub-link mobile-gallery-link">↳ Cake Smash Gallery</a>
-    <a href="lifestyle-categories/gallery-family.html" class="mobile-sub-link mobile-gallery-link">↳ Family Gallery</a>
+    <a href="lifestyle-categories/gallery-weddings-events.html" class="mobile-sub-link mobile-gallery-link">↳ Weddings & Events Gallery</a>
     <a href="lifestyle-categories/gallery-outdoor.html" class="mobile-sub-link mobile-gallery-link">↳ Outdoor Gallery</a>
     <a href="lifestyle-categories/gallery-studio.html" class="mobile-sub-link mobile-gallery-link">↳ Studio Gallery</a>
     <a href="corporate-commercial.html" class="mobile-sub-link">— Corporate & Commercial</a>
     <a href="corporate-categories/gallery-branding.html" class="mobile-sub-link mobile-gallery-link">↳ Branding Gallery</a>
-    <a href="corporate-categories/gallery-business-photography.html" class="mobile-sub-link mobile-gallery-link">↳ Business Photography Gallery</a>
     <a href="corporate-categories/gallery-corporate-events.html" class="mobile-sub-link mobile-gallery-link">↳ Corporate Events Gallery</a>
     <a href="corporate-categories/gallery-fashion.html" class="mobile-sub-link mobile-gallery-link">↳ Fashion Gallery</a>
     <a href="corporate-categories/gallery-headshots.html" class="mobile-sub-link mobile-gallery-link">↳ Headshots Gallery</a>
-    <a href="corporate-categories/gallery-website.html" class="mobile-sub-link mobile-gallery-link">↳ Website Gallery</a>
     <a href="videography-services.html" class="mobile-sub-link">— Videography</a>
     <a href="videography-categories/gallery-corporate-videos.html" class="mobile-sub-link mobile-gallery-link">↳ Corporate Videos Gallery</a>
     <a href="videography-categories/gallery-events-videos.html" class="mobile-sub-link mobile-gallery-link">↳ Events Videos Gallery</a>
-    <a href="videography-categories/gallery-marketing.html" class="mobile-sub-link mobile-gallery-link">↳ Marketing Gallery</a>
     <a href="videography-categories/gallery-music-videos.html" class="mobile-sub-link mobile-gallery-link">↳ Music Videos Gallery</a>
-    <a href="videography-categories/gallery-training.html" class="mobile-sub-link mobile-gallery-link">↳ Training Gallery</a>
-    <a href="videography-categories/gallery-weddings.html" class="mobile-sub-link mobile-gallery-link">↳ Weddings Gallery</a>
   </div>
   <div class="mobile-menu-divider"></div>
   <a href="#contact" class="mobile-menu-cta">Book A Session</a>
@@ -573,7 +611,31 @@
 
 <!-- HERO -->
 <section class="hero" id="portfolio">
-  <div>
+
+  <!-- Background image slider -->
+  <div class="hero-slider" id="heroSlider">
+    <div class="hero-slide active" style="background-image: url('images/slide1.png');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide2.jpg');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide3.jpg');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide4.jpg');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide5.jpg');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide6.jpg');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide7.jpg');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide8.jpg');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide9.jpg');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide10.jpg');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide11.jpg');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide12.jpg');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide13.jpg');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide14.jpg');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide15.jpg');"></div>
+  </div>
+
+  <!-- Frosted overlay — images bleed through but text stays clear -->
+  <div class="hero-overlay"></div>
+
+  <!-- Text content -->
+  <div class="hero-content">
     <p class="hero-eyebrow">Photography &amp; Videography</p>
     <h1>Continuum Visual Studio</h1>
     <p>Professional photography and videography services in Johannesburg and Kempton Park for businesses, brands, families, and special moments.</p>
@@ -582,6 +644,10 @@
       <a href="#contact" class="btn-outline">Book A Session</a>
     </div>
   </div>
+
+  <!-- Dot indicators -->
+  <div class="hero-dots" id="heroDots"></div>
+
 </section>
 
 <!-- ABOUT -->
@@ -642,6 +708,7 @@
       <div class="featured-text">
         <h2>Cake Smash Photography</h2>
         <p>Fun and creative cake smash photography sessions with custom themes, outfits, milk bath shoots, and beautiful birthday memories for little ones.</p>
+        <img src="images/cakesmash3.jpg" alt="Cake Smash Photography" class="featured-banner">
       </div>
       <div class="img-grid">
         <img src="images/cakesmash1.jpg" alt="Cake Smash Photography 1">
@@ -658,6 +725,7 @@
       <div class="featured-text">
         <h2>Maternity Photography</h2>
         <p>Elegant maternity photography sessions in studio or outdoors with beautiful backdrops, outfit options, and family-friendly packages.</p>
+        <img src="images/maternity3.png" alt="Maternity Photography" class="featured-banner">
       </div>
     </div>
 
@@ -666,6 +734,7 @@
       <div class="featured-text">
         <h2>Studio Photography</h2>
         <p>Controlled lighting, premium backdrops, and a fully equipped studio space — ideal for portraits, product photography, fashion shoots, and creative concepts.</p>
+        <img src="images/studio3.png" alt="Studio Photography" class="featured-banner">
       </div>
       <div class="img-grid">
         <img src="images/studio1.png" alt="Studio Photography 1">
@@ -682,6 +751,7 @@
       <div class="featured-text">
         <h2>Outdoor Photography</h2>
         <p>Natural light sessions in parks, gardens, and scenic locations across Johannesburg — perfect for families, couples, lifestyle shoots, and brand content that breathes.</p>
+        <img src="images/outdoor3.jpg" alt="Outdoor Photography" class="featured-banner">
       </div>
     </div>
 
@@ -689,7 +759,7 @@
 </section>
 
 <!-- REVIEWS -->
-<section class="reviews">
+<section class="reviews" id="testimonials">
   <p class="reviews-eyebrow">Client Experience</p>
   <h2>Proudly Backed By Positive Google Reviews</h2>
   <p>Our clients trust us to create professional, memorable, and high-quality visual experiences for businesses, families, brands, and special occasions.</p>
@@ -697,55 +767,105 @@
     <div class="stars-row">
       <!-- original set -->
       <div class="review-chip">
-        <div class="review-stars">★★★★★</div>
+        <div class="review-chip-header">
+          <img src="" alt="Lucy L" class="review-avatar">
+          <div class="review-chip-meta">
+            <div class="review-stars">★★★★★</div>
+            <span class="review-name">Lucy L, May 2025</span>
+          </div>
+        </div>
         <p class="review-text">"Thank you so much for a nice experience, I was very impressed with your work and professionalism. You made my daughter relax and enjoy her photoshoot."</p>
-        <span class="review-name">— Lucy L, May 2025</span>
       </div>
       <div class="review-chip">
-        <div class="review-stars">★★★★☆</div>
+        <div class="review-chip-header">
+          <img src="" alt="Ayanda M" class="review-avatar">
+          <div class="review-chip-meta">
+            <div class="review-stars">★★★★☆</div>
+            <span class="review-name">Ayanda M, December 2023</span>
+          </div>
+        </div>
         <p class="review-text">"Service from Continuum Studio is very professional and the delivery time is satisfactory. Thank you for capturing such beautiful memories for me, and making my day so perfect."</p>
-        <span class="review-name">— Ayanda M, December 2023</span>
       </div>
       <div class="review-chip">
-        <div class="review-stars">★★★★★</div>
+        <div class="review-chip-header">
+          <img src="" alt="Lenkeme L" class="review-avatar">
+          <div class="review-chip-meta">
+            <div class="review-stars">★★★★★</div>
+            <span class="review-name">Lenkeme L, December 2024</span>
+          </div>
+        </div>
         <p class="review-text">"I had fun doing this photoshoot, I can't complain. The photographer was very friendly and patient as I had a 1 year old. I'm happy about the pictures I got."</p>
-        <span class="review-name">— Lenkeme L, December 2024</span>
       </div>
       <div class="review-chip">
-        <div class="review-stars">★★★★★</div>
+        <div class="review-chip-header">
+          <img src="" alt="Maanda M" class="review-avatar">
+          <div class="review-chip-meta">
+            <div class="review-stars">★★★★★</div>
+            <span class="review-name">Maanda M, December 2023</span>
+          </div>
+        </div>
         <p class="review-text">"Our experience with Continuum was awesome. Mr. Lee is very passionate about his work and very friendly. The quality of his work is top notch. We definitely going to use him again."</p>
-        <span class="review-name">— Maanda M, December 2023</span>
       </div>
       <div class="review-chip">
-        <div class="review-stars">★★★★★</div>
+        <div class="review-chip-header">
+          <img src="" alt="Sarah N" class="review-avatar">
+          <div class="review-chip-meta">
+            <div class="review-stars">★★★★★</div>
+            <span class="review-name">Sarah N, April 2024</span>
+          </div>
+        </div>
         <p class="review-text">"Lee truly lives up to expectations, he is so patient and kind. He makes you feel comfortable and he's accommodating. Truly great at what he does. I would 100% recommend!"</p>
-        <span class="review-name">— Sarah N, April 2024</span>
       </div>
       <!-- duplicate set for seamless loop -->
       <div class="review-chip">
-        <div class="review-stars">★★★★★</div>
+        <div class="review-chip-header">
+          <img src="" alt="Lucy L" class="review-avatar">
+          <div class="review-chip-meta">
+            <div class="review-stars">★★★★★</div>
+            <span class="review-name">Lucy L, May 2025</span>
+          </div>
+        </div>
         <p class="review-text">"Thank you so much for a nice experience, I was very impressed with your work and professionalism. You made my daughter relax and enjoy her photoshoot."</p>
-        <span class="review-name">— Lucy L, May 2025</span>
       </div>
       <div class="review-chip">
-        <div class="review-stars">★★★★☆</div>
+        <div class="review-chip-header">
+          <img src="" alt="Ayanda M" class="review-avatar">
+          <div class="review-chip-meta">
+            <div class="review-stars">★★★★☆</div>
+            <span class="review-name">Ayanda M, December 2023</span>
+          </div>
+        </div>
         <p class="review-text">"Service from Continuum Studio is very professional and the delivery time is satisfactory. Thank you for capturing such beautiful memories for me, and making my day so perfect."</p>
-        <span class="review-name">— Ayanda M, December 2023</span>
       </div>
       <div class="review-chip">
-        <div class="review-stars">★★★★★</div>
+        <div class="review-chip-header">
+          <img src="" alt="Lenkeme L" class="review-avatar">
+          <div class="review-chip-meta">
+            <div class="review-stars">★★★★★</div>
+            <span class="review-name">Lenkeme L, December 2024</span>
+          </div>
+        </div>
         <p class="review-text">"I had fun doing this photoshoot, I can't complain. The photographer was very friendly and patient as I had a 1 year old. I'm happy about the pictures I got."</p>
-        <span class="review-name">— Lenkeme L, December 2024</span>
       </div>
       <div class="review-chip">
-        <div class="review-stars">★★★★★</div>
+        <div class="review-chip-header">
+          <img src="" alt="Maanda M" class="review-avatar">
+          <div class="review-chip-meta">
+            <div class="review-stars">★★★★★</div>
+            <span class="review-name">Maanda M, December 2023</span>
+          </div>
+        </div>
         <p class="review-text">"Our experience with Continuum was awesome. Mr. Lee is very passionate about his work and very friendly. The quality of his work is top notch. We definitely going to use him again."</p>
-        <span class="review-name">— Maanda M, December 2023</span>
       </div>
       <div class="review-chip">
-        <div class="review-stars">★★★★★</div>
+        <div class="review-chip-header">
+          <img src="" alt="Sarah N" class="review-avatar">
+          <div class="review-chip-meta">
+            <div class="review-stars">★★★★★</div>
+            <span class="review-name">Sarah N, April 2024</span>
+          </div>
+        </div>
         <p class="review-text">"Lee truly lives up to expectations, he is so patient and kind. He makes you feel comfortable and he's accommodating. Truly great at what he does. I would 100% recommend!"</p>
-        <span class="review-name">— Sarah N, April 2024</span>
       </div>
     </div>
   </div>
@@ -767,7 +887,40 @@
 </footer>
 
 <script>
-  const hamburger  = document.getElementById('hamburger');
+  // ── Hero image slider ─────────────────────────────────────────
+  (function() {
+    const slides   = document.querySelectorAll('.hero-slide');
+    const dotsWrap = document.getElementById('heroDots');
+    let current    = 0;
+    let timer;
+
+    // Build dots
+    slides.forEach(function(_, i) {
+      const dot = document.createElement('div');
+      dot.className = 'hero-dot' + (i === 0 ? ' active' : '');
+      dot.addEventListener('click', function() { goTo(i); });
+      dotsWrap.appendChild(dot);
+    });
+
+    const dots = dotsWrap.querySelectorAll('.hero-dot');
+
+    function goTo(n) {
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      current = (n + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+      clearInterval(timer);
+      timer = setInterval(next, 5000);
+    }
+
+    function next() { goTo(current + 1); }
+
+    timer = setInterval(next, 5000);
+  })();
+</script>
+
+
   const mobileMenu = document.getElementById('mobileMenu');
   const menuLinks  = mobileMenu.querySelectorAll('a');
 
