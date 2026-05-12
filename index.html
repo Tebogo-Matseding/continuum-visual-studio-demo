@@ -188,8 +188,8 @@
     .featured-row { grid-template-columns: 1fr; gap: 32px; margin-bottom: 64px; }
     .featured-row > *:first-child { order: 1; }
     .featured-row > *:last-child  { order: 2; }
-    .img-grid img { aspect-ratio: 4 / 3; }
-    .featured-banner { aspect-ratio: 16 / 9; }
+    .img-grid img { aspect-ratio: 1 / 1; }
+    .featured-banner { aspect-ratio: 1 / 1; }
 
     /* Reviews */
     .stars-row { gap: 16px; }
@@ -204,8 +204,8 @@
     /* Featured — tighter spacing */
     .featured { padding: 48px 16px; }
     .featured-row { gap: 24px; margin-bottom: 48px; }
-    .img-grid img { aspect-ratio: 4 / 3; }
-    .featured-banner { aspect-ratio: 16 / 9; margin-top: 16px; }
+    .img-grid img { aspect-ratio: 1 / 1; }
+    .featured-banner { aspect-ratio: 1 / 1; margin-top: 16px; }
 
     /* Tighter padding on smaller screens */
     .hero { padding: 0 16px; }
@@ -318,7 +318,7 @@
   .featured-text h2 { font-size: clamp(24px, 3vw, 36px); font-weight: 300; letter-spacing: 0.04em; margin-bottom: 18px; }
   .featured-text p { font-size: 15px; color: #666; line-height: 1.8; }
   .img-grid { display: grid; grid-template-columns: 1fr; gap: 14px; width: 100%; justify-self: stretch; align-self: start; }
-  .img-grid img { border-radius: 16px; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; height: auto; }
+  .img-grid img { border-radius: 16px; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; height: auto; }
 
   /* Banner image shown below title+description in each featured row */
   .featured-banner { border-radius: 16px; width: 100%; object-fit: cover; display: block; aspect-ratio: 16 / 9; height: auto; margin-top: 24px; }
