@@ -185,9 +185,11 @@
 
     /* Featured — stack text + img-grid */
     .featured { padding: 64px 20px; }
-    .featured-row { grid-template-columns: 1fr; gap: 32px; margin-bottom: 64px; }
+    .featured-row { grid-template-columns: 1fr; gap: 32px; margin-bottom: 64px; align-items: start; }
+    .featured-row > *:first-child { order: 1; }
+    .featured-row > *:last-child  { order: 2; }
     .img-grid img { aspect-ratio: 1 / 1; }
-    .featured-banner { aspect-ratio: 1 / 1; }
+    .featured-banner { aspect-ratio: 1 / 1; margin-top: 24px; }
 
     /* Reviews */
     .stars-row { gap: 16px; }
@@ -199,13 +201,11 @@
     .services { padding: 0 16px 56px; }
     .services-grid { grid-template-columns: 1fr; }
 
-    /* Featured — compact mobile layout */
+    /* Featured — tighter spacing */
     .featured { padding: 48px 16px; }
-    .featured-row { grid-template-columns: 1fr minmax(120px, 34%); gap: 18px; margin-bottom: 48px; align-items: start; }
-    .featured-text { align-items: center; text-align: center; }
-    .img-grid { width: min(140px, 32vw); }
+    .featured-row { gap: 24px; margin-bottom: 48px; align-items: start; }
     .img-grid img { aspect-ratio: 1 / 1; }
-    .featured-banner { grid-column: 1 / -1; width: 100%; aspect-ratio: 1 / 1; margin-top: 16px; }
+    .featured-banner { aspect-ratio: 1 / 1; margin-top: 16px; }
 
     /* Tighter padding on smaller screens */
     .hero { padding: 0 16px; }
@@ -237,20 +237,20 @@
     background-position: center center;
     background-repeat: no-repeat;
     opacity: 0;
-    will-change: opacity, transform;
+    transition: opacity 1.6s ease;
+    will-change: opacity;
     transform: scale(1.04);
-    filter: saturate(1.1) contrast(1.05) brightness(1.02);
-    transition: opacity 1.6s ease, transform 6s ease, filter 1.6s ease;
+    transition: opacity 1.6s ease, transform 6s ease;
   }
   .hero-slide.active {
     opacity: 1;
     transform: scale(1);
   }
-  /* Soft overlay for better text legibility and richer image color */
+  /* Dark + frosted overlay so text stays readable */
   .hero-overlay {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at top, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.32) 35%, rgba(255,255,255,0.60) 100%);
+    background: rgba(255,255,255,0.62);
     backdrop-filter: blur(1px);
     z-index: 1;
   }
@@ -315,14 +315,14 @@
   .featured-inner { max-width: 1100px; margin: 0 auto; }
   .featured-row { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: stretch; margin-bottom: 96px; }
   .featured-row:last-child { margin-bottom: 0; }
-  .featured-text { display: flex; flex-direction: column; justify-content: space-between; }
+  .featured-text { display: flex; flex-direction: column; }
   .featured-text h2 { font-size: clamp(24px, 3vw, 36px); font-weight: 300; letter-spacing: 0.04em; margin-bottom: 18px; }
   .featured-text p { font-size: 15px; color: #666; line-height: 1.8; }
   .img-grid { display: grid; grid-template-columns: 1fr; gap: 14px; width: 100%; justify-self: stretch; align-self: start; }
   .img-grid img { border-radius: 16px; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; height: auto; }
 
   /* Banner image shown below title+description in each featured row */
-  .featured-banner { border-radius: 16px; width: 100%; object-fit: cover; display: block; aspect-ratio: 4 / 3; height: auto; margin-top: 24px; }
+  .featured-banner { border-radius: 16px; width: 100%; object-fit: cover; display: block; aspect-ratio: 16 / 9; height: auto; margin-top: 24px; flex-grow: 1; }
 
   /* REVIEWS */
   .reviews { padding: 96px 24px; text-align: center; }
@@ -716,25 +716,25 @@
       <div class="featured-text">
         <h2>Cake Smash Photography</h2>
         <p>Fun and creative cake smash photography sessions with custom themes, outfits, milk bath shoots, and beautiful birthday memories for little ones.</p>
+        <img src="images/cakesmash3.jpg" alt="Cake Smash Photography" class="featured-banner">
       </div>
       <div class="img-grid">
         <img src="images/cakesmash1.jpg" alt="Cake Smash Photography 1">
         <img src="images/cakesmash2.jpg" alt="Cake Smash Photography 2">
       </div>
-      <img src="images/cakesmash3.jpg" alt="Cake Smash Photography" class="featured-banner">
     </div>
 
     <!-- Maternity -->
     <div class="featured-row">
-      <div class="featured-text">
-        <h2>Maternity Photography</h2>
-        <p>Elegant maternity photography sessions in studio or outdoors with beautiful backdrops, outfit options, and family-friendly packages.</p>
-      </div>
       <div class="img-grid">
         <img src="images/maternity1.jpg" alt="Maternity Photography 1">
         <img src="images/maternity2.png" alt="Maternity Photography 2">
       </div>
-      <img src="images/maternity3.png" alt="Maternity Photography" class="featured-banner">
+      <div class="featured-text">
+        <h2>Maternity Photography</h2>
+        <p>Elegant maternity photography sessions in studio or outdoors with beautiful backdrops, outfit options, and family-friendly packages.</p>
+        <img src="images/maternity3.png" alt="Maternity Photography" class="featured-banner">
+      </div>
     </div>
 
     <!-- Studio Photography -->
@@ -742,25 +742,25 @@
       <div class="featured-text">
         <h2>Studio Photography</h2>
         <p>Controlled lighting, premium backdrops, and a fully equipped studio space — ideal for portraits, product photography, fashion shoots, and creative concepts.</p>
+        <img src="images/studio3.png" alt="Studio Photography" class="featured-banner">
       </div>
       <div class="img-grid">
         <img src="images/studio1.png" alt="Studio Photography 1">
         <img src="images/studio2.png" alt="Studio Photography 2">
       </div>
-      <img src="images/studio3.png" alt="Studio Photography" class="featured-banner">
     </div>
 
     <!-- Outdoor Photography -->
     <div class="featured-row">
-      <div class="featured-text">
-        <h2>Outdoor Photography</h2>
-        <p>Natural light sessions in parks, gardens, and scenic locations across Johannesburg — perfect for families, couples, lifestyle shoots, and brand content that breathes.</p>
-      </div>
       <div class="img-grid">
         <img src="images/outdoor1.jpg" alt="Outdoor Photography 1">
         <img src="images/outdoor2.jpg" alt="Outdoor Photography 2">
       </div>
-      <img src="images/outdoor3.jpg" alt="Outdoor Photography" class="featured-banner">
+      <div class="featured-text">
+        <h2>Outdoor Photography</h2>
+        <p>Natural light sessions in parks, gardens, and scenic locations across Johannesburg — perfect for families, couples, lifestyle shoots, and brand content that breathes.</p>
+        <img src="images/outdoor3.jpg" alt="Outdoor Photography" class="featured-banner">
+      </div>
     </div>
 
   </div>
