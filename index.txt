@@ -185,12 +185,11 @@
 
     /* Featured — stack text + img-grid */
     .featured { padding: 64px 20px; }
-    .featured-row { grid-template-columns: 1fr; gap: 28px; margin-bottom: 64px; align-items: start; }
-    /* Always put text first on tablet too */
-    .featured-row .featured-text { order: 1; }
-    .featured-row .img-grid      { order: 2; }
-    .img-grid img { aspect-ratio: 4 / 3; }
-    .featured-banner { aspect-ratio: 4 / 3; margin-top: 14px; }
+    .featured-row { grid-template-columns: 1fr; gap: 32px; margin-bottom: 64px; align-items: start; }
+    .featured-row > *:first-child { order: 1; }
+    .featured-row > *:last-child  { order: 2; }
+    .img-grid img { aspect-ratio: 1 / 1; }
+    .featured-banner { aspect-ratio: 1 / 1; margin-top: 24px; }
 
     /* Reviews */
     .stars-row { gap: 16px; }
@@ -202,45 +201,11 @@
     .services { padding: 0 16px 56px; }
     .services-grid { grid-template-columns: 1fr; }
 
-    /* Featured — 3-column grid: text spans top, 3 images fill one row below */
+    /* Featured — tighter spacing */
     .featured { padding: 48px 16px; }
-    .featured-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-template-rows: auto auto;
-      gap: 6px;
-      margin-bottom: 48px;
-    }
-
-    /* Title + description spans all 3 columns, always in row 1 */
-    .featured-text {
-      grid-column: 1 / -1;
-      grid-row: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 6px;
-    }
-    .featured-text h2 { font-size: 22px; margin-bottom: 4px; }
-    .featured-text p  { font-size: 14px; }
-
-    /* img-grid becomes invisible — its 2 images become direct grid children */
-    .img-grid {
-      display: contents;
-    }
-
-    /* All 3 images auto-place into columns 1, 2, 3 in row 2 — perfectly aligned */
-    .featured-banner,
-    .img-grid img {
-      grid-row: 2;
-      width: 100%;
-      aspect-ratio: 3 / 4;
-      object-fit: cover;
-      border-radius: 10px;
-      display: block;
-      margin-top: 0;
-      min-width: 0;
-    }
+    .featured-row { gap: 24px; margin-bottom: 48px; align-items: start; }
+    .img-grid img { aspect-ratio: 1 / 1; }
+    .featured-banner { aspect-ratio: 1 / 1; margin-top: 16px; }
 
     /* Tighter padding on smaller screens */
     .hero { padding: 0 16px; }
