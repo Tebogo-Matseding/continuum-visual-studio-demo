@@ -186,8 +186,6 @@
     /* Featured — stack text + img-grid */
     .featured { padding: 64px 20px; }
     .featured-row { grid-template-columns: 1fr; gap: 32px; margin-bottom: 64px; }
-    .featured-row > *:first-child { order: 1; }
-    .featured-row > *:last-child  { order: 2; }
     .img-grid img { aspect-ratio: 1 / 1; }
     .featured-banner { aspect-ratio: 1 / 1; }
 
@@ -201,15 +199,13 @@
     .services { padding: 0 16px 56px; }
     .services-grid { grid-template-columns: 1fr; }
 
-    /* Featured — single-column mobile layout */
+    /* Featured — compact mobile layout */
     .featured { padding: 48px 16px; }
-    .featured-row { grid-template-columns: 1fr; gap: 24px; margin-bottom: 48px; }
-    .featured-row > *:first-child { order: 1; }
-    .featured-row > *:last-child { order: 2; }
+    .featured-row { grid-template-columns: 1fr minmax(120px, 34%); gap: 18px; margin-bottom: 48px; align-items: start; }
     .featured-text { align-items: center; text-align: center; }
-    .img-grid { width: 100%; }
-    .img-grid img, .featured-banner { width: 100%; aspect-ratio: 1 / 1; }
-    .featured-banner { margin-top: 16px; }
+    .img-grid { width: min(140px, 32vw); }
+    .img-grid img { aspect-ratio: 1 / 1; }
+    .featured-banner { grid-column: 1 / -1; width: 100%; aspect-ratio: 1 / 1; margin-top: 16px; }
 
     /* Tighter padding on smaller screens */
     .hero { padding: 0 16px; }
@@ -720,12 +716,12 @@
       <div class="featured-text">
         <h2>Cake Smash Photography</h2>
         <p>Fun and creative cake smash photography sessions with custom themes, outfits, milk bath shoots, and beautiful birthday memories for little ones.</p>
-        <img src="images/cakesmash3.jpg" alt="Cake Smash Photography" class="featured-banner">
       </div>
       <div class="img-grid">
         <img src="images/cakesmash1.jpg" alt="Cake Smash Photography 1">
         <img src="images/cakesmash2.jpg" alt="Cake Smash Photography 2">
       </div>
+      <img src="images/cakesmash3.jpg" alt="Cake Smash Photography" class="featured-banner">
     </div>
 
     <!-- Maternity -->
@@ -733,12 +729,12 @@
       <div class="featured-text">
         <h2>Maternity Photography</h2>
         <p>Elegant maternity photography sessions in studio or outdoors with beautiful backdrops, outfit options, and family-friendly packages.</p>
-        <img src="images/maternity3.png" alt="Maternity Photography" class="featured-banner">
       </div>
       <div class="img-grid">
         <img src="images/maternity1.jpg" alt="Maternity Photography 1">
         <img src="images/maternity2.png" alt="Maternity Photography 2">
       </div>
+      <img src="images/maternity3.png" alt="Maternity Photography" class="featured-banner">
     </div>
 
     <!-- Studio Photography -->
@@ -746,12 +742,12 @@
       <div class="featured-text">
         <h2>Studio Photography</h2>
         <p>Controlled lighting, premium backdrops, and a fully equipped studio space — ideal for portraits, product photography, fashion shoots, and creative concepts.</p>
-        <img src="images/studio3.png" alt="Studio Photography" class="featured-banner">
       </div>
       <div class="img-grid">
         <img src="images/studio1.png" alt="Studio Photography 1">
         <img src="images/studio2.png" alt="Studio Photography 2">
       </div>
+      <img src="images/studio3.png" alt="Studio Photography" class="featured-banner">
     </div>
 
     <!-- Outdoor Photography -->
@@ -759,12 +755,12 @@
       <div class="featured-text">
         <h2>Outdoor Photography</h2>
         <p>Natural light sessions in parks, gardens, and scenic locations across Johannesburg — perfect for families, couples, lifestyle shoots, and brand content that breathes.</p>
-        <img src="images/outdoor3.jpg" alt="Outdoor Photography" class="featured-banner">
       </div>
       <div class="img-grid">
         <img src="images/outdoor1.jpg" alt="Outdoor Photography 1">
         <img src="images/outdoor2.jpg" alt="Outdoor Photography 2">
       </div>
+      <img src="images/outdoor3.jpg" alt="Outdoor Photography" class="featured-banner">
     </div>
 
   </div>
