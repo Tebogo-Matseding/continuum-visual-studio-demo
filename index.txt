@@ -194,6 +194,12 @@
 
     /* Reviews */
     .stars-row { gap: 16px; }
+
+    /* Cake Smash — hide img-grid images 2 & 3 on mobile */
+    .featured-row--cakesmash .img-grid,
+    .featured-row--maternity .img-grid,
+    .featured-row--studio .img-grid,
+    .featured-row--outdoor .img-grid { display: none; }
   }
 
   /* RESPONSIVE — MOBILE (480px) */
@@ -246,6 +252,12 @@
     .hero { padding: 0 16px; }
     .about { padding: 64px 16px; }
     .reviews { padding: 64px 16px; }
+
+    /* Cake Smash — keep img-grid hidden at this breakpoint too */
+    .featured-row--cakesmash .img-grid,
+    .featured-row--maternity .img-grid,
+    .featured-row--studio .img-grid,
+    .featured-row--outdoor .img-grid { display: none !important; }
   }
 
   /* HERO */
@@ -747,7 +759,7 @@
   <div class="featured-inner">
 
     <!-- Cake Smash -->
-    <div class="featured-row">
+    <div class="featured-row featured-row--cakesmash">
       <div class="featured-text">
         <h2>Cake Smash Photography</h2>
         <p>Fun and creative cake smash photography sessions with custom themes, outfits, milk bath shoots, and beautiful birthday memories for little ones.</p>
@@ -760,7 +772,7 @@
     </div>
 
     <!-- Maternity -->
-    <div class="featured-row">
+    <div class="featured-row featured-row--maternity">
       <div class="img-grid">
         <img src="images/maternity1.jpg" alt="Maternity Photography 1">
         <img src="images/maternity2.png" alt="Maternity Photography 2">
@@ -773,7 +785,7 @@
     </div>
 
     <!-- Studio Photography -->
-    <div class="featured-row">
+    <div class="featured-row featured-row--studio">
       <div class="featured-text">
         <h2>Studio Photography</h2>
         <p>Controlled lighting, premium backdrops, and a fully equipped studio space — ideal for portraits, product photography, fashion shoots, and creative concepts.</p>
@@ -786,7 +798,7 @@
     </div>
 
     <!-- Outdoor Photography -->
-    <div class="featured-row">
+    <div class="featured-row featured-row--outdoor">
       <div class="img-grid">
         <img src="images/outdoor1.jpg" alt="Outdoor Photography 1">
         <img src="images/outdoor2.jpg" alt="Outdoor Photography 2">
