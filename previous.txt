@@ -255,9 +255,8 @@
     .about { padding: 64px 16px; }
     .reviews { padding: 64px 16px; }
 
-    /* Smaller hero dots on mobile */
-    .hero-dot { width: 14px; }
-    .hero-dot.active { width: 22px; }
+    /* Hide hero dots on mobile */
+    .hero-dots { display: none; }
 
     /* Cake Smash — keep img-grid hidden at this breakpoint too */
     .featured-row--cakesmash .img-grid,
