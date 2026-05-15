@@ -255,9 +255,6 @@
     .about { padding: 64px 16px; }
     .reviews { padding: 64px 16px; }
 
-    /* Hide hero dots on mobile */
-    .hero-dots { display: none; }
-
     /* Cake Smash — keep img-grid hidden at this breakpoint too */
     .featured-row--cakesmash .img-grid,
     .featured-row--maternity .img-grid,
@@ -328,6 +325,9 @@
     gap: 6px;
     z-index: 2;
     align-items: center;
+  }
+  @media (max-width: 768px) {
+    .hero-dots { display: none !important; }
   }
   .hero-dot {
     width: 28px; height: 2px;

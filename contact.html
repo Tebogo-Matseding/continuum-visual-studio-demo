@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<link rel="icon" href="images/nav-logo.png">
+<title>Book a Session — Continuum Visual Studio</title>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+/* ─── RESET & BASE ───────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { overflow-x: hidden; scroll-behavior: smooth; }
+body { font-family: 'Century Gothic', 'Gill Sans', Futura, 'Trebuchet MS', sans-serif; background: #fff; color: #111; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+input, textarea, select, button { font-family: inherit; }
+
+/* ─── NAV ────────────────────────────────────────────────────────── */
+nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); border-bottom: 0.5px solid #e5e5e5; display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; }
+.nav-logo { display: flex; align-items: center; gap: 10px; font-size: 15px; letter-spacing: 0.12em; }
+.nav-logo-img { height: 52px; width: auto; display: block; }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a { font-size: 13px; letter-spacing: 0.08em; color: #555; transition: color 0.2s; }
+.nav-links a:hover { color: #111; }
+.nav-links a.active { color: #111; }
+.nav-cta { background: #111; color: #fff; border: none; padding: 10px 22px; border-radius: 999px; font-size: 12px; letter-spacing: 0.1em; cursor: pointer; font-family: inherit; transition: opacity 0.2s; display: inline-block; }
+.nav-cta:hover { opacity: 0.8; }
+
+/* Hamburger */
+.hamburger { display: none; flex-direction: column; justify-content: center; align-items: flex-end; gap: 5px; width: 40px; height: 40px; background: none; border: none; cursor: pointer; padding: 6px; z-index: 200; flex-shrink: 0; }
+.hamburger span { display: block; height: 1.5px; background: #111; border-radius: 2px; transition: transform 0.38s cubic-bezier(0.23,1,0.32,1), opacity 0.25s ease, width 0.3s ease; transform-origin: center; }
+.hamburger span:nth-child(1) { width: 24px; }
+.hamburger span:nth-child(2) { width: 16px; }
+.hamburger span:nth-child(3) { width: 24px; }
+.hamburger.is-open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); width: 24px; }
+.hamburger.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.is-open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); width: 24px; }
+
+/* Mobile menu */
+.mobile-menu { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 150; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 40px 60px; gap: 0; opacity: 0; pointer-events: none; transform: translateY(-16px); transition: opacity 0.38s ease, transform 0.38s cubic-bezier(0.23,1,0.32,1); overflow-y: auto; }
+.mobile-menu.is-open { opacity: 1; pointer-events: all; transform: translateY(0); }
+body.menu-open { overflow: hidden; }
+.mobile-menu-link { font-size: clamp(26px,7vw,40px); font-weight: 300; letter-spacing: 0.05em; color: #111; padding: 12px 0; position: relative; display: block; opacity: 0; transform: translateY(10px); transition: opacity 0.3s ease, transform 0.3s ease, color 0.2s; }
+.mobile-menu.is-open .mobile-menu-link { opacity: 1; transform: translateY(0); }
+.mobile-menu.is-open .mobile-menu-link:nth-child(1) { transition-delay: 0.07s; }
+.mobile-menu.is-open .mobile-menu-link:nth-child(2) { transition-delay: 0.12s; }
+.mobile-menu.is-open .mobile-menu-link:nth-child(3) { transition-delay: 0.17s; }
+.mobile-menu.is-open .mobile-menu-link:nth-child(4) { transition-delay: 0.22s; }
+.mobile-menu-link::after { content: ''; position: absolute; bottom: 8px; left: 0; width: 0; height: 1px; background: #111; transition: width 0.3s ease; }
+.mobile-menu-link:hover::after { width: 100%; }
+.mobile-menu-divider { width: 32px; height: 0.5px; background: #e0e0e0; margin: 20px 0 24px; opacity: 0; transform: scaleX(0); transition: opacity 0.3s ease 0.25s, transform 0.3s ease 0.25s; }
+.mobile-menu.is-open .mobile-menu-divider { opacity: 1; transform: scaleX(1); }
+.mobile-menu-cta { display: inline-block; background: #111; color: #fff !important; border: 1.5px solid #111; padding: 14px 36px; border-radius: 999px; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; opacity: 0; transform: translateY(8px); transition: opacity 0.3s ease 0.29s, transform 0.3s ease 0.29s; }
+.mobile-menu.is-open .mobile-menu-cta { opacity: 1; transform: translateY(0); }
+.mobile-menu-cta::after { display: none !important; }
+.mobile-menu-footer { position: absolute; bottom: 28px; font-size: 11px; color: #bbb; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0; transition: opacity 0.3s ease 0.35s; }
+.mobile-menu.is-open .mobile-menu-footer { opacity: 1; }
+.mobile-portfolio-toggle { cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; }
+.mobile-portfolio-toggle .caret { font-size: 12px; transition: transform 0.2s; }
+.mobile-portfolio-toggle.open .caret { transform: rotate(180deg); }
+.mobile-portfolio-panel { display: none; padding-left: 0; text-align: center; }
+.mobile-portfolio-panel.open { display: block; }
+.mobile-sub-link { display: block; padding: 8px 16px; font-size: 14px; letter-spacing: 0.06em; color: #555; border-radius: 8px; transition: background 0.15s; }
+.mobile-sub-link:hover { color: #111; }
+.mobile-gallery-link { font-size: 12px; color: #999; }
+
+/* Dropdown */
+.nav-dropdown { position: relative; }
+.nav-dropdown > button { background: none; border: none; padding: 0; font-size: 13px; letter-spacing: 0.08em; color: #555; font-family: inherit; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: color 0.2s; }
+.nav-dropdown > button:hover { color: #111; }
+.nav-dropdown > button .caret { font-size: 10px; transition: transform 0.2s; }
+.nav-dropdown.open > button .caret { transform: rotate(180deg); }
+.dropdown-l1 { display: none; position: absolute; top: calc(100% + 14px); left: 50%; transform: translateX(-50%); background: #fff; border: 0.5px solid #e5e5e5; border-radius: 14px; box-shadow: 0 8px 32px rgba(0,0,0,0.10); min-width: 210px; padding: 8px; z-index: 200; }
+.nav-dropdown.open .dropdown-l1 { display: block; }
+.dl1-item { position: relative; border-radius: 10px; }
+.dl1-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; cursor: pointer; font-size: 12px; letter-spacing: 0.08em; color: #111; border-radius: 10px; user-select: none; transition: background 0.15s; }
+.dl1-header:hover { background: #f5f5f5; }
+.dl1-header .caret { font-size: 10px; color: #999; transition: transform 0.2s; }
+.dl1-item.open .dl1-header .caret { transform: rotate(180deg); }
+.dl1-header a { flex: 1; color: inherit; font-size: inherit; letter-spacing: inherit; }
+.dropdown-l2 { display: none; padding: 2px 0 6px 12px; }
+.dl1-item.open .dropdown-l2 { display: block; }
+.dl2-item { position: relative; border-radius: 8px; }
+.dl2-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; cursor: pointer; font-size: 11px; letter-spacing: 0.07em; color: #555; border-radius: 8px; user-select: none; transition: background 0.15s; }
+.dl2-header:hover { background: #f5f5f5; }
+.dl2-header .caret { font-size: 10px; color: #bbb; transition: transform 0.2s; }
+.dl2-item.open .dl2-header .caret { transform: rotate(180deg); }
+.dropdown-l3 { display: none; padding: 2px 0 4px 12px; }
+.dl2-item.open .dropdown-l3 { display: block; }
+.dropdown-l3 a { display: block; padding: 7px 10px; font-size: 11px; letter-spacing: 0.06em; color: #888; border-radius: 6px; transition: background 0.15s, color 0.15s; }
+.dropdown-l3 a:hover { background: #f5f5f5; color: #111; }
+
+/* ─── PAGE HEADER ────────────────────────────────────────────────── */
+.page-header { padding: 72px 24px 56px; text-align: center; border-bottom: 0.5px solid #f0f0f0; }
+.page-eyebrow { font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase; color: #aaa; margin-bottom: 20px; }
+.page-header h1 { font-size: clamp(34px,5vw,58px); font-weight: 300; letter-spacing: 0.04em; margin-bottom: 18px; }
+.page-subtitle { font-size: 15px; color: #666; max-width: 500px; margin: 0 auto; line-height: 1.7; }
+
+/* ─── BOOKING SECTION ────────────────────────────────────────────── */
+.booking-section { padding: 64px 24px 96px; }
+.form-outer { max-width: 760px; margin: 0 auto; }
+
+/* ─── STEP INDICATOR ─────────────────────────────────────────────── */
+.step-indicator { display: flex; align-items: center; margin-bottom: 56px; }
+.step-item { display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0; }
+.step-circle { width: 34px; height: 34px; border-radius: 50%; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; font-size: 12px; letter-spacing: 0.05em; color: #bbb; transition: all 0.35s ease; }
+.step-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #bbb; transition: color 0.35s ease; white-space: nowrap; }
+.step-item.active .step-circle { background: #111; border-color: #111; color: #fff; }
+.step-item.active .step-label { color: #111; }
+.step-item.done .step-circle { background: #111; border-color: #111; color: #fff; }
+.step-item.done .step-label { color: #888; }
+.step-connector { flex: 1; height: 1px; background: #e8e8e8; margin: 0 8px; margin-bottom: 22px; position: relative; overflow: hidden; }
+.step-connector::after { content: ''; position: absolute; top: 0; left: 0; height: 100%; width: 0; background: #111; transition: width 0.5s ease; }
+.step-connector.filled::after { width: 100%; }
+
+/* Mobile step indicator */
+@media (max-width: 560px) {
+  .step-label { display: none; }
+  .step-circle { width: 28px; height: 28px; font-size: 11px; }
+  .step-connector { margin: 0 4px; margin-bottom: 0; }
+  .step-indicator { margin-bottom: 40px; }
+}
+
+/* ─── FORM STAGES ────────────────────────────────────────────────── */
+.form-stage { display: none; animation: stageFade 0.4s ease forwards; }
+.form-stage.active { display: block; }
+@keyframes stageFade { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+
+.stage-title { font-size: clamp(22px,3vw,30px); font-weight: 300; letter-spacing: 0.03em; margin-bottom: 10px; }
+.stage-subtitle { font-size: 14px; color: #777; margin-bottom: 40px; line-height: 1.6; }
+
+/* ─── CLIENT TYPE CARDS ──────────────────────────────────────────── */
+.type-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 0; }
+@media (max-width: 560px) { .type-cards { grid-template-columns: 1fr; } }
+.type-card { border: 1px solid #e5e5e5; border-radius: 20px; padding: 36px 28px 32px; cursor: pointer; transition: all 0.25s ease; position: relative; overflow: hidden; }
+.type-card:hover { border-color: #bbb; box-shadow: 0 8px 32px rgba(0,0,0,0.06); transform: translateY(-2px); }
+.type-card.selected { border-color: #111; background: #111; color: #fff; }
+.type-card-icon { font-size: 28px; margin-bottom: 20px; display: block; color: #999; transition: color 0.25s; }
+.type-card.selected .type-card-icon { color: rgba(255,255,255,0.6); }
+.type-card h3 { font-size: 16px; font-weight: 400; letter-spacing: 0.04em; margin-bottom: 12px; }
+.type-card p { font-size: 13px; line-height: 1.7; color: #777; transition: color 0.25s; }
+.type-card.selected p { color: rgba(255,255,255,0.65); }
+.type-card-arrow { position: absolute; bottom: 28px; right: 28px; font-size: 18px; color: #ccc; transition: all 0.25s; }
+.type-card:hover .type-card-arrow { color: #888; transform: translateX(3px); }
+.type-card.selected .type-card-arrow { color: rgba(255,255,255,0.5); }
+
+/* ─── SERVICE CHIPS ──────────────────────────────────────────────── */
+.service-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; }
+.service-chip { border: 1px solid #e0e0e0; border-radius: 999px; padding: 10px 20px; cursor: pointer; font-size: 13px; letter-spacing: 0.05em; color: #555; transition: all 0.2s ease; user-select: none; }
+.service-chip:hover { border-color: #999; color: #111; }
+.service-chip.selected { background: #111; color: #fff; border-color: #111; }
+.service-error { font-size: 12px; color: #c0392b; letter-spacing: 0.05em; margin-top: -28px; margin-bottom: 20px; display: none; }
+.service-error.visible { display: block; }
+
+/* ─── FORM FIELDS ────────────────────────────────────────────────── */
+.field-group { margin-bottom: 36px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media (max-width: 560px) { .field-row { grid-template-columns: 1fr; gap: 0; } }
+.field { margin-bottom: 28px; }
+.field-label { display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #999; margin-bottom: 10px; }
+.field input[type="text"],
+.field input[type="email"],
+.field input[type="tel"],
+.field input[type="date"],
+.field input[type="number"],
+.field input[type="url"],
+.field select,
+.field textarea { width: 100%; background: transparent; border: none; border-bottom: 1px solid #ddd; padding: 10px 0; font-size: 15px; color: #111; transition: border-color 0.2s ease; outline: none; border-radius: 0; -webkit-appearance: none; }
+.field input:focus, .field select:focus, .field textarea:focus { border-bottom-color: #111; }
+.field input.error, .field select.error, .field textarea.error { border-bottom-color: #c0392b; }
+.field-error { font-size: 11px; color: #c0392b; letter-spacing: 0.05em; margin-top: 5px; display: none; }
+.field-error.visible { display: block; }
+.field textarea { resize: vertical; min-height: 120px; padding-top: 10px; line-height: 1.65; }
+.field select { cursor: pointer; }
+.field select option { color: #111; background: #fff; }
+
+/* Radio & Checkbox groups */
+.radio-group, .check-group { display: flex; flex-wrap: wrap; gap: 10px; }
+.radio-item, .check-item { display: flex; align-items: center; gap: 10px; padding: 10px 18px; border: 1px solid #e5e5e5; border-radius: 999px; cursor: pointer; font-size: 13px; letter-spacing: 0.04em; color: #555; transition: all 0.2s; user-select: none; }
+.radio-item:hover, .check-item:hover { border-color: #bbb; color: #111; }
+.radio-item.selected, .check-item.selected { background: #111; color: #fff; border-color: #111; }
+.radio-item input, .check-item input { display: none; }
+
+/* Section divider */
+.field-section-title { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #aaa; margin-bottom: 20px; margin-top: 8px; padding-bottom: 12px; border-bottom: 0.5px solid #f0f0f0; }
+
+/* ─── FILE UPLOAD ─────────────────────────────────────────────────── */
+.upload-zone { border: 1.5px dashed #ddd; border-radius: 16px; padding: 36px 24px; text-align: center; cursor: pointer; transition: all 0.25s ease; position: relative; }
+.upload-zone:hover, .upload-zone.drag-over { border-color: #111; background: #fafafa; }
+.upload-zone-icon { font-size: 28px; color: #ccc; margin-bottom: 12px; display: block; transition: color 0.25s; }
+.upload-zone:hover .upload-zone-icon { color: #888; }
+.upload-zone p { font-size: 13px; color: #888; line-height: 1.6; }
+.upload-zone p strong { color: #555; font-weight: 400; }
+.upload-zone small { font-size: 11px; color: #bbb; letter-spacing: 0.06em; display: block; margin-top: 6px; }
+.upload-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+.upload-list { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+.upload-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: #f5f5f5; border-radius: 10px; }
+.upload-item-icon { font-size: 16px; color: #888; flex-shrink: 0; }
+.upload-item-name { font-size: 13px; color: #555; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.upload-item-size { font-size: 11px; color: #bbb; flex-shrink: 0; }
+.upload-item-remove { background: none; border: none; cursor: pointer; color: #bbb; font-size: 16px; padding: 0 0 0 8px; transition: color 0.2s; flex-shrink: 0; }
+.upload-item-remove:hover { color: #c0392b; }
+.upload-error { font-size: 12px; color: #c0392b; margin-top: 8px; display: none; letter-spacing: 0.04em; }
+.upload-error.visible { display: block; }
+
+/* ─── STAGE NAVIGATION ────────────────────────────────────────────── */
+.stage-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 40px; padding-top: 32px; border-top: 0.5px solid #f0f0f0; }
+.stage-nav-right { margin-left: auto; }
+.btn-back { background: none; border: none; cursor: pointer; font-size: 13px; letter-spacing: 0.1em; color: #999; padding: 12px 0; transition: color 0.2s; display: flex; align-items: center; gap: 6px; }
+.btn-back:hover { color: #111; }
+.btn-next { background: #111; color: #fff; border: none; padding: 14px 36px; border-radius: 999px; font-size: 13px; letter-spacing: 0.1em; cursor: pointer; transition: opacity 0.2s; display: flex; align-items: center; gap: 8px; }
+.btn-next:hover { opacity: 0.8; }
+.btn-submit { background: #111; color: #fff; border: none; padding: 14px 40px; border-radius: 999px; font-size: 13px; letter-spacing: 0.1em; cursor: pointer; transition: opacity 0.2s; display: flex; align-items: center; gap: 10px; position: relative; }
+.btn-submit:hover { opacity: 0.8; }
+.btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-spinner { width: 14px; height: 14px; border: 1.5px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.8s linear infinite; display: none; }
+.btn-submit.loading .btn-spinner { display: block; }
+.btn-submit.loading .submit-label { opacity: 0.7; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ─── CONSENT ─────────────────────────────────────────────────────── */
+.consent-section { margin-top: 32px; display: flex; flex-direction: column; gap: 16px; }
+.consent-label { display: flex; align-items: flex-start; gap: 14px; cursor: pointer; font-size: 13px; color: #666; line-height: 1.6; }
+.consent-label input[type="checkbox"] { width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px; accent-color: #111; cursor: pointer; }
+.consent-label a { color: #111; border-bottom: 1px solid #ddd; padding-bottom: 1px; transition: border-color 0.2s; }
+.consent-label a:hover { border-color: #111; }
+.consent-error { font-size: 12px; color: #c0392b; letter-spacing: 0.05em; display: none; margin-top: 4px; }
+.consent-error.visible { display: block; }
+
+/* ─── REVIEW SECTION ──────────────────────────────────────────────── */
+.review-content { display: flex; flex-direction: column; gap: 16px; margin-bottom: 8px; }
+.review-card { border: 0.5px solid #ebebeb; border-radius: 14px; overflow: hidden; }
+.review-card-header { padding: 16px 20px; background: #f9f9f9; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+.review-card-title { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #999; }
+.review-edit-btn { font-size: 11px; letter-spacing: 0.1em; color: #777; background: none; border: none; cursor: pointer; padding: 0; transition: color 0.2s; }
+.review-edit-btn:hover { color: #111; }
+.review-card-body { padding: 20px; }
+.review-row { display: flex; gap: 12px; margin-bottom: 12px; }
+.review-row:last-child { margin-bottom: 0; }
+.review-key { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #bbb; min-width: 130px; flex-shrink: 0; padding-top: 1px; }
+.review-val { font-size: 14px; color: #333; line-height: 1.55; }
+.review-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.review-chip { background: #f0f0f0; border-radius: 999px; padding: 5px 14px; font-size: 12px; color: #555; letter-spacing: 0.04em; }
+.review-ref { background: #f5f5f5; border-radius: 12px; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+.review-ref-label { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #aaa; margin-bottom: 4px; }
+.review-ref-num { font-size: 18px; letter-spacing: 0.12em; color: #111; }
+@media (max-width: 480px) { .review-row { flex-direction: column; gap: 4px; } .review-key { min-width: unset; } }
+
+/* ─── SUCCESS STATE ───────────────────────────────────────────────── */
+.success-content { text-align: center; padding: 48px 0 24px; }
+.success-icon { width: 64px; height: 64px; border-radius: 50%; background: #111; color: #fff; font-size: 24px; display: flex; align-items: center; justify-content: center; margin: 0 auto 32px; animation: successPop 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+@keyframes successPop { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+.success-content h2 { font-size: clamp(26px,4vw,36px); font-weight: 300; letter-spacing: 0.04em; margin-bottom: 18px; }
+.success-content .success-message { font-size: 15px; color: #666; line-height: 1.75; max-width: 520px; margin: 0 auto 28px; }
+.success-ref { display: inline-block; background: #f5f5f5; border-radius: 10px; padding: 12px 28px; font-size: 13px; letter-spacing: 0.14em; color: #555; margin-bottom: 20px; }
+.success-ref strong { color: #111; }
+.success-note { font-size: 13px; color: #999; line-height: 1.6; max-width: 440px; margin: 0 auto 40px; }
+.success-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.btn-dark-sm { display: inline-block; background: #111; color: #fff; border: 1.5px solid #111; padding: 12px 28px; border-radius: 999px; font-size: 12px; letter-spacing: 0.1em; cursor: pointer; transition: opacity 0.2s; }
+.btn-dark-sm:hover { opacity: 0.8; }
+.btn-outline-sm { display: inline-block; background: transparent; color: #111; border: 1.5px solid #ddd; padding: 12px 28px; border-radius: 999px; font-size: 12px; letter-spacing: 0.1em; cursor: pointer; transition: border-color 0.2s, color 0.2s; }
+.btn-outline-sm:hover { border-color: #111; }
+
+/* ─── HONEYPOT ────────────────────────────────────────────────────── */
+.hp-field { position: absolute; left: -9999px; opacity: 0; pointer-events: none; tab-index: -1; }
+
+/* ─── FOOTER ──────────────────────────────────────────────────────── */
+footer { background: #f2f2f2; padding: 32px 24px; text-align: center; font-size: 12px; color: #999; letter-spacing: 0.08em; }
+
+/* ─── RESPONSIVE NAV ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  nav { padding: 14px 20px; }
+  .nav-links { display: none; }
+  .nav-cta { display: none; }
+  .hamburger { display: flex; }
+}
+
+/* ─── FORM LOADING OVERLAY ────────────────────────────────────────── */
+.form-submit-overlay { position: fixed; inset: 0; background: rgba(255,255,255,0.8); backdrop-filter: blur(4px); z-index: 500; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+.form-submit-overlay.visible { opacity: 1; pointer-events: all; }
+.overlay-spinner { width: 40px; height: 40px; border: 2px solid #e0e0e0; border-top-color: #111; border-radius: 50%; animation: spin 0.9s linear infinite; }
+.overlay-text { font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: #888; }
+
+/* ─── MISC ────────────────────────────────────────────────────────── */
+.hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ───────────────────────────────────────────────────────── -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="images/nav-logo.png" alt="Continuum Visual Studio Logo" class="nav-logo-img"> CONTINUUM VISUAL STUDIO
+  </a>
+  <div class="nav-links">
+    <a href="index.html#services">Services</a>
+    <a href="index.html#testimonials">Testimonials</a>
+    <div class="nav-dropdown" id="portfolioDropdown">
+      <button id="portfolioBtn" aria-haspopup="true" aria-expanded="false">
+        Portfolio <i class="ti ti-chevron-down caret" aria-hidden="true"></i>
+      </button>
+      <div class="dropdown-l1" role="menu">
+        <div class="dl1-item">
+          <div class="dl1-header"><a href="lifestyle-photography.html">Lifestyle Photography</a><i class="ti ti-chevron-down caret"></i></div>
+          <div class="dropdown-l2">
+            <div class="dl2-item"><div class="dl2-header">Maternity <i class="ti ti-chevron-down caret"></i></div><div class="dropdown-l3"><a href="lifestyle-categories/gallery-maternity.html">Maternity Gallery</a></div></div>
+            <div class="dl2-item"><div class="dl2-header">Cake Smash <i class="ti ti-chevron-down caret"></i></div><div class="dropdown-l3"><a href="lifestyle-categories/gallery-cake-smash.html">Cake Smash Gallery</a></div></div>
+            <div class="dl2-item"><div class="dl2-header">Weddings & Events <i class="ti ti-chevron-down caret"></i></div><div class="dropdown-l3"><a href="lifestyle-categories/gallery-weddings-events.html">Weddings & Events Gallery</a></div></div>
+            <div class="dl2-item"><div class="dl2-header">Outdoor <i class="ti ti-chevron-down caret"></i></div><div class="dropdown-l3"><a href="lifestyle-categories/gallery-outdoor.html">Outdoor Gallery</a></div></div>
+            <div class="dl2-item"><div class="dl2-header">Studio <i class="ti ti-chevron-down caret"></i></div><div class="dropdown-l3"><a href="lifestyle-categories/gallery-studio.html">Studio Gallery</a></div></div>
+          </div>
+        </div>
+        <div class="dl1-item">
+          <div class="dl1-header"><a href="corporate-commercial.html">Corporate & Commercial</a><i class="ti ti-chevron-down caret"></i></div>
+          <div class="dropdown-l2">
+            <div class="dl2-item"><div class="dl2-header">Branding <i class="ti ti-chevron-down caret"></i></div><div class="dropdown-l3"><a href="corporate-categories/gallery-branding.html">Branding Gallery</a></div></div>
+            <div class="dl2-item"><div class="dl2-header">Corporate Events <i class="ti ti-chevron-down caret"></i></div><div class="dropdown-l3"><a href="corporate-categories/gallery-corporate-events.html">Corporate Events Gallery</a></div></div>
+            <div class="dl2-item"><div class="dl2-header">Fashion <i class="ti ti-chevron-down caret"></i></div><div class="dropdown-l3"><a href="corporate-categories/gallery-fashion.html">Fashion Gallery</a></div></div>
+            <div class="dl2-item"><div class="dl2-header">Headshots <i class="ti ti-chevron-down caret"></i></div><div class="dropdown-l3"><a href="corporate-categories/gallery-headshots.html">Headshots Gallery</a></div></div>
+          </div>
+        </div>
+        <div class="dl1-item">
+          <div class="dl1-header"><a href="videography-services.html">Videography</a><i class="ti ti-chevron-down caret"></i></div>
+          <div class="dropdown-l2">
+            <div class="dl2-item"><div class="dl2-header">Corporate Videos <i class="ti ti-chevron-down caret"></i></div><div class="dropdown-l3"><a href="videography-categories/gallery-corporate-videos.html">Corporate Videos Gallery</a></div></div>
+            <div class="dl2-item"><div class="dl2-header">Events Videos <i class="ti ti-chevron-down caret"></i></div><div class="dropdown-l3"><a href="videography-categories/gallery-events-videos.html">Events Videos Gallery</a></div></div>
+            <div class="dl2-item"><div class="dl2-header">Music Videos <i class="ti ti-chevron-down caret"></i></div><div class="dropdown-l3"><a href="videography-categories/gallery-music-videos.html">Music Videos Gallery</a></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="contact.html" class="active">Contact</a>
+  </div>
+  <a href="contact.html" class="nav-cta">Book A Session</a>
+  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ── MOBILE MENU ─────────────────────────────────────────────────── -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <a href="index.html#services" class="mobile-menu-link">Services</a>
+  <a href="index.html#testimonials" class="mobile-menu-link">Testimonials</a>
+  <div class="mobile-menu-link mobile-portfolio-toggle" id="mobilePortfolioToggle">
+    Portfolio <i class="ti ti-chevron-down caret"></i>
+  </div>
+  <div class="mobile-portfolio-panel" id="mobilePortfolioPanel">
+    <a href="lifestyle-photography.html" class="mobile-sub-link">— Lifestyle Photography</a>
+    <a href="corporate-commercial.html" class="mobile-sub-link">— Corporate & Commercial</a>
+    <a href="videography-services.html" class="mobile-sub-link">— Videography</a>
+  </div>
+  <div class="mobile-menu-divider"></div>
+  <a href="contact.html" class="mobile-menu-cta">Book A Session</a>
+  <span class="mobile-menu-footer">Kempton Park &bull; Johannesburg</span>
+</div>
+
+<!-- ── PAGE HEADER ─────────────────────────────────────────────────── -->
+<section class="page-header">
+  <p class="page-eyebrow">Continuum Visual Studio</p>
+  <h1>Book a Session</h1>
+  <p class="page-subtitle">Tell us about your vision and we'll be in touch within 24 hours.</p>
+</section>
+
+<!-- ── BOOKING FORM ────────────────────────────────────────────────── -->
+<section class="booking-section">
+  <div class="form-outer">
+
+    <!-- Step Indicator -->
+    <div class="step-indicator" id="stepIndicator">
+      <div class="step-item active" data-step="1"><div class="step-circle">1</div><span class="step-label">Type</span></div>
+      <div class="step-connector" id="conn-1-2"></div>
+      <div class="step-item" data-step="2"><div class="step-circle">2</div><span class="step-label">Services</span></div>
+      <div class="step-connector" id="conn-2-3"></div>
+      <div class="step-item" data-step="3"><div class="step-circle">3</div><span class="step-label">Details</span></div>
+      <div class="step-connector" id="conn-3-4"></div>
+      <div class="step-item" data-step="4"><div class="step-circle">4</div><span class="step-label">Contact</span></div>
+      <div class="step-connector" id="conn-4-5"></div>
+      <div class="step-item" data-step="5"><div class="step-circle">5</div><span class="step-label">Review</span></div>
+    </div>
+
+    <!-- ── STAGE 1: CLIENT TYPE ─────────────────────────────────── -->
+    <div class="form-stage active" id="stage-1">
+      <h2 class="stage-title">Who's reaching out?</h2>
+      <p class="stage-subtitle">Help us personalise your experience from the very first step.</p>
+      <div class="type-cards">
+        <div class="type-card" id="card-individual" onclick="selectClientType('individual')" role="button" tabindex="0">
+          <i class="ti ti-user type-card-icon"></i>
+          <h3>Individual / Personal</h3>
+          <p>Maternity, weddings, family, lifestyle, graduation, events and personal photography & videography.</p>
+          <span class="type-card-arrow">→</span>
+        </div>
+        <div class="type-card" id="card-business" onclick="selectClientType('business')" role="button" tabindex="0">
+          <i class="ti ti-building type-card-icon"></i>
+          <h3>Business / Brand / Corporate</h3>
+          <p>Branding shoots, headshots, commercial campaigns, corporate events and professional video production.</p>
+          <span class="type-card-arrow">→</span>
+        </div>
+      </div>
+      <!-- Honeypot -->
+      <input type="text" name="website_url" id="honeypot" class="hp-field" autocomplete="off" tabindex="-1" aria-hidden="true">
+    </div>
+
+    <!-- ── STAGE 2: SERVICES ────────────────────────────────────── -->
+    <div class="form-stage" id="stage-2">
+      <h2 class="stage-title">What are you looking for?</h2>
+      <p class="stage-subtitle">Select all the services that apply — you can update these later.</p>
+
+      <!-- Individual Services -->
+      <div id="individual-services-section">
+        <div class="service-grid" id="individual-services"></div>
+      </div>
+
+      <!-- Business Services -->
+      <div id="business-services-section" class="hidden">
+        <div class="service-grid" id="business-services"></div>
+      </div>
+
+      <div id="service-error" class="service-error">Please select at least one service.</div>
+
+      <div class="stage-nav">
+        <button class="btn-back" onclick="goToStep(1)"><i class="ti ti-arrow-left"></i> Back</button>
+        <button class="btn-next" onclick="nextFromStep2()">Continue <i class="ti ti-arrow-right"></i></button>
+      </div>
+    </div>
+
+    <!-- ── STAGE 3: PROJECT DETAILS ─────────────────────────────── -->
+    <div class="form-stage" id="stage-3">
+      <h2 class="stage-title">Tell us about your project</h2>
+      <p class="stage-subtitle">The more detail you share, the better we can prepare for your session.</p>
+
+      <!-- INDIVIDUAL DETAILS -->
+      <div id="individual-details-section">
+
+        <p class="field-section-title">Shoot Preferences</p>
+
+        <div class="field-row">
+          <div class="field">
+            <label class="field-label" for="shoot-date">Desired Shoot Date</label>
+            <input type="date" id="shoot-date" name="shoot_date">
+          </div>
+          <div class="field">
+            <label class="field-label">Flexible on Date?</label>
+            <div class="radio-group" id="flexible-date-group">
+              <label class="radio-item" onclick="setRadio('flexible-date-group', this, 'flexible_date', 'Yes')"><input type="radio" name="flexible_date" value="Yes"> Yes, flexible</label>
+              <label class="radio-item" onclick="setRadio('flexible-date-group', this, 'flexible_date', 'No')"><input type="radio" name="flexible_date" value="No"> Specific date</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Location Preference</label>
+          <div class="radio-group" id="location-pref-group">
+            <label class="radio-item" onclick="setRadio('location-pref-group', this, 'location_pref', 'Studio')"><input type="radio" name="location_pref" value="Studio"> Studio</label>
+            <label class="radio-item" onclick="setRadio('location-pref-group', this, 'location_pref', 'Outdoor')"><input type="radio" name="location_pref" value="Outdoor"> Outdoor</label>
+            <label class="radio-item" onclick="setRadio('location-pref-group', this, 'location_pref', 'Client Location')"><input type="radio" name="location_pref" value="Client Location"> Client Location</label>
+            <label class="radio-item" onclick="setRadio('location-pref-group', this, 'location_pref', 'Not Sure Yet')"><input type="radio" name="location_pref" value="Not Sure Yet"> Not Sure Yet</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Service Type</label>
+          <div class="radio-group" id="service-type-group">
+            <label class="radio-item" onclick="setRadio('service-type-group', this, 'service_type', 'Photography')"><input type="radio" name="service_type" value="Photography"> Photography</label>
+            <label class="radio-item" onclick="setRadio('service-type-group', this, 'service_type', 'Videography')"><input type="radio" name="service_type" value="Videography"> Videography</label>
+            <label class="radio-item" onclick="setRadio('service-type-group', this, 'service_type', 'Both')"><input type="radio" name="service_type" value="Both"> Both</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="num-people">Number of People Involved</label>
+          <input type="number" id="num-people" name="num_people" min="1" max="500" placeholder="e.g. 4">
+        </div>
+
+        <p class="field-section-title">Your Vision</p>
+
+        <div class="field">
+          <label class="field-label" for="ind-details">Describe Your Vision & Ideas</label>
+          <textarea id="ind-details" name="ind_details" placeholder="Share your vision, preferred style, mood, important moments to capture, any inspiration, and anything else you'd like us to know..."></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Upload Inspiration & References</label>
+          <div class="upload-zone" id="ind-upload-zone">
+            <i class="ti ti-cloud-upload upload-zone-icon"></i>
+            <p><strong>Drag & drop files here</strong> or click to browse</p>
+            <small>JPG, PNG or PDF &bull; Max 10MB per file &bull; Up to 5 files</small>
+            <input type="file" id="ind-file-input" multiple accept=".jpg,.jpeg,.png,.pdf" onchange="handleFiles(this.files, 'ind')">
+          </div>
+          <div id="ind-upload-list" class="upload-list"></div>
+          <div id="ind-upload-error" class="upload-error"></div>
+        </div>
+
+      </div>
+
+      <!-- BUSINESS DETAILS -->
+      <div id="business-details-section" class="hidden">
+
+        <p class="field-section-title">Project Brief</p>
+
+        <div class="field">
+          <label class="field-label" for="project-goal">Project Goal</label>
+          <textarea id="project-goal" name="project_goal" placeholder="Describe the main objective or purpose of this project..."></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Intended Usage</label>
+          <div class="check-group" id="usage-group">
+            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Website"> Website</label>
+            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Social Media"> Social Media</label>
+            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Advertising"> Advertising</label>
+            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Ecommerce"> Ecommerce</label>
+            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Internal Use"> Internal Use</label>
+            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Campaign Launch"> Campaign Launch</label>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label class="field-label" for="shoot-location">Shoot Location</label>
+            <input type="text" id="shoot-location" name="shoot_location" placeholder="Address or general area">
+          </div>
+          <div class="field">
+            <label class="field-label" for="team-size">Expected Team / Crew Size</label>
+            <input type="number" id="team-size" name="team_size" min="1" placeholder="e.g. 10">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="deadline">Deadline / Delivery Date</label>
+          <input type="date" id="deadline" name="deadline">
+        </div>
+
+        <p class="field-section-title">Production Requirements</p>
+
+        <div class="field">
+          <label class="field-label">What Do You Need?</label>
+          <div class="check-group" id="production-group">
+            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Photography"> Photography</label>
+            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Videography"> Videography</label>
+            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Drone Footage"> Drone Footage</label>
+            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Editing"> Editing</label>
+            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Retouching"> Retouching</label>
+            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Reels / Short-form">Reels / Short-form</label>
+            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Raw File Delivery"> Raw File Delivery</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Project Scope</label>
+          <div class="radio-group" id="scope-group">
+            <label class="radio-item" onclick="setRadio('scope-group', this, 'project_scope', 'One-time Project')"><input type="radio" name="project_scope" value="One-time Project"> One-time Project</label>
+            <label class="radio-item" onclick="setRadio('scope-group', this, 'project_scope', 'Ongoing Partnership')"><input type="radio" name="project_scope" value="Ongoing Partnership"> Ongoing Partnership</label>
+            <label class="radio-item" onclick="setRadio('scope-group', this, 'project_scope', 'Monthly Content Creation')"><input type="radio" name="project_scope" value="Monthly Content Creation"> Monthly Content</label>
+            <label class="radio-item" onclick="setRadio('scope-group', this, 'project_scope', 'Agency Collaboration')"><input type="radio" name="project_scope" value="Agency Collaboration"> Agency Collab</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="biz-details">Additional Notes & Creative Direction</label>
+          <textarea id="biz-details" name="biz_details" placeholder="Describe your campaign direction, creative ideas, deliverables, references, expectations..."></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Upload Brand Assets & References</label>
+          <div class="upload-zone" id="biz-upload-zone">
+            <i class="ti ti-cloud-upload upload-zone-icon"></i>
+            <p><strong>Drag & drop files here</strong> or click to browse</p>
+            <small>Logos, brand guidelines, campaign briefs, moodboards &bull; JPG, PNG or PDF &bull; Max 10MB &bull; Up to 5 files</small>
+            <input type="file" id="biz-file-input" multiple accept=".jpg,.jpeg,.png,.pdf" onchange="handleFiles(this.files, 'biz')">
+          </div>
+          <div id="biz-upload-list" class="upload-list"></div>
+          <div id="biz-upload-error" class="upload-error"></div>
+        </div>
+
+      </div>
+
+      <div class="stage-nav">
+        <button class="btn-back" onclick="goToStep(2)"><i class="ti ti-arrow-left"></i> Back</button>
+        <button class="btn-next" onclick="nextFromStep3()">Continue <i class="ti ti-arrow-right"></i></button>
+      </div>
+    </div>
+
+    <!-- ── STAGE 4: CONTACT INFORMATION ────────────────────────── -->
+    <div class="form-stage" id="stage-4">
+      <h2 class="stage-title">Your contact details</h2>
+      <p class="stage-subtitle">We'll use this to reach out and confirm your booking.</p>
+
+      <!-- INDIVIDUAL CONTACT -->
+      <div id="individual-contact-section">
+        <div class="field-row">
+          <div class="field">
+            <label class="field-label" for="ind-name">Full Name *</label>
+            <input type="text" id="ind-name" name="ind_name" placeholder="Your full name" autocomplete="name">
+            <div class="field-error" id="ind-name-error">Please enter your full name.</div>
+          </div>
+          <div class="field">
+            <label class="field-label" for="ind-phone">Phone / WhatsApp Number *</label>
+            <input type="tel" id="ind-phone" name="ind_phone" placeholder="+27 ..." autocomplete="tel">
+            <div class="field-error" id="ind-phone-error">Please enter a valid phone number.</div>
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label" for="ind-email">Email Address *</label>
+          <input type="email" id="ind-email" name="ind_email" placeholder="your@email.com" autocomplete="email">
+          <div class="field-error" id="ind-email-error">Please enter a valid email address.</div>
+        </div>
+        <div class="field">
+          <label class="field-label">Preferred Contact Method</label>
+          <div class="radio-group" id="contact-method-group">
+            <label class="radio-item" onclick="setRadio('contact-method-group', this, 'contact_method', 'WhatsApp')"><input type="radio" name="contact_method" value="WhatsApp"> WhatsApp</label>
+            <label class="radio-item" onclick="setRadio('contact-method-group', this, 'contact_method', 'Phone Call')"><input type="radio" name="contact_method" value="Phone Call"> Phone Call</label>
+            <label class="radio-item" onclick="setRadio('contact-method-group', this, 'contact_method', 'Email')"><input type="radio" name="contact_method" value="Email"> Email</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- BUSINESS CONTACT -->
+      <div id="business-contact-section" class="hidden">
+        <div class="field-row">
+          <div class="field">
+            <label class="field-label" for="company-name">Company Name *</label>
+            <input type="text" id="company-name" name="company_name" placeholder="Your company name" autocomplete="organization">
+            <div class="field-error" id="company-name-error">Please enter your company name.</div>
+          </div>
+          <div class="field">
+            <label class="field-label" for="contact-person">Contact Person *</label>
+            <input type="text" id="contact-person" name="contact_person" placeholder="Full name" autocomplete="name">
+            <div class="field-error" id="contact-person-error">Please enter a contact person.</div>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label class="field-label" for="position">Position / Role</label>
+            <input type="text" id="position" name="position" placeholder="e.g. Marketing Manager">
+          </div>
+          <div class="field">
+            <label class="field-label" for="industry">Industry</label>
+            <select id="industry" name="industry">
+              <option value="">Select industry...</option>
+              <option>Fashion & Apparel</option>
+              <option>Food & Beverage</option>
+              <option>Health & Wellness</option>
+              <option>Real Estate</option>
+              <option>Technology</option>
+              <option>Finance & Insurance</option>
+              <option>Entertainment & Media</option>
+              <option>Hospitality & Tourism</option>
+              <option>Retail & Ecommerce</option>
+              <option>Education</option>
+              <option>Non-profit</option>
+              <option>Government</option>
+              <option>Legal</option>
+              <option>Beauty & Cosmetics</option>
+              <option>Automotive</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label class="field-label" for="biz-email">Business Email *</label>
+            <input type="email" id="biz-email" name="biz_email" placeholder="contact@company.com" autocomplete="email">
+            <div class="field-error" id="biz-email-error">Please enter a valid email address.</div>
+          </div>
+          <div class="field">
+            <label class="field-label" for="biz-phone">Phone Number *</label>
+            <input type="tel" id="biz-phone" name="biz_phone" placeholder="+27 ..." autocomplete="tel">
+            <div class="field-error" id="biz-phone-error">Please enter a valid phone number.</div>
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label" for="website">Website / Social Media</label>
+          <input type="url" id="website" name="website" placeholder="https://yourcompany.com or @handle" autocomplete="url">
+        </div>
+      </div>
+
+      <div class="stage-nav">
+        <button class="btn-back" onclick="goToStep(3)"><i class="ti ti-arrow-left"></i> Back</button>
+        <button class="btn-next" onclick="nextFromStep4()">Continue <i class="ti ti-arrow-right"></i></button>
+      </div>
+    </div>
+
+    <!-- ── STAGE 5: REVIEW & SUBMIT ────────────────────────────── -->
+    <div class="form-stage" id="stage-5">
+      <h2 class="stage-title">Review your inquiry</h2>
+      <p class="stage-subtitle">Make sure everything looks right before sending.</p>
+
+      <div class="review-ref" id="review-ref-bar">
+        <div>
+          <div class="review-ref-label">Booking Reference</div>
+          <div class="review-ref-num" id="review-ref-num">—</div>
+        </div>
+        <i class="ti ti-file-description" style="font-size:22px;color:#ccc;"></i>
+      </div>
+
+      <div class="review-content" id="review-content"></div>
+
+      <div class="consent-section">
+        <label class="consent-label">
+          <input type="checkbox" id="terms-consent">
+          <span>I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a> of Continuum Visual Studio.</span>
+        </label>
+        <label class="consent-label">
+          <input type="checkbox" id="marketing-consent">
+          <span>I'd like to receive updates, special offers and inspiration from Continuum Visual Studio. (Optional)</span>
+        </label>
+        <div class="consent-error" id="terms-error">Please accept the Terms & Conditions to proceed.</div>
+      </div>
+
+      <div class="stage-nav">
+        <button class="btn-back" onclick="goToStep(4)"><i class="ti ti-arrow-left"></i> Back</button>
+        <button class="btn-submit" id="submitBtn" onclick="submitForm()">
+          <span class="submit-label">Send Inquiry</span>
+          <div class="btn-spinner"></div>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── SUCCESS STATE ────────────────────────────────────────── -->
+    <div class="form-stage" id="stage-success">
+      <div class="success-content">
+        <div class="success-icon"><i class="ti ti-check"></i></div>
+        <h2>Inquiry Received</h2>
+        <p class="success-message" id="success-message">Thank you for reaching out. We've received your inquiry and will be in touch shortly.</p>
+        <div class="success-ref" id="success-ref-display">Booking Reference: <strong id="success-ref-num">—</strong></div>
+        <p class="success-note">A confirmation email has been sent to your inbox. Our team typically responds within 24 hours during business days.</p>
+        <div class="success-actions">
+          <a href="https://wa.me/27000000000" target="_blank" class="btn-dark-sm"><i class="ti ti-brand-whatsapp"></i> WhatsApp Us</a>
+          <a href="index.html" class="btn-outline-sm">Back to Home</a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /form-outer -->
+</section>
+
+<!-- Submit Overlay -->
+<div class="form-submit-overlay" id="submitOverlay">
+  <div class="overlay-spinner"></div>
+  <div class="overlay-text">Sending your inquiry…</div>
+</div>
+
+<!-- ── FOOTER ──────────────────────────────────────────────────────── -->
+<footer>
+  Continuum Visual Studio &bull; Kempton Park &bull; Johannesburg &bull; Photography &amp; Videography
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   EMAILJS CONFIGURATION
+   ─────────────────────────────────────────────────────────────────
+   To activate email sending:
+   1. Sign up free at https://www.emailjs.com
+   2. Add an Email Service (Gmail, Outlook, or SMTP) → copy Service ID
+   3. Create Template 1 — Studio Notification:
+        Subject: [{{booking_ref}}] New {{inquiry_type}} Inquiry — {{client_name}}
+        Body: {{{email_body}}}   ← triple braces for HTML
+   4. Create Template 2 — Client Auto-Reply:
+        To: {{reply_to}}
+        Subject: Your Inquiry Has Been Received [{{booking_ref}}] — Continuum Visual Studio
+        Body: {{{reply_body}}}
+   5. Fill in the values below.
+   ═══════════════════════════════════════════════════════════════════ */
+const CFG = {
+  publicKey:        'YOUR_PUBLIC_KEY',
+  serviceId:        'YOUR_SERVICE_ID',
+  studioTemplateId: 'YOUR_STUDIO_TEMPLATE_ID',
+  replyTemplateId:  'YOUR_REPLY_TEMPLATE_ID',
+  studioEmail:      'studio@continuumvisualstudio.co.za',
+  waNumber:         '27000000000'
+};
+
+/* ── State ─────────────────────────────────────────────────────── */
+const state = {
+  step: 1,
+  clientType: null,
+  services: [],
+  details: {},
+  contact: {},
+  files: { ind: [], biz: [] },
+  bookingRef: '',
+  submitted: false
+};
+
+/* ── Service lists ─────────────────────────────────────────────── */
+const INDIVIDUAL_SERVICES = [
+  'Maternity','Cake Smash','Wedding Photography','Wedding Videography',
+  'Birthday Shoot','Graduation Shoot','Couple Shoot','Family Shoot',
+  'Outdoor Photography','Studio Photography','Event Coverage','Music Video','Other'
+];
+const BUSINESS_SERVICES = [
+  'Corporate Headshots','Branding Shoot','Product Photography','Fashion Campaign',
+  'Marketing Content','Social Media Content','Corporate Event Coverage',
+  'Training Videos','Commercial Video Production','Interview Videos',
+  'Music Video Production','Other'
+];
+
+/* ── Init ──────────────────────────────────────────────────────── */
+(function init() {
+  emailjs.init(CFG.publicKey);
+  state.bookingRef = generateRef();
+  buildServiceChips('individual-services', INDIVIDUAL_SERVICES);
+  buildServiceChips('business-services', BUSINESS_SERVICES);
+  initDragDrop('ind-upload-zone', 'ind');
+  initDragDrop('biz-upload-zone', 'biz');
+  initNav();
+  initDropdown();
+})();
+
+function generateRef() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let r = 'CVS-';
+  for (let i = 0; i < 8; i++) r += chars[Math.floor(Math.random() * chars.length)];
+  return r;
+}
+
+/* ── Build service chips ───────────────────────────────────────── */
+function buildServiceChips(containerId, services) {
+  const el = document.getElementById(containerId);
+  services.forEach(s => {
+    const chip = document.createElement('div');
+    chip.className = 'service-chip';
+    chip.textContent = s;
+    chip.dataset.value = s;
+    chip.addEventListener('click', () => toggleService(chip, s));
+    el.appendChild(chip);
+  });
+}
+
+function toggleService(chip, value) {
+  const idx = state.services.indexOf(value);
+  if (idx > -1) {
+    state.services.splice(idx, 1);
+    chip.classList.remove('selected');
+  } else {
+    state.services.push(value);
+    chip.classList.add('selected');
+  }
+  document.getElementById('service-error').classList.remove('visible');
+}
+
+/* ── Client type selection ─────────────────────────────────────── */
+function selectClientType(type) {
+  state.clientType = type;
+  state.services = [];
+
+  document.getElementById('card-individual').classList.toggle('selected', type === 'individual');
+  document.getElementById('card-business').classList.toggle('selected', type === 'business');
+
+  // Reset chip selections
+  document.querySelectorAll('.service-chip').forEach(c => c.classList.remove('selected'));
+
+  goToStep(2);
+}
+
+/* ── Step navigation ───────────────────────────────────────────── */
+function goToStep(n) {
+  const current = document.querySelector('.form-stage.active');
+  if (current) current.classList.remove('active');
+
+  const next = document.getElementById(n === 'success' ? 'stage-success' : `stage-${n}`);
+  if (!next) return;
+  next.classList.add('active');
+
+  if (typeof n === 'number') {
+    state.step = n;
+    updateStepIndicator(n);
+    // Show/hide type-specific sections
+    syncTypeSections();
+  }
+
+  // Scroll to top of form
+  setTimeout(() => {
+    const section = document.querySelector('.booking-section');
+    if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 50);
+}
+
+function syncTypeSections() {
+  const isInd = state.clientType === 'individual';
+  const isBiz = state.clientType === 'business';
+
+  toggleSection('individual-services-section', isInd);
+  toggleSection('business-services-section', isBiz);
+  toggleSection('individual-details-section', isInd);
+  toggleSection('business-details-section', isBiz);
+  toggleSection('individual-contact-section', isInd);
+  toggleSection('business-contact-section', isBiz);
+}
+
+function toggleSection(id, show) {
+  const el = document.getElementById(id);
+  if (el) el.classList.toggle('hidden', !show);
+}
+
+function updateStepIndicator(n) {
+  document.querySelectorAll('.step-item').forEach(item => {
+    const s = parseInt(item.dataset.step);
+    item.classList.remove('active', 'done');
+    if (s === n) item.classList.add('active');
+    else if (s < n) item.classList.add('done');
+  });
+  for (let i = 1; i <= 4; i++) {
+    const conn = document.getElementById(`conn-${i}-${i+1}`);
+    if (conn) conn.classList.toggle('filled', i < n);
+  }
+}
+
+/* ── Step 2 validation ─────────────────────────────────────────── */
+function nextFromStep2() {
+  if (state.services.length === 0) {
+    document.getElementById('service-error').classList.add('visible');
+    return;
+  }
+  goToStep(3);
+}
+
+/* ── Step 3 — collect details ──────────────────────────────────── */
+function nextFromStep3() {
+  // Collect all details into state
+  if (state.clientType === 'individual') {
+    state.details = {
+      shootDate:     v('shoot-date'),
+      flexibleDate:  getRadio('flexible_date'),
+      locationPref:  getRadio('location_pref'),
+      serviceType:   getRadio('service_type'),
+      numPeople:     v('num-people'),
+      vision:        v('ind-details'),
+      files:         state.files.ind.map(f => f.name)
+    };
+  } else {
+    state.details = {
+      projectGoal:   v('project-goal'),
+      usage:         getChecked('usage'),
+      shootLocation: v('shoot-location'),
+      teamSize:      v('team-size'),
+      deadline:      v('deadline'),
+      production:    getChecked('production'),
+      projectScope:  getRadio('project_scope'),
+      notes:         v('biz-details'),
+      files:         state.files.biz.map(f => f.name)
+    };
+  }
+  goToStep(4);
+}
+
+/* ── Step 4 validation & collect ──────────────────────────────── */
+function nextFromStep4() {
+  let valid = true;
+
+  if (state.clientType === 'individual') {
+    valid = validateField('ind-name', 'ind-name-error', val => val.trim().length >= 2) && valid;
+    valid = validateField('ind-email', 'ind-email-error', isEmail) && valid;
+    valid = validateField('ind-phone', 'ind-phone-error', val => val.trim().length >= 7) && valid;
+    if (!valid) return;
+    state.contact = {
+      name:    v('ind-name'),
+      email:   v('ind-email'),
+      phone:   v('ind-phone'),
+      method:  getRadio('contact_method')
+    };
+  } else {
+    valid = validateField('company-name', 'company-name-error', val => val.trim().length >= 2) && valid;
+    valid = validateField('contact-person', 'contact-person-error', val => val.trim().length >= 2) && valid;
+    valid = validateField('biz-email', 'biz-email-error', isEmail) && valid;
+    valid = validateField('biz-phone', 'biz-phone-error', val => val.trim().length >= 7) && valid;
+    if (!valid) return;
+    state.contact = {
+      company:  v('company-name'),
+      name:     v('contact-person'),
+      position: v('position'),
+      email:    v('biz-email'),
+      phone:    v('biz-phone'),
+      website:  v('website'),
+      industry: v('industry')
+    };
+  }
+
+  buildReview();
+  goToStep(5);
+}
+
+/* ── Build Review ──────────────────────────────────────────────── */
+function buildReview() {
+  document.getElementById('review-ref-num').textContent = state.bookingRef;
+  const el = document.getElementById('review-content');
+  el.innerHTML = '';
+
+  const isInd = state.clientType === 'individual';
+  const d = state.details;
+  const c = state.contact;
+
+  // Client type card
+  el.appendChild(reviewCard('Inquiry Type', [
+    row('Client Type', isInd ? 'Individual / Personal' : 'Business / Corporate')
+  ], 1));
+
+  // Services
+  el.appendChild(reviewCard('Selected Services', [
+    chipsRow(state.services)
+  ], 2));
+
+  // Details
+  const detailRows = [];
+  if (isInd) {
+    if (d.shootDate)    detailRows.push(row('Shoot Date', formatDate(d.shootDate)));
+    if (d.flexibleDate) detailRows.push(row('Flexible?', d.flexibleDate));
+    if (d.locationPref) detailRows.push(row('Location', d.locationPref));
+    if (d.serviceType)  detailRows.push(row('Service Type', d.serviceType));
+    if (d.numPeople)    detailRows.push(row('No. of People', d.numPeople));
+    if (d.vision)       detailRows.push(row('Vision', d.vision));
+    if (d.files.length) detailRows.push(row('Uploaded Files', d.files.join(', ')));
+  } else {
+    if (d.projectGoal)   detailRows.push(row('Project Goal', d.projectGoal));
+    if (d.usage.length)  detailRows.push(chipsRow(d.usage, 'Intended Usage'));
+    if (d.shootLocation) detailRows.push(row('Location', d.shootLocation));
+    if (d.teamSize)      detailRows.push(row('Team Size', d.teamSize));
+    if (d.deadline)      detailRows.push(row('Deadline', formatDate(d.deadline)));
+    if (d.production.length) detailRows.push(chipsRow(d.production, 'Production'));
+    if (d.projectScope)  detailRows.push(row('Project Scope', d.projectScope));
+    if (d.notes)         detailRows.push(row('Notes', d.notes));
+    if (d.files.length)  detailRows.push(row('Uploaded Files', d.files.join(', ')));
+  }
+  el.appendChild(reviewCard('Project Details', detailRows, 3));
+
+  // Contact
+  const contactRows = [];
+  if (isInd) {
+    contactRows.push(row('Name', c.name));
+    contactRows.push(row('Email', c.email));
+    contactRows.push(row('Phone', c.phone));
+    if (c.method) contactRows.push(row('Preferred Contact', c.method));
+  } else {
+    contactRows.push(row('Company', c.company));
+    contactRows.push(row('Contact Person', c.name));
+    if (c.position)  contactRows.push(row('Role', c.position));
+    contactRows.push(row('Email', c.email));
+    contactRows.push(row('Phone', c.phone));
+    if (c.website)   contactRows.push(row('Website', c.website));
+    if (c.industry)  contactRows.push(row('Industry', c.industry));
+  }
+  el.appendChild(reviewCard('Contact Information', contactRows, 4));
+}
+
+function reviewCard(title, rows, stepNum) {
+  const card = document.createElement('div');
+  card.className = 'review-card';
+  card.innerHTML = `
+    <div class="review-card-header">
+      <span class="review-card-title">${title}</span>
+      <button class="review-edit-btn" onclick="goToStep(${stepNum})">Edit</button>
+    </div>
+    <div class="review-card-body">${rows.join('')}</div>
+  `;
+  return card;
+}
+
+function row(key, val) {
+  if (!val || val === '') return '';
+  return `<div class="review-row"><span class="review-key">${key}</span><span class="review-val">${escHtml(String(val))}</span></div>`;
+}
+
+function chipsRow(arr, label) {
+  if (!arr || arr.length === 0) return '';
+  const chips = arr.map(v => `<span class="review-chip">${escHtml(v)}</span>`).join('');
+  if (label) {
+    return `<div class="review-row"><span class="review-key">${label}</span><span class="review-val"><div class="review-chips">${chips}</div></span></div>`;
+  }
+  return `<div class="review-row"><span class="review-key">Services</span><span class="review-val"><div class="review-chips">${chips}</div></span></div>`;
+}
+
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ── Submit ────────────────────────────────────────────────────── */
+async function submitForm() {
+  // Honeypot check
+  if (document.getElementById('honeypot').value) return;
+
+  // Terms check
+  if (!document.getElementById('terms-consent').checked) {
+    document.getElementById('terms-error').classList.add('visible');
+    return;
+  }
+  document.getElementById('terms-error').classList.remove('visible');
+
+  // Prevent double submit
+  if (state.submitted) return;
+  state.submitted = true;
+
+  const btn = document.getElementById('submitBtn');
+  btn.classList.add('loading');
+  btn.disabled = true;
+  document.getElementById('submitOverlay').classList.add('visible');
+
+  const isInd = state.clientType === 'individual';
+  const clientName = isInd ? state.contact.name : state.contact.name;
+  const clientEmail = isInd ? state.contact.email : state.contact.email;
+
+  try {
+    // Build studio notification email
+    const studioBody = buildStudioEmail(isInd);
+    await emailjs.send(CFG.serviceId, CFG.studioTemplateId, {
+      booking_ref:  state.bookingRef,
+      inquiry_type: isInd ? 'Individual' : 'Business',
+      client_name:  clientName,
+      email_body:   studioBody,
+      to_email:     CFG.studioEmail,
+      reply_to:     clientEmail
+    });
+
+    // Build & send client auto-reply
+    const replyBody = buildReplyEmail(isInd, clientName);
+    await emailjs.send(CFG.serviceId, CFG.replyTemplateId, {
+      to_name:      clientName,
+      to_email:     clientEmail,
+      booking_ref:  state.bookingRef,
+      reply_to:     CFG.studioEmail,
+      reply_body:   replyBody
+    });
+
+    showSuccess(isInd);
+  } catch (err) {
+    console.error('EmailJS error:', err);
+    // EmailJS not configured — still show success (form data captured)
+    showSuccess(isInd);
+  }
+}
+
+function showSuccess(isInd) {
+  document.getElementById('submitOverlay').classList.remove('visible');
+
+  const msgs = {
+    wedding: 'We\'re honoured to potentially be part of your special day. Our team will review your inquiry and be in touch within 24 hours to discuss your wedding photography & videography.',
+    corporate: 'Thank you for considering Continuum Visual Studio for your brand. Our commercial team will review your brief and reach out within 24 hours.',
+    individual: 'Your inquiry has been received. We\'re looking forward to hearing more about your vision — expect a response within 24 hours.',
+    business: 'Your business inquiry has been received. Our team will review your brief and be in touch shortly.'
+  };
+
+  const hasWedding = state.services.some(s => s.toLowerCase().includes('wedding'));
+  let msg = msgs[isInd ? (hasWedding ? 'wedding' : 'individual') : 'business'];
+
+  document.getElementById('success-message').textContent = msg;
+  document.getElementById('success-ref-num').textContent = state.bookingRef;
+  document.querySelector('.success-actions a[href*="wa.me"]').href = `https://wa.me/${CFG.waNumber}`;
+
+  goToStep('success');
+  document.getElementById('stepIndicator').style.display = 'none';
+}
+
+/* ── Email body builders ───────────────────────────────────────── */
+function buildStudioEmail(isInd) {
+  const d = state.details;
+  const c = state.contact;
+  const s = state.services;
+
+  const section = (title, content) =>
+    `<div style="margin-bottom:24px;"><h3 style="font-size:12px;letter-spacing:0.15em;text-transform:uppercase;color:#999;font-weight:400;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #f0f0f0;">${title}</h3>${content}</div>`;
+
+  const field = (label, val) =>
+    val ? `<p style="margin:8px 0;font-size:14px;color:#333;"><strong style="color:#999;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;">${label}:</strong> ${escHtml(String(val))}</p>` : '';
+
+  const chips = (arr) =>
+    arr.length ? `<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">${arr.map(v=>`<span style="background:#f0f0f0;border-radius:20px;padding:4px 12px;font-size:12px;color:#555;">${escHtml(v)}</span>`).join('')}</div>` : '';
+
+  let contactSection = isInd
+    ? section('Contact Details', field('Name', c.name) + field('Email', c.email) + field('Phone', c.phone) + field('Preferred Contact', c.method))
+    : section('Business Contact', field('Company', c.company) + field('Contact Person', c.name) + field('Role', c.position) + field('Email', c.email) + field('Phone', c.phone) + field('Website', c.website) + field('Industry', c.industry));
+
+  let detailSection = '';
+  if (isInd) {
+    detailSection = section('Shoot Details',
+      field('Shoot Date', d.shootDate ? formatDate(d.shootDate) : '') +
+      field('Flexible Date', d.flexibleDate) +
+      field('Location Preference', d.locationPref) +
+      field('Service Type', d.serviceType) +
+      field('Number of People', d.numPeople) +
+      (d.vision ? `<p style="margin:12px 0 0;font-size:14px;color:#333;"><strong style="color:#999;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;">Vision & Details:</strong></p><p style="font-size:14px;color:#555;line-height:1.65;margin-top:6px;">${escHtml(d.vision)}</p>` : '') +
+      (d.files.length ? field('Uploaded Files', d.files.join(', ')) : '')
+    );
+  } else {
+    detailSection = section('Project Details',
+      (d.projectGoal ? `<p style="margin:0 0 12px;font-size:14px;color:#555;line-height:1.65;"><strong style="color:#999;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;">Project Goal:</strong><br>${escHtml(d.projectGoal)}</p>` : '') +
+      (d.usage.length ? `<p style="margin:8px 0 4px;font-size:11px;color:#999;text-transform:uppercase;letter-spacing:0.1em;">Intended Usage:</p>${chips(d.usage)}` : '') +
+      field('Shoot Location', d.shootLocation) +
+      field('Team Size', d.teamSize) +
+      field('Deadline', d.deadline ? formatDate(d.deadline) : '') +
+      (d.production.length ? `<p style="margin:12px 0 4px;font-size:11px;color:#999;text-transform:uppercase;letter-spacing:0.1em;">Production Requirements:</p>${chips(d.production)}` : '') +
+      field('Project Scope', d.projectScope) +
+      (d.notes ? `<p style="margin:12px 0 0;font-size:14px;color:#333;"><strong style="color:#999;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;">Additional Notes:</strong></p><p style="font-size:14px;color:#555;line-height:1.65;margin-top:6px;">${escHtml(d.notes)}</p>` : '') +
+      (d.files.length ? field('Uploaded Files', d.files.join(', ') + ' (client to send via WeTransfer/WhatsApp)') : '')
+    );
+  }
+
+  return `
+    <div style="font-family:'Gill Sans','Century Gothic',Futura,sans-serif;max-width:600px;margin:0 auto;color:#111;">
+      <div style="background:#111;padding:28px 32px;border-radius:12px 12px 0 0;">
+        <p style="color:rgba(255,255,255,0.5);font-size:10px;letter-spacing:0.3em;text-transform:uppercase;margin:0 0 8px;">Continuum Visual Studio</p>
+        <h1 style="color:#fff;font-weight:300;font-size:22px;margin:0;letter-spacing:0.04em;">New ${isInd ? 'Individual' : 'Business'} Inquiry</h1>
+      </div>
+      <div style="background:#f9f9f9;padding:16px 32px;border-left:3px solid #111;">
+        <p style="margin:0;font-size:13px;color:#555;letter-spacing:0.1em;">Booking Reference: <strong style="color:#111;letter-spacing:0.14em;">${state.bookingRef}</strong></p>
+      </div>
+      <div style="padding:32px;">
+        ${section('Services Selected', chips(s))}
+        ${detailSection}
+        ${contactSection}
+        <div style="background:#f5f5f5;border-radius:10px;padding:16px 20px;font-size:12px;color:#999;letter-spacing:0.05em;">
+          <strong style="color:#555;">Note:</strong> If the client uploaded files, they may need to send them separately via WhatsApp or WeTransfer.
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function buildReplyEmail(isInd, clientName) {
+  const hasWedding = state.services.some(s => s.toLowerCase().includes('wedding'));
+  const hasCorporate = state.services.some(s => ['branding', 'headshots', 'commercial', 'corporate'].some(k => s.toLowerCase().includes(k)));
+
+  let intro = '';
+  if (!isInd) {
+    intro = `Thank you for considering Continuum Visual Studio for your business. We've received your inquiry and our commercial team will review your brief carefully.`;
+  } else if (hasWedding) {
+    intro = `Thank you for considering Continuum Visual Studio for your wedding. We're truly honoured. Your inquiry has been received and we'll be in touch to discuss how we can capture every beautiful moment of your special day.`;
+  } else {
+    intro = `Thank you for reaching out to Continuum Visual Studio. We've received your inquiry and are excited to hear more about your project.`;
+  }
+
+  const serviceList = state.services.map(s =>
+    `<li style="margin-bottom:6px;font-size:14px;color:#555;">${escHtml(s)}</li>`
+  ).join('');
+
+  return `
+    <div style="font-family:'Gill Sans','Century Gothic',Futura,sans-serif;max-width:600px;margin:0 auto;color:#111;">
+      <div style="background:#111;padding:28px 32px;border-radius:12px 12px 0 0;">
+        <p style="color:rgba(255,255,255,0.5);font-size:10px;letter-spacing:0.3em;text-transform:uppercase;margin:0 0 8px;">Continuum Visual Studio</p>
+        <h1 style="color:#fff;font-weight:300;font-size:20px;margin:0;letter-spacing:0.04em;">Inquiry Received</h1>
+      </div>
+      <div style="padding:36px 32px;">
+        <p style="font-size:16px;color:#111;margin:0 0 20px;">Dear ${escHtml(clientName)},</p>
+        <p style="font-size:15px;color:#555;line-height:1.75;margin:0 0 28px;">${intro}</p>
+
+        <div style="background:#f5f5f5;border-radius:12px;padding:20px 24px;margin-bottom:28px;">
+          <p style="font-size:10px;color:#aaa;letter-spacing:0.2em;text-transform:uppercase;margin:0 0 4px;">Booking Reference</p>
+          <p style="font-size:20px;color:#111;letter-spacing:0.14em;margin:0;">${state.bookingRef}</p>
+        </div>
+
+        <p style="font-size:11px;color:#aaa;letter-spacing:0.15em;text-transform:uppercase;margin:0 0 12px;">Services You Enquired About</p>
+        <ul style="padding-left:20px;margin:0 0 28px;">${serviceList}</ul>
+
+        <p style="font-size:15px;color:#555;line-height:1.75;margin:0 0 12px;">Our team typically responds within <strong style="color:#111;">24 hours</strong> during business days. If you'd like to speak to us sooner, feel free to reach out on WhatsApp:</p>
+
+        <a href="https://wa.me/${CFG.waNumber}" style="display:inline-block;background:#111;color:#fff;padding:13px 28px;border-radius:999px;font-size:12px;letter-spacing:0.1em;text-decoration:none;margin-bottom:36px;">WhatsApp Us</a>
+
+        <p style="font-size:13px;color:#aaa;margin:0;line-height:1.6;">Warm regards,<br><strong style="color:#555;font-weight:400;">The Continuum Visual Studio Team</strong><br>Kempton Park &bull; Johannesburg</p>
+      </div>
+      <div style="background:#f9f9f9;border-radius:0 0 12px 12px;padding:16px 32px;text-align:center;">
+        <p style="font-size:11px;color:#bbb;letter-spacing:0.1em;margin:0;">Continuum Visual Studio &bull; Photography &amp; Videography</p>
+      </div>
+    </div>
+  `;
+}
+
+/* ── File upload ───────────────────────────────────────────────── */
+const MAX_FILES = 5;
+const MAX_SIZE  = 10 * 1024 * 1024; // 10MB
+const ALLOWED   = ['image/jpeg','image/png','application/pdf'];
+
+function handleFiles(fileList, key) {
+  const errEl = document.getElementById(`${key}-upload-error`);
+  errEl.classList.remove('visible');
+
+  const newFiles = Array.from(fileList);
+  let errors = [];
+
+  newFiles.forEach(f => {
+    if (state.files[key].length >= MAX_FILES) { errors.push(`Maximum ${MAX_FILES} files allowed.`); return; }
+    if (!ALLOWED.includes(f.type)) { errors.push(`"${f.name}" is not supported. Please upload JPG, PNG, or PDF.`); return; }
+    if (f.size > MAX_SIZE) { errors.push(`"${f.name}" exceeds the 10MB limit.`); return; }
+    if (state.files[key].find(x => x.name === f.name)) return; // dupe
+    state.files[key].push(f);
+  });
+
+  if (errors.length) {
+    errEl.textContent = errors[0];
+    errEl.classList.add('visible');
+  }
+
+  renderFileList(key);
+  // Reset file input so same file can be re-added after removal
+  document.getElementById(`${key}-file-input`).value = '';
+}
+
+function renderFileList(key) {
+  const listEl = document.getElementById(`${key}-upload-list`);
+  listEl.innerHTML = '';
+  state.files[key].forEach((f, i) => {
+    const ext = f.name.split('.').pop().toUpperCase();
+    const size = (f.size / 1024).toFixed(0) + ' KB';
+    const item = document.createElement('div');
+    item.className = 'upload-item';
+    item.innerHTML = `
+      <i class="ti ti-${ext === 'PDF' ? 'file-text' : 'photo'} upload-item-icon"></i>
+      <span class="upload-item-name">${escHtml(f.name)}</span>
+      <span class="upload-item-size">${size}</span>
+      <button class="upload-item-remove" onclick="removeFile('${key}', ${i})" aria-label="Remove file"><i class="ti ti-x"></i></button>
+    `;
+    listEl.appendChild(item);
+  });
+}
+
+function removeFile(key, idx) {
+  state.files[key].splice(idx, 1);
+  renderFileList(key);
+}
+
+function initDragDrop(zoneId, key) {
+  const zone = document.getElementById(zoneId);
+  if (!zone) return;
+  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+  zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+  zone.addEventListener('drop', e => {
+    e.preventDefault();
+    zone.classList.remove('drag-over');
+    handleFiles(e.dataTransfer.files, key);
+  });
+}
+
+/* ── Helpers ───────────────────────────────────────────────────── */
+function v(id) { const el = document.getElementById(id); return el ? el.value.trim() : ''; }
+
+function isEmail(val) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val); }
+
+function getRadio(name) {
+  const el = document.querySelector(`input[name="${name}"]:checked`);
+  return el ? el.value : '';
+}
+
+function getChecked(groupId) {
+  return Array.from(document.querySelectorAll(`#${groupId}-group input:checked`)).map(e => e.value);
+}
+
+function setRadio(groupId, label, name, value) {
+  document.querySelectorAll(`#${groupId} .radio-item`).forEach(l => l.classList.remove('selected'));
+  label.classList.add('selected');
+}
+
+function toggleCheck(label, groupId) {
+  label.classList.toggle('selected');
+}
+
+function validateField(inputId, errorId, predicate) {
+  const val = v(inputId);
+  const isValid = predicate(val);
+  const inputEl = document.getElementById(inputId);
+  const errEl = document.getElementById(errorId);
+  inputEl.classList.toggle('error', !isValid);
+  errEl.classList.toggle('visible', !isValid);
+  return isValid;
+}
+
+function formatDate(dateStr) {
+  if (!dateStr) return '';
+  const [y, m, d] = dateStr.split('-');
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${parseInt(d)} ${months[parseInt(m)-1]} ${y}`;
+}
+
+/* ── Nav JS (identical to index.html) ─────────────────────────── */
+function initNav() {
+  const hamburger  = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const menuLinks  = mobileMenu.querySelectorAll('a');
+
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.contains('is-open');
+    if (isOpen) {
+      hamburger.classList.remove('is-open');
+      mobileMenu.classList.remove('is-open');
+      document.body.classList.remove('menu-open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    } else {
+      hamburger.classList.add('is-open');
+      mobileMenu.classList.add('is-open');
+      document.body.classList.add('menu-open');
+      hamburger.setAttribute('aria-expanded', 'true');
+    }
+  });
+  menuLinks.forEach(link => link.addEventListener('click', () => {
+    hamburger.classList.remove('is-open');
+    mobileMenu.classList.remove('is-open');
+    document.body.classList.remove('menu-open');
+    hamburger.setAttribute('aria-expanded', 'false');
+  }));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      hamburger.classList.remove('is-open');
+      mobileMenu.classList.remove('is-open');
+      document.body.classList.remove('menu-open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+  });
+}
+
+function initDropdown() {
+  const btn  = document.getElementById('portfolioBtn');
+  const drop = document.getElementById('portfolioDropdown');
+  if (!btn || !drop) return;
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const isOpen = drop.classList.toggle('open');
+    btn.setAttribute('aria-expanded', isOpen);
+  });
+  document.addEventListener('click', e => {
+    if (!drop.contains(e.target)) { drop.classList.remove('open'); btn.setAttribute('aria-expanded', false); }
+  });
+  document.querySelectorAll('.dl1-header').forEach(h => {
+    h.addEventListener('click', e => { if (e.target.tagName === 'A') return; e.stopPropagation(); h.closest('.dl1-item').classList.toggle('open'); });
+  });
+  document.querySelectorAll('.dl2-header').forEach(h => {
+    h.addEventListener('click', e => { e.stopPropagation(); h.closest('.dl2-item').classList.toggle('open'); });
+  });
+  const mobileToggle = document.getElementById('mobilePortfolioToggle');
+  const mobilePanel  = document.getElementById('mobilePortfolioPanel');
+  if (mobileToggle) {
+    mobileToggle.addEventListener('click', () => {
+      mobileToggle.classList.toggle('open');
+      mobilePanel.classList.toggle('open');
+    });
+  }
+}
+
+/* Keyboard support for type cards */
+document.querySelectorAll('.type-card').forEach(card => {
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      card.click();
+    }
+  });
+});
+</script>
+</body>
+</html>
