@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<title>Cake Smash Themes — Continuum Visual Studio</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Century Gothic', 'Gill Sans', Futura, 'Trebuchet MS', sans-serif;
+    background: #fff; color: #111;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { text-decoration: none; color: inherit; }
+  img { display: block; width: 100%; }
+
+  :root {
+    --black: #111; --white: #fff;
+    --grey-light: #f5f5f5; --grey-mid: #e8e8e8;
+    --grey-text: #666; --grey-muted: #999;
+    --radius-md: 20px; --radius-lg: 28px;
+    --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.94); backdrop-filter: blur(10px);
+    border-bottom: 0.5px solid var(--grey-mid);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 48px;
+  }
+  .nav-logo { font-size: 15px; letter-spacing: 0.12em; }
+  .nav-back {
+    font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--grey-muted); display: flex; align-items: center; gap: 8px;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--black); }
+  .nav-cta {
+    background: var(--black); color: var(--white);
+    padding: 10px 22px; border-radius: 999px; border: none;
+    font-size: 12px; letter-spacing: 0.1em; cursor: pointer;
+    font-family: inherit; transition: opacity 0.2s; display: inline-block;
+  }
+  .nav-cta:hover { opacity: 0.8; }
+  @media (max-width: 768px) { nav { padding: 16px 20px; } .nav-cta { display: none; } }
+
+  /* HERO */
+  .page-hero {
+    padding: 80px 48px 64px; max-width: 1280px; margin: 0 auto;
+    border-bottom: 0.5px solid var(--grey-mid);
+  }
+  .page-hero h1 {
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 300; letter-spacing: 0.02em; line-height: 1.1; margin-bottom: 20px;
+  }
+  .page-hero p { font-size: 16px; color: var(--grey-text); line-height: 1.8; max-width: 580px; }
+  @media (max-width: 768px) { .page-hero { padding: 56px 20px 48px; } }
+
+  /* THEMES SECTION */
+  .themes-section { max-width: 1280px; margin: 0 auto; padding: 80px 48px; }
+  @media (max-width: 768px) { .themes-section { padding: 56px 20px 64px; } }
+
+  /* THEME ENTRY */
+  .theme-entry {
+    margin-bottom: 80px; padding-bottom: 80px;
+    border-bottom: 0.5px solid var(--grey-mid);
+  }
+  .theme-entry:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+
+  /* 3-image row */
+  .theme-images {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 12px; margin-bottom: 24px;
+  }
+  .theme-img {
+    overflow: hidden; border-radius: var(--radius-md);
+    background: var(--grey-light); height: 320px;
+  }
+  .theme-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform var(--transition);
+  }
+  .theme-entry:hover .theme-img img { transform: scale(1.03); }
+
+  /* Text below */
+  .theme-text {
+    display: grid; grid-template-columns: 160px 1fr;
+    gap: 24px; align-items: start; padding-top: 4px;
+  }
+  .theme-number {
+    font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--grey-muted); padding-top: 5px;
+  }
+  .theme-text-body h3 {
+    font-size: clamp(20px, 2.4vw, 26px);
+    font-weight: 300; letter-spacing: 0.04em; margin-bottom: 10px;
+  }
+  .theme-text-body p { font-size: 14px; color: var(--grey-text); line-height: 1.85; max-width: 560px; }
+
+  img[src="IMAGE_URL_HERE"] {
+    background: linear-gradient(135deg, #ebebeb 0%, #f5f5f5 50%, #e8e8e8 100%);
+    min-height: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .theme-images { gap: 8px; }
+    .theme-img { height: 180px; }
+    .theme-text { grid-template-columns: 1fr; gap: 8px; }
+    .theme-entry { margin-bottom: 56px; padding-bottom: 56px; }
+  }
+  @media (max-width: 480px) { .theme-img { height: 120px; border-radius: 12px; } }
+
+  /* NOTE STRIP */
+  .note-strip { max-width: 1280px; margin: 0 auto; padding: 0 48px 80px; }
+  .note-inner {
+    background: var(--black); color: var(--white); border-radius: var(--radius-lg);
+    padding: 48px 52px; display: grid; grid-template-columns: 1fr 1fr;
+    gap: 48px; align-items: center;
+  }
+  .note-inner h3 { font-size: clamp(20px, 2.5vw, 28px); font-weight: 300; letter-spacing: 0.03em; margin-bottom: 14px; }
+  .note-inner p { font-size: 14px; color: #aaa; line-height: 1.85; }
+  .note-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-white {
+    background: var(--white); color: var(--black); border: 1.5px solid var(--white);
+    padding: 13px 28px; border-radius: 999px; font-size: 12px; letter-spacing: 0.1em;
+    font-family: inherit; cursor: pointer; transition: opacity 0.2s; display: inline-block;
+  }
+  .btn-white:hover { opacity: 0.85; }
+  .btn-outline-white {
+    background: transparent; color: var(--white); border: 1.5px solid rgba(255,255,255,0.4);
+    padding: 13px 28px; border-radius: 999px; font-size: 12px; letter-spacing: 0.1em;
+    font-family: inherit; cursor: pointer; display: inline-block;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .btn-outline-white:hover { background: var(--white); color: var(--black); border-color: var(--white); }
+  @media (max-width: 768px) {
+    .note-strip { padding: 0 20px 64px; }
+    .note-inner { grid-template-columns: 1fr; gap: 24px; padding: 36px 28px; }
+  }
+
+  /* FOOTER */
+  footer {
+    background: #f2f2f2; padding: 32px 24px; text-align: center;
+    font-size: 12px; color: var(--grey-text); letter-spacing: 0.08em;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../lifestyle-photography.html" class="nav-logo">CONTINUUM</a>
+  <a href="../lifestyle-photography.html#cakesmash" class="nav-back">
+    <i class="ti ti-arrow-left"></i> Cake Smash Sessions
+  </a>
+  <a href="../lifestyle-photography.html#cta" class="nav-cta">Book A Session</a>
+</nav>
+
+<div class="page-hero">
+  <h1>Cake Smash<br>Themes</h1>
+  <p>Every cake smash session is fully styled around a theme of your choice. Browse our collection below and let us know which one speaks to you — or mix elements to create something entirely your own.</p>
+</div>
+
+<section class="themes-section">
+
+  <div class="theme-entry">
+    <div class="theme-images">
+      <div class="theme-img"><img src="IMAGE_URL_HERE" alt="Floral Garden cake smash — setup shot"></div>
+      <div class="theme-img"><img src="IMAGE_URL_HERE" alt="Floral Garden cake smash — baby portrait"></div>
+      <div class="theme-img"><img src="IMAGE_URL_HERE" alt="Floral Garden cake smash — cake detail"></div>
+    </div>
+    <div class="theme-text">
+      <p class="theme-number">Theme 01</p>
+      <div class="theme-text-body">
+        <h3>Floral Garden</h3>
+        <p>Soft blooms, pastel ruffles, and a garden-inspired cake surrounded by fresh florals and greenery. Timeless and delicate.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="theme-entry">
+    <div class="theme-images">
+      <div class="theme-img"><img src="IMAGE_URL_HERE" alt="Safari Jungle cake smash — full setup"></div>
+      <div class="theme-img"><img src="IMAGE_URL_HERE" alt="Safari Jungle cake smash — baby with props"></div>
+      <div class="theme-img"><img src="IMAGE_URL_HERE" alt="Safari Jungle cake smash — detail shot"></div>
+    </div>
+    <div class="theme-text">
+      <p class="theme-number">Theme 02</p>
+      <div class="theme-text-body">
+        <h3>Safari & Jungle</h3>
+        <p>Wild at heart. Lush tropical leaves, wooden accents, animal plushies, and earthy tones make every little one the king or queen of the jungle.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="theme-entry">
+    <div class="theme-images">
+      <div class="theme-img"><img src="IMAGE_URL_HERE" alt="Pastel Dreams cake smash — balloon backdrop"></div>
+      <div class="theme-img"><img src="IMAGE_URL_HERE" alt="Pastel Dreams cake smash — baby portrait"></div>
+      <div class="theme-img"><img src="IMAGE_URL_HERE" alt="Pastel Dreams cake smash — cake close-up"></div>
+    </div>
+    <div class="theme-text">
+      <p class="theme-number">Theme 03</p>
+      <div class="theme-text-body">
+        <h3>Pastel Dreams</h3>
+        <p>A dreamy palette of blush, mint, lavender, and lemon. Balloon clouds, soft backdrops, and a confetti cake for the perfect whimsical feel.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="theme-entry">
+    <div class="theme-images">
+      <div class="theme-img"><img src="IMAGE_URL_HERE" alt="Under the Sea cake smash — full setup"></div>
+      <div class="theme-img"><img src="IMAGE_URL_HERE" alt="Under the Sea cake smash — milk bath finale"></div>
+      <div class="theme-img"><img src="IMAGE_URL_HERE" alt="Under the Sea cake smash — shell detail"></div>
+    </div>
+    <div class="theme-text">
+      <p class="theme-number">Theme 04</p>
+      <div class="theme-text-body">
+        <h3>Under the Sea</h3>
+        <p>Shimmering blues and aquas with ocean-inspired props, shell accents, and a mermaid or nautical cake. Pairs beautifully with a milk bath finale.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="theme-entry">
+    <div class="theme-images">
+      <div class="theme-img"><img src="IMAGE_URL_HERE" alt="Vintage Circus cake smash — tent and bunting setup"></div>
+      <div class="theme-img"><img src="IMAGE_URL_HERE" alt="Vintage Circus cake smash — baby portrait"></div>
+      <div class="theme-img"><img src="IMAGE_URL_HERE" alt="Vintage Circus cake smash — cake detail"></div>
+    </div>
+    <div class="theme-text">
+      <p class="theme-number">Theme 05</p>
+      <div class="theme-text-body">
+        <h3>Vintage Circus</h3>
+        <p>A warm, nostalgic big-top feel with striped bunting, carousel props, popcorn pails, and a classic tent-cake layered in warm cream tones.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="theme-entry">
+    <div class="theme-images">
+      <div class="theme-img"><img src="IMAGE_URL_HERE" alt="Space Adventure cake smash — galaxy backdrop"></div>
+      <div class="theme-img"><img src="IMAGE_URL_HERE" alt="Space Adventure cake smash — astronaut baby"></div>
+      <div class="theme-img"><img src="IMAGE_URL_HERE" alt="Space Adventure cake smash — planet cake"></div>
+    </div>
+    <div class="theme-text">
+      <p class="theme-number">Theme 06</p>
+      <div class="theme-text-body">
+        <h3>Space Adventure</h3>
+        <p>Galaxies, planets, and shooting stars. Deep blue-purple backdrops with metallic silver and gold accents. A favourite for little astronauts.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="theme-entry">
+    <div class="theme-images">
+      <div class="theme-img"><img src="IMAGE_URL_HERE" alt="Rainbow Brights cake smash — arch backdrop"></div>
+      <div class="theme-img"><img src="IMAGE_URL_HERE" alt="Rainbow Brights cake smash — baby with cake"></div>
+      <div class="theme-img"><img src="IMAGE_URL_HERE" alt="Rainbow Brights cake smash — rainbow cake"></div>
+    </div>
+    <div class="theme-text">
+      <p class="theme-number">Theme 07</p>
+      <div class="theme-text-body">
+        <h3>Rainbow Brights</h3>
+        <p>Bold, joyful, and full of colour. A rainbow arch backdrop with vibrant balloons and a multi-tier rainbow cake — pure celebration energy.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="theme-entry">
+    <div class="theme-images">
+      <div class="theme-img"><img src="IMAGE_URL_HERE" alt="Enchanted Woodland cake smash — forest setup"></div>
+      <div class="theme-img"><img src="IMAGE_URL_HERE" alt="Enchanted Woodland cake smash — baby with props"></div>
+      <div class="theme-img"><img src="IMAGE_URL_HERE" alt="Enchanted Woodland cake smash — mushroom detail"></div>
+    </div>
+    <div class="theme-text">
+      <p class="theme-number">Theme 08</p>
+      <div class="theme-text-body">
+        <h3>Enchanted Woodland</h3>
+        <p>Fairy-tale forest vibes with mushroom props, woodland creatures, moss details, and warm earthy browns and creams throughout.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="theme-entry">
+    <div class="theme-images">
+      <div class="theme-img"><img src="IMAGE_URL_HERE" alt="Princess and Prince cake smash — royal setup"></div>
+      <div class="theme-img"><img src="IMAGE_URL_HERE" alt="Princess and Prince cake smash — baby with crown"></div>
+      <div class="theme-img"><img src="IMAGE_URL_HERE" alt="Princess and Prince cake smash — castle cake"></div>
+    </div>
+    <div class="theme-text">
+      <p class="theme-number">Theme 09</p>
+      <div class="theme-text-body">
+        <h3>Princess & Prince</h3>
+        <p>Gold crowns, pearl accents, tutu skirts or bow ties, and a castle-inspired cake. The royal treatment for your little one's first birthday.</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<div class="note-strip">
+  <div class="note-inner">
+    <div>
+      <h3>Don't see your dream theme?</h3>
+      <p>We love creating custom setups. Share your vision — a colour palette, a character, a mood — and we'll bring it to life. All sessions include full styling coordination, and we're happy to source custom props.</p>
+    </div>
+    <div class="note-ctas">
+      <a href="../lifestyle-photography.html#cta" class="btn-white">Book A Session</a>
+      <a href="gallery-cake-smash.html" class="btn-outline-white">View Gallery</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Continuum Visual Studio &bull; Kempton Park &bull; Johannesburg &bull; Photography &amp; Videography
+</footer>
+
+</body>
+</html>

@@ -440,6 +440,34 @@
   }
   .view-gallery-link:hover { letter-spacing: 0.24em; }
 
+  /* ── SECTION LINKS (gallery + themes side by side) ───────────── */
+  .section-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    margin-top: 28px;
+  }
+  .section-links .view-gallery-link,
+  .section-links .view-themes-link {
+    margin-top: 0;
+  }
+  .view-themes-link {
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--grey-text);
+    border-bottom: 1px dashed var(--grey-muted);
+    padding-bottom: 3px;
+    transition: letter-spacing 0.3s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+  .view-themes-link:hover {
+    letter-spacing: 0.24em;
+    color: var(--black);
+    border-color: var(--black);
+    border-bottom-style: solid;
+  }
+
   /* ── PLACEHOLDER (no src) ─────────────────────────────────────── */
   img[src="IMAGE_URL_HERE"] {
     background: linear-gradient(135deg, #ebebeb 0%, #f5f5f5 50%, #e8e8e8 100%);
@@ -473,6 +501,10 @@
             <div class="dl2-item">
               <div class="dl2-header">Cake Smash <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
               <div class="dropdown-l3"><a href="lifestyle-categories/gallery-cake-smash.html">Cake Smash Gallery</a></div>
+            </div>
+            <div class="dl2-item">
+              <div class="dl2-header">Birthday Shoots <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
+              <div class="dropdown-l3"><a href="lifestyle-categories/gallery-birthday.html">Birthday Gallery</a></div>
             </div>
             <div class="dl2-item">
               <div class="dl2-header">Weddings & Events <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
@@ -557,6 +589,7 @@
     <a href="lifestyle-photography.html" class="mobile-sub-link">— Lifestyle Photography</a>
     <a href="lifestyle-categories/gallery-maternity.html" class="mobile-sub-link mobile-gallery-link">↳ Maternity Gallery</a>
     <a href="lifestyle-categories/gallery-cake-smash.html" class="mobile-sub-link mobile-gallery-link">↳ Cake Smash Gallery</a>
+    <a href="lifestyle-categories/gallery-birthday.html" class="mobile-sub-link mobile-gallery-link">↳ Birthday Gallery</a>
     <a href="lifestyle-categories/gallery-weddings-events.html" class="mobile-sub-link mobile-gallery-link">↳ Weddings & Events Gallery</a>
     <a href="lifestyle-categories/gallery-outdoor.html" class="mobile-sub-link mobile-gallery-link">↳ Outdoor Gallery</a>
     <a href="lifestyle-categories/gallery-studio.html" class="mobile-sub-link mobile-gallery-link">↳ Studio Gallery</a>
@@ -591,6 +624,7 @@
   <div class="cat-nav-inner">
     <a href="#maternity">Maternity Shoots</a>
     <a href="#cakesmash">Cake Smash Sessions</a>
+    <a href="#birthday">Birthday Shoots</a>
     <a href="#studio">Studio Photography</a>
     <a href="#weddings-events">Weddings & Events</a>
     <a href="#outdoor">Outdoor Lifestyle</a>
@@ -613,15 +647,15 @@
     <div class="layout-c">
       <div class="img-primary">
         <div class="img-wrap">
-          <img src="IMAGE_URL_HERE" alt="Maternity photography — studio portrait with draped fabric">
+          <img src="lifestyle-categories/maternity/maternity3.webp" alt="Maternity photography — studio portrait with draped fabric">
         </div>
       </div>
       <div class="col-stack">
         <div class="img-wrap">
-          <img src="IMAGE_URL_HERE" alt="Maternity shoot — outdoor golden hour portrait">
+          <img src="lifestyle-categories/maternity/maternity12.webp" alt="Maternity shoot — outdoor golden hour portrait">
         </div>
         <div class="img-wrap">
-          <img src="IMAGE_URL_HERE" alt="Maternity session — couple together in garden">
+          <img src="lifestyle-categories/maternity/maternity28.webp" alt="Maternity session — couple together in garden">
         </div>
       </div>
     </div>
@@ -655,9 +689,42 @@
         </div>
       </div>
     </div>
-    <a href="lifestyle-categories/gallery-cake-smash.html" class="view-gallery-link">View Gallery</a>
+    <div class="section-links">
+      <a href="lifestyle-categories/gallery-cake-smash.html" class="view-gallery-link">View Gallery</a>
+      <a href="lifestyle-categories/themes-cake-smash.html" class="view-themes-link">View Themes</a>
+    </div>
   </section>
-
+  <!-- ─── BIRTHDAY SHOOTS ────────────────────────────────────── -->
+  <section class="category-section" id="birthday">
+    <div class="category-header">
+      <div>
+        <p class="category-label">03 — Lifestyle</p>
+        <h2>Birthday Shoots</h2>
+      </div>
+      <p class="category-desc">Fun, vibrant, and full of personality. Our birthday shoot sessions are thoughtfully styled with custom themes, beautiful setups, outfit coordination, and playful props — capturing genuine smiles, special moments, and memories worth celebrating for years to come.</p>
+    </div>
+    <!-- Layout A: Hero + 2 side -->
+    <div class="layout-a">
+      <div class="img-hero">
+        <div class="img-wrap">
+          <img src="IMAGE_URL_HERE" alt="Cake smash photography — baby with birthday cake wide shot">
+        </div>
+      </div>
+      <div class="img-side">
+        <div class="img-wrap">
+          <img src="IMAGE_URL_HERE" alt="Cake smash — close up baby face with frosting">
+        </div>
+      </div>
+      <div class="img-side">
+        <div class="img-wrap">
+          <img src="IMAGE_URL_HERE" alt="Cake smash milk bath finale — baby in floral tub">
+        </div>
+      </div>
+    </div>
+    <div class="section-links">
+      <a href="lifestyle-categories/gallery-birthday.html" class="view-gallery-link">View Gallery</a>
+    </div>
+  </section>
   <!-- ─── STUDIO PHOTOGRAPHY ──────────────────────────────────── -->
   <section class="category-section" id="studio">
     <div class="category-header">
@@ -690,7 +757,10 @@
         </div>
       </div>
     </div>
-    <a href="lifestyle-categories/gallery-studio.html" class="view-gallery-link">View Gallery</a>
+    <div class="section-links">
+      <a href="lifestyle-categories/gallery-studio.html" class="view-gallery-link">View Gallery</a>
+      <a href="lifestyle-categories/themes-studio.html" class="view-themes-link">View Themes</a>
+    </div>
   </section>
 
   <!-- ─── WEDDINGS & EVENTS ────────────────────────────────────── -->
