@@ -342,11 +342,19 @@
 
   /* Layout E: 1:1:1 equal grid */
   .layout-e { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-  .layout-e img { height: 320px; object-fit: cover; border-radius: var(--radius-md); }
+  .layout-e img { height: 400px; object-fit: cover; border-radius: var(--radius-md); }
 
   /* Layout F: Staggered 4-col */
   .layout-f { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
   .layout-f img { height: 300px; object-fit: cover; border-radius: var(--radius-md); }
+
+  /* Layout P: Portrait headshot grid — 3 equal tall columns */
+  .layout-portrait {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .layout-portrait .img-wrap { border-radius: var(--radius-lg); height: 520px; }
 
   /* ── IMAGE HOVER EFFECT (applies to all) ─────────────────────── */
   .img-wrap {
@@ -379,7 +387,7 @@
   .layout-d .img-tall .img-wrap { border-radius: var(--radius-md); height: 380px; }
   .layout-d .img-short .img-wrap { border-radius: var(--radius-md); height: 260px; }
   .layout-d .img-wide .img-wrap { border-radius: var(--radius-lg); height: 320px; }
-  .layout-e .img-wrap { border-radius: var(--radius-md); height: 320px; }
+  .layout-e .img-wrap { border-radius: var(--radius-md); height: 400px; }
   .layout-f .img-wrap { border-radius: var(--radius-md); height: 300px; }
 
   /* ── RESPONSIVE GRID FALLBACKS ───────────────────────────────── */
@@ -406,12 +414,16 @@
     .layout-e .img-wrap { height: 220px; }
     .layout-f { grid-template-columns: 1fr 1fr; }
     .layout-f .img-wrap { height: 200px; }
+    .layout-portrait { grid-template-columns: 1fr 1fr; }
+    .layout-portrait .img-wrap { height: 340px; }
   }
   @media (max-width: 480px) {
     .layout-b { grid-template-columns: 1fr; }
     .layout-e { grid-template-columns: 1fr; }
     .layout-f { grid-template-columns: 1fr 1fr; }
     .layout-f .img-wrap { height: 160px; }
+    .layout-portrait { grid-template-columns: 1fr; }
+    .layout-portrait .img-wrap { height: 420px; }
   }
 
   /* ── CTA STRIP ────────────────────────────────────────────────── */
@@ -708,22 +720,16 @@
       </div>
       <p class="category-desc">Professional headshots that make lasting first impressions. Ideal for LinkedIn profiles, company websites, press kits, and media features. We offer studio and environmental options with same-session retouching.</p>
     </div>
-    <!-- Layout A: Hero + 2 side -->
-    <div class="layout-a">
-      <div class="img-hero">
-        <div class="img-wrap">
-          <img src="IMAGE_URL_HERE" alt="Professional executive headshot — studio lighting">
-        </div>
+    <!-- Layout P: 3-column portrait grid -->
+    <div class="layout-portrait">
+      <div class="img-wrap">
+        <img src="corporate-categories/headshots/headshots1.webp" alt="Professional executive headshot — studio lighting">
       </div>
-      <div class="img-side">
-        <div class="img-wrap">
-          <img src="IMAGE_URL_HERE" alt="Corporate headshot — white background">
-        </div>
+      <div class="img-wrap">
+        <img src="corporate-categories/headshots/headshots9.webp" alt="Corporate headshot — white background">
       </div>
-      <div class="img-side">
-        <div class="img-wrap">
-          <img src="IMAGE_URL_HERE" alt="Environmental office headshot">
-        </div>
+      <div class="img-wrap">
+        <img src="corporate-categories/headshots/headshots6.webp" alt="Environmental office headshot">
       </div>
     </div>
     <a href="corporate-categories/gallery-headshots.html" class="view-gallery-link">View Gallery</a>
@@ -742,15 +748,15 @@
     <div class="layout-c">
       <div class="img-primary">
         <div class="img-wrap">
-          <img src="IMAGE_URL_HERE" alt="Brand photography — product flat lay">
+          <img src="corporate-categories/branding/branding3.webp" alt="Brand photography — product flat lay">
         </div>
       </div>
       <div class="col-stack">
         <div class="img-wrap">
-          <img src="IMAGE_URL_HERE" alt="Brand shoot — team behind the scenes">
+          <img src="corporate-categories/branding/branding7.webp" alt="Brand shoot — team behind the scenes">
         </div>
         <div class="img-wrap">
-          <img src="IMAGE_URL_HERE" alt="Brand identity photography — logo and packaging">
+          <img src="corporate-categories/branding/branding19.webp" alt="Brand identity photography — logo and packaging">
         </div>
       </div>
     </div>
@@ -770,22 +776,17 @@
     <div class="layout-b">
       <div class="img-tall">
         <div class="img-wrap">
-          <img src="IMAGE_URL_HERE" alt="Conference keynote speaker photography">
+          <img src="corporate-categories/corporate-events/corporate-events8.webp" alt="Conference keynote speaker photography">
         </div>
       </div>
       <div class="img-tall">
         <div class="img-wrap">
-          <img src="IMAGE_URL_HERE" alt="Corporate award ceremony — candid moment">
+          <img src="corporate-categories/corporate-events/corporate-events11.webp" alt="Corporate award ceremony — candid moment">
         </div>
       </div>
       <div class="img-tall">
         <div class="img-wrap">
-          <img src="IMAGE_URL_HERE" alt="Product launch event photography">
-        </div>
-      </div>
-      <div class="img-wide">
-        <div class="img-wrap">
-          <img src="IMAGE_URL_HERE" alt="Corporate group team photo — full company">
+          <img src="corporate-categories/corporate-events/corporate-events27.webp" alt="Product launch event photography">
         </div>
       </div>
     </div>
@@ -804,22 +805,22 @@
     <!-- Layout E: Equal 3-column -->
     <div class="layout-e">
       <div class="img-wrap">
-        <img src="IMAGE_URL_HERE" alt="Fashion campaign — editorial portrait">
+        <img src="corporate-categories/fashion/fashion1.webp" alt="Fashion campaign — editorial portrait">
       </div>
       <div class="img-wrap">
-        <img src="IMAGE_URL_HERE" alt="Clothing brand shoot — full body look">
+        <img src="corporate-categories/fashion/fashion4.webp" alt="Clothing brand shoot — full body look">
       </div>
       <div class="img-wrap">
-        <img src="IMAGE_URL_HERE" alt="Fashion editorial — detail shot accessories">
+        <img src="corporate-categories/fashion/fashion8.webp" alt="Fashion editorial — detail shot accessories">
       </div>
       <div class="img-wrap">
-        <img src="IMAGE_URL_HERE" alt="Fashion campaign — movement shot">
+        <img src="corporate-categories/fashion/fashion10.webp" alt="Fashion campaign — movement shot">
       </div>
       <div class="img-wrap">
-        <img src="IMAGE_URL_HERE" alt="Fashion editorial — outdoor location shoot">
+        <img src="corporate-categories/fashion/fashion11.webp" alt="Fashion editorial — outdoor location shoot">
       </div>
       <div class="img-wrap">
-        <img src="IMAGE_URL_HERE" alt="Fashion brand lookbook — studio shoot">
+        <img src="corporate-categories/fashion/fashion6.webp" alt="Fashion brand lookbook — studio shoot">
       </div>
     </div>
     <a href="corporate-categories/gallery-fashion.html" class="view-gallery-link">View Gallery</a>

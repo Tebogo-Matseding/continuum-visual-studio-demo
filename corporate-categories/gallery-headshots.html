@@ -298,6 +298,7 @@
     background: var(--grey-light);
     position: relative;
     border-radius: var(--radius-md);
+    aspect-ratio: 3 / 4;
   }
   .img-wrap::after {
     content: '';
@@ -316,66 +317,49 @@
   .img-wrap:hover img { transform: scale(1.03); }
 
   /* ── GALLERY LAYOUTS ──────────────────────────────────────────── */
+  /* All .img-wrap slots use aspect-ratio: 3/4 (set on base above) — every image is portrait */
 
-  /* Hero full-width */
-  .g-hero { margin-bottom: 14px; }
-  .g-hero .img-wrap { border-radius: var(--radius-lg); height: 600px; }
+  /* 2-column portrait opener */
+  .g-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .g-hero .img-wrap { border-radius: var(--radius-lg); }
 
   /* 3-column equal */
   .g-trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 14px; }
-  .g-trio .img-wrap { height: 380px; }
 
-  /* Asymmetric 2:1 */
+  /* Asymmetric 2:1 — all three slots stay portrait */
   .g-split { display: grid; grid-template-columns: 2fr 1fr; gap: 14px; margin-bottom: 14px; }
-  .g-split .img-wrap { height: 460px; }
   .g-split .col-stack { display: flex; flex-direction: column; gap: 14px; }
-  .g-split .col-stack .img-wrap { height: 223px; }
 
   /* Reverse asymmetric 1:2 */
   .g-split-r { display: grid; grid-template-columns: 1fr 2fr; gap: 14px; margin-bottom: 14px; }
-  .g-split-r .img-wrap { height: 460px; }
   .g-split-r .col-stack { display: flex; flex-direction: column; gap: 14px; }
-  .g-split-r .col-stack .img-wrap { height: 223px; }
 
   /* 2-column equal */
   .g-duo { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
-  .g-duo .img-wrap { height: 480px; }
 
   /* 4-column strip */
   .g-quad { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 14px; }
-  .g-quad .img-wrap { height: 300px; }
 
-  /* Masonry 2-col with tall/short variation */
+  /* Masonry 2-col — no spanning wide row so every slot stays portrait */
   .g-masonry { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
-  .g-masonry .img-tall .img-wrap { height: 520px; }
-  .g-masonry .img-short .img-wrap { height: 300px; }
-  .g-masonry .img-wide { grid-column: 1 / -1; }
-  .g-masonry .img-wide .img-wrap { height: 400px; border-radius: var(--radius-lg); }
 
   /* ── RESPONSIVE GALLERY ───────────────────────────────────────── */
   @media (max-width: 1024px) {
     .g-quad { grid-template-columns: repeat(2, 1fr); }
-    .g-quad .img-wrap { height: 260px; }
   }
   @media (max-width: 768px) {
-    .g-hero .img-wrap { height: 360px; }
-    .g-trio { grid-template-columns: 1fr 1fr; }
-    .g-trio .img-wrap { height: 260px; }
-    .g-split, .g-split-r { grid-template-columns: 1fr; }
-    .g-split .img-wrap, .g-split-r .img-wrap { height: 300px; }
-    .g-split .col-stack, .g-split-r .col-stack { flex-direction: row; }
-    .g-split .col-stack .img-wrap, .g-split-r .col-stack .img-wrap { height: 200px; }
-    .g-duo .img-wrap { height: 300px; }
-    .g-masonry .img-tall .img-wrap, .g-masonry .img-short .img-wrap { height: 260px; }
-    .g-masonry .img-wide .img-wrap { height: 260px; }
+    .g-hero  { grid-template-columns: 1fr 1fr; }
+    .g-trio  { grid-template-columns: 1fr 1fr; }
+    .g-split, .g-split-r { grid-template-columns: 1fr 1fr; }
+    .g-split .col-stack, .g-split-r .col-stack { flex-direction: column; }
+    .g-duo   { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 480px) {
-    .g-trio { grid-template-columns: 1fr; }
-    .g-duo { grid-template-columns: 1fr; }
-    .g-quad { grid-template-columns: 1fr 1fr; }
-    .g-quad .img-wrap { height: 180px; }
-    .g-split .col-stack, .g-split-r .col-stack { flex-direction: column; }
-    .g-split .col-stack .img-wrap, .g-split-r .col-stack .img-wrap { height: 200px; }
+    .g-hero  { grid-template-columns: 1fr; }
+    .g-trio  { grid-template-columns: 1fr 1fr; }
+    .g-split, .g-split-r { grid-template-columns: 1fr 1fr; }
+    .g-duo   { grid-template-columns: 1fr; }
+    .g-quad  { grid-template-columns: 1fr 1fr; }
   }
 
   /* ── PLACEHOLDER (no src) ─────────────────────────────────────── */
@@ -596,10 +580,13 @@
     <h2>The Gallery</h2>
   </div>
 
-  <!-- Full-width opener -->
+  <!-- 2-portrait opener -->
   <div class="g-hero">
     <div class="img-wrap">
       <img src="IMAGE_URL_HERE" alt="Headshot — professional corporate portrait">
+    </div>
+    <div class="img-wrap">
+      <img src="IMAGE_URL_HERE" alt="Headshot — executive studio portrait">
     </div>
   </div>
 
@@ -672,7 +659,7 @@
     </div>
   </div>
 
-  <!-- Masonry with wide bottom -->
+  <!-- Masonry with consistent portrait slots -->
   <div class="g-masonry">
     <div class="img-tall">
       <div class="img-wrap">
@@ -689,11 +676,6 @@
         <div class="img-wrap">
           <img src="IMAGE_URL_HERE" alt="Maternity shoot — editorial style portrait">
         </div>
-      </div>
-    </div>
-    <div class="img-wide">
-      <div class="img-wrap">
-        <img src="IMAGE_URL_HERE" alt="Maternity photography — couple walking in golden field wide shot">
       </div>
     </div>
   </div>
