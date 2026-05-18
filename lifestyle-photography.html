@@ -41,6 +41,8 @@
     display: flex; align-items: center; justify-content: space-between;
     padding: 18px 48px;
   }
+  .nav-logo { display: flex; align-items: center; gap: 10px; font-size: 15px; letter-spacing: 0.12em; }
+  .nav-logo-img { height: 52px; width: auto; display: block; }
   .nav-logo { font-size: 15px; letter-spacing: 0.12em; }
   .nav-links { display: flex; gap: 32px; }
   .nav-links a { font-size: 13px; letter-spacing: 0.08em; color: #555; transition: color 0.2s; }
@@ -249,7 +251,7 @@
   /* ── CATEGORY NAV (STICKY TOC) ───────────────────────────────── */
   .cat-nav {
     position: sticky; top: 57px; z-index: 90;
-    background: rgba(255,255,255,0.96);
+    background: var(--grey-light);
     backdrop-filter: blur(8px);
     border-bottom: 0.5px solid var(--grey-mid);
     overflow-x: auto;
@@ -479,9 +481,12 @@
 
 <!-- ════════════════════════════════════════════════════ NAV -->
 <nav>
-  <a href="index.html" class="nav-logo">CONTINUUM</a>
+  <a href="index.html" class="nav-logo">
+    <img src="images/nav-logo.webp" alt="Continuum Visual Studio Logo" class="nav-logo-img"> CONTINUUM VISUAL STUDIO
+  </a>
   <div class="nav-links">
     <a href="index.html">Services</a>
+    <a href="index.html">Testimonials</a>
     <div class="nav-dropdown" id="portfolioDropdown">
       <button id="portfolioBtn" aria-haspopup="true" aria-expanded="false">
         Portfolio <i class="ti ti-chevron-down caret" aria-hidden="true"></i>
@@ -571,8 +576,7 @@
 
       </div>
     </div>
-    <a href="#cta">Contact</a>
-  </div>
+   </div> 
   <a href="#cta" class="nav-cta">Book A Session</a>
   <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -647,15 +651,15 @@
     <div class="layout-c">
       <div class="img-primary">
         <div class="img-wrap">
-          <img src="lifestyle-categories/maternity/maternity3.webp" alt="Maternity photography — studio portrait with draped fabric">
+          <img src="lifestyle-categories/maternity/maternity3.webp" alt="Maternity photography — studio portrait with draped fabric" loading="lazy"	decoding="async">
         </div>
       </div>
       <div class="col-stack">
         <div class="img-wrap">
-          <img src="lifestyle-categories/maternity/maternity12.webp" alt="Maternity shoot — outdoor golden hour portrait">
+          <img src="lifestyle-categories/maternity/maternity12.webp" alt="Maternity shoot — outdoor golden hour portrait" loading="lazy"	decoding="async">
         </div>
         <div class="img-wrap">
-          <img src="lifestyle-categories/maternity/maternity28.webp" alt="Maternity session — couple together in garden">
+          <img src="lifestyle-categories/maternity/maternity28.webp" alt="Maternity session — couple together in garden" loading="lazy"	decoding="async">
         </div>
       </div>
     </div>
@@ -675,17 +679,17 @@
     <div class="layout-a">
       <div class="img-hero">
         <div class="img-wrap">
-          <img src="lifestyle-categories/cake-smash/cake-smash22.webp" alt="Cake smash photography — baby with birthday cake wide shot">
+          <img src="lifestyle-categories/cake-smash/cake-smash22.webp" alt="Cake smash photography — baby with birthday cake wide shot" loading="lazy"	decoding="async">
         </div>
       </div>
       <div class="img-side">
         <div class="img-wrap">
-          <img src="lifestyle-categories/cake-smash/cake-smash8.webp" alt="Cake smash — close up baby face with frosting">
+          <img src="lifestyle-categories/cake-smash/cake-smash8.webp" alt="Cake smash — close up baby face with frosting" loading="lazy"	decoding="async">
         </div>
       </div>
       <div class="img-side">
         <div class="img-wrap">
-          <img src="lifestyle-categories/cake-smash/cake-smash14.webp" alt="Cake smash milk bath finale — baby in floral tub">
+          <img src="lifestyle-categories/cake-smash/cake-smash14.webp" alt="Cake smash milk bath finale — baby in floral tub" loading="lazy"	decoding="async">
         </div>
       </div>
     </div>
@@ -707,17 +711,17 @@
     <div class="layout-a">
       <div class="img-hero">
         <div class="img-wrap">
-          <img src="lifestyle-categories/birthday/birthday15.webp" alt="Birthday shoot — playful child with party hat">
+          <img src="lifestyle-categories/birthday/birthday15.webp" alt="Birthday shoot — playful child with party hat" loading="lazy"	decoding="async">
         </div>
       </div>
       <div class="img-side">
         <div class="img-wrap">
-          <img src="lifestyle-categories/birthday/birthday2.webp" alt="Birthday shoot — candid moment with party decorations">
+          <img src="lifestyle-categories/birthday/birthday2.webp" alt="Birthday shoot — candid moment with party decorations" loading="lazy"	decoding="async">
         </div>
       </div>
       <div class="img-side">
         <div class="img-wrap">
-          <img src="lifestyle-categories/birthday/birthday4.webp" alt="Birthday shoot — milestone gathering portrait">
+          <img src="lifestyle-categories/birthday/birthday4.webp" alt="Birthday shoot — milestone gathering portrait" loading="lazy"	decoding="async">
         </div>
       </div>
     </div>
@@ -738,22 +742,22 @@
     <div class="layout-b">
       <div class="img-tall">
         <div class="img-wrap">
-          <img src="lifestyle-categories/studio/studio17.webp" alt="Studio photography — graduation portrait in regalia">
+          <img src="lifestyle-categories/studio/studio17.webp" alt="Studio photography — graduation portrait in regalia" loading="lazy"	decoding="async">
         </div>
       </div>
       <div class="img-tall">
         <div class="img-wrap">
-          <img src="lifestyle-categories/studio/studio22.webp" alt="Studio shoot — outdoor campus with cap toss">
+          <img src="lifestyle-categories/studio/studio22.webp" alt="Studio shoot — outdoor campus with cap toss" loading="lazy"	decoding="async">
         </div>
       </div>
       <div class="img-tall">
         <div class="img-wrap">
-          <img src="lifestyle-categories/studio/studio32.webp" alt="Studio session — family celebration portrait">
+          <img src="lifestyle-categories/studio/studio32.webp" alt="Studio session — family celebration portrait" loading="lazy"	decoding="async">
         </div>
       </div>
       <div class="img-wide">
         <div class="img-wrap">
-          <img src="lifestyle-categories/studio/studio8.webp" alt="Studio photography — group photo friends celebrating">
+          <img src="lifestyle-categories/studio/studio8.webp" alt="Studio photography — group photo friends celebrating" loading="lazy"	decoding="async">
         </div>
       </div>
     </div>
@@ -775,22 +779,22 @@
     <!-- Layout E: Equal 3-column -->
     <div class="layout-e">
       <div class="img-wrap">
-        <img src="lifestyle-categories/weddings/weddings5.webp" alt="Wedding photography — couple portrait ceremony">
+        <img src="lifestyle-categories/weddings/weddings5.webp" alt="Wedding photography — couple portrait ceremony" loading="lazy"	decoding="async">
       </div>
       <div class="img-wrap">
-        <img src="lifestyle-categories/weddings/weddings13.webp" alt="Event photography — family celebration candid">
+        <img src="lifestyle-categories/weddings/weddings13.webp" alt="Event photography — family celebration candid" loading="lazy"	decoding="async">
       </div>
       <div class="img-wrap">
-        <img src="lifestyle-categories/weddings/weddings15.webp" alt="Wedding reception — guests and decor wide shot">
+        <img src="lifestyle-categories/weddings/weddings15.webp" alt="Wedding reception — guests and decor wide shot" loading="lazy"	decoding="async">
       </div>
       <div class="img-wrap">
-        <img src="lifestyle-categories/weddings/weddings4.webp" alt="Family event — milestone gathering portrait">
+        <img src="lifestyle-categories/weddings/weddings4.webp" alt="Family event — milestone gathering portrait" loading="lazy"	decoding="async">
       </div>
       <div class="img-wrap">
-        <img src="lifestyle-categories/weddings/weddings9.webp" alt="Wedding detail — rings and florals close up">
+        <img src="lifestyle-categories/weddings/weddings9.webp" alt="Wedding detail — rings and florals close up" loading="lazy"	decoding="async">
       </div>
       <div class="img-wrap">
-        <img src="lifestyle-categories/weddings/weddings7.webp" alt="Events photography — first dance moment">
+        <img src="lifestyle-categories/weddings/weddings7.webp" alt="Events photography — first dance moment" loading="lazy"	decoding="async">
       </div>
     </div>
     <a href="lifestyle-categories/gallery-weddings-events.html" class="view-gallery-link">View Gallery</a>
@@ -808,16 +812,16 @@
     <!-- Layout F: 4-col grid -->
     <div class="layout-f">
       <div class="img-wrap">
-        <img src="lifestyle-categories/outdoor/outdoor7.webp" alt="Outdoor lifestyle photography — field golden hour">
+        <img src="lifestyle-categories/outdoor/outdoor7.webp" alt="Outdoor lifestyle photography — field golden hour" loading="lazy"	decoding="async">
       </div>
       <div class="img-wrap">
-        <img src="lifestyle-categories/outdoor/outdoor2.webp" alt="Outdoor portrait — natural light in park">
+        <img src="lifestyle-categories/outdoor/outdoor2.webp" alt="Outdoor portrait — natural light in park" loading="lazy"	decoding="async">
       </div>
       <div class="img-wrap">
-        <img src="lifestyle-categories/outdoor/outdoor17.webp" alt="Lifestyle session — urban street portrait Johannesburg">
+        <img src="lifestyle-categories/outdoor/outdoor17.webp" alt="Lifestyle session — urban street portrait Johannesburg" loading="lazy"	decoding="async">
       </div>
       <div class="img-wrap">
-        <img src="lifestyle-categories/outdoor/outdoor25.webp" alt="Outdoor photography — botanical garden session">
+        <img src="lifestyle-categories/outdoor/outdoor25.webp" alt="Outdoor photography — botanical garden session" loading="lazy"	decoding="async">
       </div>
     </div>
     <a href="lifestyle-categories/gallery-outdoor.html" class="view-gallery-link">View Gallery</a>

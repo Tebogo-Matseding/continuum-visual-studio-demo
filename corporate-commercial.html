@@ -41,6 +41,8 @@
     display: flex; align-items: center; justify-content: space-between;
     padding: 18px 48px;
   }
+  .nav-logo { display: flex; align-items: center; gap: 10px; font-size: 15px; letter-spacing: 0.12em; }
+  .nav-logo-img { height: 52px; width: auto; display: block; }
   .nav-logo { font-size: 15px; letter-spacing: 0.12em; }
   .nav-links { display: flex; gap: 32px; }
   .nav-links a { font-size: 13px; letter-spacing: 0.08em; color: #555; transition: color 0.2s; }
@@ -252,7 +254,7 @@
   /* ── CATEGORY NAV (STICKY TOC) ───────────────────────────────── */
   .cat-nav {
     position: sticky; top: 57px; z-index: 90;
-    background: rgba(255,255,255,0.96);
+    background: var(--grey-light);
     backdrop-filter: blur(8px);
     border-bottom: 0.5px solid var(--grey-mid);
     overflow-x: auto;
@@ -558,9 +560,12 @@
 
 <!-- ════════════════════════════════════════════════════ NAV -->
 <nav>
-  <a href="index.html" class="nav-logo">CONTINUUM</a>
+  <a href="index.html" class="nav-logo">
+    <img src="images/nav-logo.webp" alt="Continuum Visual Studio Logo" class="nav-logo-img"> CONTINUUM VISUAL STUDIO
+  </a>
   <div class="nav-links">
     <a href="index.html">Services</a>
+    <a href="index.html">Testimonials</a>
     <div class="nav-dropdown" id="portfolioDropdown">
       <button id="portfolioBtn" aria-haspopup="true" aria-expanded="false">
         Portfolio <i class="ti ti-chevron-down caret" aria-hidden="true"></i>
@@ -650,7 +655,6 @@
 
       </div>
     </div>
-    <a href="#cta">Contact</a>
   </div>
   <a href="#cta" class="nav-cta">Book A Session</a>
   <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
@@ -723,13 +727,13 @@
     <!-- Layout P: 3-column portrait grid -->
     <div class="layout-portrait">
       <div class="img-wrap">
-        <img src="corporate-categories/headshots/headshots1.webp" alt="Professional executive headshot — studio lighting">
+        <img src="corporate-categories/headshots/headshots1.webp" alt="Professional executive headshot — studio lighting" loading="lazy"	decoding="async">
       </div>
       <div class="img-wrap">
-        <img src="corporate-categories/headshots/headshots9.webp" alt="Corporate headshot — white background">
+        <img src="corporate-categories/headshots/headshots9.webp" alt="Corporate headshot — white background" loading="lazy"	decoding="async">
       </div>
       <div class="img-wrap">
-        <img src="corporate-categories/headshots/headshots6.webp" alt="Environmental office headshot">
+        <img src="corporate-categories/headshots/headshots6.webp" alt="Environmental office headshot" loading="lazy"	decoding="async">
       </div>
     </div>
     <a href="corporate-categories/gallery-headshots.html" class="view-gallery-link">View Gallery</a>
@@ -748,15 +752,15 @@
     <div class="layout-c">
       <div class="img-primary">
         <div class="img-wrap">
-          <img src="corporate-categories/branding/branding3.webp" alt="Brand photography — product flat lay">
+          <img src="corporate-categories/branding/branding3.webp" alt="Brand photography — product flat lay" loading="lazy"	decoding="async">
         </div>
       </div>
       <div class="col-stack">
         <div class="img-wrap">
-          <img src="corporate-categories/branding/branding7.webp" alt="Brand shoot — team behind the scenes">
+          <img src="corporate-categories/branding/branding7.webp" alt="Brand shoot — team behind the scenes" loading="lazy"	decoding="async">
         </div>
         <div class="img-wrap">
-          <img src="corporate-categories/branding/branding19.webp" alt="Brand identity photography — logo and packaging">
+          <img src="corporate-categories/branding/branding19.webp" alt="Brand identity photography — logo and packaging" loading="lazy"	decoding="async">
         </div>
       </div>
     </div>
@@ -776,17 +780,17 @@
     <div class="layout-b">
       <div class="img-tall">
         <div class="img-wrap">
-          <img src="corporate-categories/corporate-events/corporate-events8.webp" alt="Conference keynote speaker photography">
+          <img src="corporate-categories/corporate-events/corporate-events8.webp" alt="Conference keynote speaker photography" loading="lazy"	decoding="async">
         </div>
       </div>
       <div class="img-tall">
         <div class="img-wrap">
-          <img src="corporate-categories/corporate-events/corporate-events11.webp" alt="Corporate award ceremony — candid moment">
+          <img src="corporate-categories/corporate-events/corporate-events11.webp" alt="Corporate award ceremony — candid moment" loading="lazy"	decoding="async">
         </div>
       </div>
       <div class="img-tall">
         <div class="img-wrap">
-          <img src="corporate-categories/corporate-events/corporate-events27.webp" alt="Product launch event photography">
+          <img src="corporate-categories/corporate-events/corporate-events27.webp" alt="Product launch event photography" loading="lazy"	decoding="async">
         </div>
       </div>
     </div>
@@ -805,22 +809,22 @@
     <!-- Layout E: Equal 3-column -->
     <div class="layout-e">
       <div class="img-wrap">
-        <img src="corporate-categories/fashion/fashion1.webp" alt="Fashion campaign — editorial portrait">
+        <img src="corporate-categories/fashion/fashion1.webp" alt="Fashion campaign — editorial portrait" loading="lazy"	decoding="async">
       </div>
       <div class="img-wrap">
-        <img src="corporate-categories/fashion/fashion4.webp" alt="Clothing brand shoot — full body look">
+        <img src="corporate-categories/fashion/fashion4.webp" alt="Clothing brand shoot — full body look" loading="lazy"	decoding="async">
       </div>
       <div class="img-wrap">
-        <img src="corporate-categories/fashion/fashion8.webp" alt="Fashion editorial — detail shot accessories">
+        <img src="corporate-categories/fashion/fashion8.webp" alt="Fashion editorial — detail shot accessories" loading="lazy"	decoding="async">
       </div>
       <div class="img-wrap">
-        <img src="corporate-categories/fashion/fashion10.webp" alt="Fashion campaign — movement shot">
+        <img src="corporate-categories/fashion/fashion10.webp" alt="Fashion campaign — movement shot" loading="lazy"	decoding="async">
       </div>
       <div class="img-wrap">
-        <img src="corporate-categories/fashion/fashion11.webp" alt="Fashion editorial — outdoor location shoot">
+        <img src="corporate-categories/fashion/fashion11.webp" alt="Fashion editorial — outdoor location shoot" loading="lazy"	decoding="async">
       </div>
       <div class="img-wrap">
-        <img src="corporate-categories/fashion/fashion6.webp" alt="Fashion brand lookbook — studio shoot">
+        <img src="corporate-categories/fashion/fashion6.webp" alt="Fashion brand lookbook — studio shoot" loading="lazy"	decoding="async">
       </div>
     </div>
     <a href="corporate-categories/gallery-fashion.html" class="view-gallery-link">View Gallery</a>

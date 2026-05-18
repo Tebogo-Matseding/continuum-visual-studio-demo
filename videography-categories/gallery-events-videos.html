@@ -41,6 +41,8 @@
     display: flex; align-items: center; justify-content: space-between;
     padding: 18px 48px;
   }
+  .nav-logo { display: flex; align-items: center; gap: 10px; font-size: 15px; letter-spacing: 0.12em; }
+	.nav-logo-img { height: 52px; width: auto; display: block; }
   .nav-logo { font-size: 15px; letter-spacing: 0.12em; }
   .nav-links { display: flex; gap: 32px; }
   .nav-links a { font-size: 13px; letter-spacing: 0.08em; color: #555; transition: color 0.2s; }
@@ -390,7 +392,9 @@
 
 <!-- ════════════════════════════════════════ NAV -->
 <nav>
-  <a href="../index.html" class="nav-logo">CONTINUUM</a>
+  <a href="index.html" class="nav-logo">
+    <img src="../images/nav-logo.webp" alt="Continuum Visual Studio Logo" class="nav-logo-img"> CONTINUUM VISUAL STUDIO
+  </a>
   <div class="nav-links">
     <a href="../index.html">Services</a>
     <div class="nav-dropdown" id="portfolioDropdown">
@@ -477,10 +481,8 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
-    <a href="#cta">Contact</a>
   </div>
   <a href="#cta" class="nav-cta">Book A Session</a>
   <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">

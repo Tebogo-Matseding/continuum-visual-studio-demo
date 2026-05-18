@@ -10,17 +10,130 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { overflow-x: hidden; }
   body { font-family: 'Century Gothic', 'Gill Sans', Futura, 'Trebuchet MS', sans-serif; background: #fff; color: #111; overflow-x: hidden; }
+  /* On desktop the nav is fixed+transparent and overlaps the hero — no padding needed */
+  @media (max-width: 768px) {
+    /* On mobile nav is sticky so no offset needed */
+  }
   a { text-decoration: none; color: inherit; }
 
-  /* NAV */
-  nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); border-bottom: 0.5px solid #e5e5e5; display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; }
-  .nav-logo { display: flex; align-items: center; gap: 10px; font-size: 15px; letter-spacing: 0.12em; }
-  .nav-logo-img { height: 52px; width: auto; display: block; }
-  .nav-links { display: flex; gap: 32px; }
-  .nav-links a { font-size: 13px; letter-spacing: 0.08em; color: #555; transition: color 0.2s; }
-  .nav-links a:hover { color: #111; }
-  .nav-cta { background: #111; color: #fff; border: none; padding: 10px 22px; border-radius: 999px; font-size: 12px; letter-spacing: 0.1em; cursor: pointer; font-family: inherit; transition: opacity 0.2s; }
-  .nav-cta:hover { opacity: 0.8; }
+  /* NAV — transparent shell, no background */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    transition: padding 0.4s ease;
+  }
+  nav.nav-scrolled { padding: 14px 40px; }
+
+  /* ── Logo ── */
+  .nav-logo {
+    display: flex; align-items: center; gap: 11px;
+    text-decoration: none;
+  }
+  .nav-logo-icon {
+    width: 50px; height: 50px;
+    background: rgba(255,255,255,0.14);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border: 1px solid rgba(255,255,255,0.28);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+  nav.nav-scrolled .nav-logo-icon {
+    background: rgba(255,255,255,0.78);
+    border-color: rgba(255,255,255,0.6);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+  .nav-logo-img {
+    height: 50px; width: auto; display: block;
+    filter: brightness(0) invert(1);
+    transition: filter 0.4s ease;
+  }
+  nav.nav-scrolled .nav-logo-img { filter: none; }
+  .nav-logo-text { display: flex; flex-direction: column; gap: 1px; }
+  .nav-logo-text .logo-main {
+    font-size: 14px; font-weight: 400; letter-spacing: 0.2em;
+    text-transform: uppercase; color: #fff; line-height: 1;
+    transition: color 0.4s ease;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.2);
+  }
+  .nav-logo-text .logo-sub {
+    font-size: 10px; font-weight: 300; letter-spacing: 0.28em;
+    text-transform: uppercase; color: rgba(255,255,255,0.6); line-height: 1;
+    transition: color 0.4s ease;
+  }
+  nav.nav-scrolled .logo-main { color: #111; text-shadow: none; }
+  nav.nav-scrolled .logo-sub  { color: #888; }
+
+  /* ── Glass pill: nav links ── */
+  .nav-links {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 999px;
+    padding: 8px 20px;
+    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+  nav.nav-scrolled .nav-links {
+    background: rgba(255,255,255,0.78);
+    border-color: rgba(255,255,255,0.6);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  }
+  .nav-links a {
+    font-size: 12.5px; letter-spacing: 0.07em;
+    color: rgba(255,255,255,0.92);
+    transition: color 0.2s;
+    padding: 2px 10px;
+    text-shadow: 0 1px 5px rgba(0,0,0,0.18);
+  }
+  .nav-links a:hover { color: #fff; }
+  nav.nav-scrolled .nav-links a { color: #444; text-shadow: none; }
+  nav.nav-scrolled .nav-links a:hover { color: #111; }
+
+  /* Separator dot between links */
+  .nav-links .nav-sep {
+    width: 3px; height: 3px; border-radius: 50%;
+    background: rgba(255,255,255,0.35);
+    flex-shrink: 0;
+    transition: background 0.4s;
+  }
+  nav.nav-scrolled .nav-links .nav-sep { background: rgba(0,0,0,0.15); }
+
+  /* ── Glass pill: CTA button ── */
+  .nav-cta {
+    background: rgba(255,255,255,0.14);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.35);
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.25s, color 0.25s, border-color 0.25s, box-shadow 0.25s;
+    text-shadow: 0 1px 5px rgba(0,0,0,0.18);
+  }
+  .nav-cta:hover {
+    background: rgba(255,255,255,0.28);
+    box-shadow: 0 4px 18px rgba(0,0,0,0.14);
+  }
+  nav.nav-scrolled .nav-cta {
+    background: #111; color: #fff; border-color: #111;
+    backdrop-filter: none; text-shadow: none;
+  }
+  nav.nav-scrolled .nav-cta:hover { background: #333; }
 
   /* HAMBURGER BUTTON */
   .hamburger {
@@ -175,10 +288,23 @@
 
   /* RESPONSIVE — TABLET (768px) */
   @media (max-width: 768px) {
-    /* Nav */
-    nav { padding: 14px 20px; }
-    .nav-links { display: none; }
-    .nav-cta  { display: none; }
+    /* Nav — sticky on mobile with adjusted logo pill */
+    nav {
+      position: sticky;
+      top: 0;
+      padding: 12px 18px !important;
+      background: transparent !important;
+    }
+    nav .nav-logo-icon {
+      background: rgba(255,255,255,0.78) !important;
+      border-color: rgba(255,255,255,0.6) !important;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08) !important;
+    }
+    nav .nav-logo-img  { filter: none !important; }
+    nav .logo-main { color: #fff !important; text-shadow: 0 1px 6px rgba(0,0,0,0.3) !important; }
+    nav .logo-sub  { color: rgba(255,255,255,0.65) !important; }
+    .nav-links { display: none !important; }
+    .nav-cta  { display: none !important; }
     .hamburger { display: flex; }
 
     /* Services — 2 columns on tablet */
@@ -265,12 +391,11 @@
   /* HERO */
   .hero {
     position: relative;
-    height: 88vh;
+    height: 100vh;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 0 24px;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 0;
     overflow: hidden;
   }
   /* Slider sits behind everything */
@@ -286,7 +411,6 @@
     background-position: center center;
     background-repeat: no-repeat;
     opacity: 0;
-    transition: opacity 1.6s ease;
     will-change: opacity;
     transform: scale(1.04);
     transition: opacity 1.6s ease, transform 6s ease;
@@ -295,32 +419,80 @@
     opacity: 1;
     transform: scale(1);
   }
-  /* Gradient overlay — dark vignette so images show beautifully */
+  /* Gradient — stronger at bottom-left for text legibility */
   .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      to bottom,
-      rgba(0,0,0,0.18) 0%,
-      rgba(0,0,0,0.10) 40%,
-      rgba(0,0,0,0.55) 100%
-    );
+    background:
+      linear-gradient(to top,  rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.20) 45%, transparent 100%),
+      linear-gradient(to right, rgba(0,0,0,0.30) 0%, transparent 60%);
     z-index: 1;
   }
-  /* Text content sits on top */
+  /* Bottom-left hero content */
   .hero-content {
     position: relative;
     z-index: 2;
+    padding: 0 56px 64px;
+    max-width: 620px;
   }
-  .hero-eyebrow { font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-bottom: 24px; }
-  .hero h1 { font-size: clamp(40px, 7vw, 76px); font-weight: 300; line-height: 1.1; margin-bottom: 24px; color: #fff; text-shadow: 0 2px 24px rgba(0,0,0,0.25); }
-  .hero p { font-size: 17px; color: rgba(255,255,255,0.82); max-width: 560px; line-height: 1.7; margin: 0 auto 36px; }
+  /* Location badge */
+  .hero-location {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 999px;
+    padding: 5px 14px 5px 10px;
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.88);
+    margin-bottom: 24px;
+  }
+  .hero-location-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: rgba(255,255,255,0.6);
+    flex-shrink: 0;
+  }
+  /* Main tagline */
+  .hero-tagline {
+    font-size: clamp(34px, 5vw, 62px);
+    font-weight: 200;
+    line-height: 1.12;
+    letter-spacing: 0.02em;
+    color: #fff;
+    text-shadow: 0 2px 28px rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+  }
+  /* Thin rule + category line */
+  .hero-rule {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 0;
+  }
+  .hero-rule::before {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 1px;
+    background: rgba(255,255,255,0.45);
+    flex-shrink: 0;
+  }
+  .hero-category {
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.60);
+  }
   /* Dot indicators */
   .hero-dots {
     position: absolute;
     bottom: 32px;
-    left: 50%;
-    transform: translateX(-50%);
+    right: 56px;
     display: flex;
     gap: 6px;
     z-index: 2;
@@ -328,6 +500,8 @@
   }
   @media (max-width: 768px) {
     .hero-dots { display: none !important; }
+    .hero-content { padding: 0 24px 52px; }
+    .hero-tagline { font-size: clamp(28px, 8vw, 44px); }
   }
   .hero-dot {
     width: 28px; height: 2px;
@@ -658,13 +832,16 @@
   /* ── PORTFOLIO DROPDOWN ───────────────────────────────────────── */
   .nav-dropdown { position: relative; }
   .nav-dropdown > button {
-    background: none; border: none; padding: 0;
-    font-size: 13px; letter-spacing: 0.08em; color: #555;
+    background: none; border: none; padding: 2px 10px;
+    font-size: 12.5px; letter-spacing: 0.07em; color: rgba(255,255,255,0.92);
     font-family: inherit; cursor: pointer;
     display: flex; align-items: center; gap: 5px;
     transition: color 0.2s;
+    text-shadow: 0 1px 5px rgba(0,0,0,0.18);
   }
-  .nav-dropdown > button:hover { color: #111; }
+  .nav-dropdown > button:hover { color: #fff; }
+  nav.nav-scrolled .nav-dropdown > button { color: #444; text-shadow: none; }
+  nav.nav-scrolled .nav-dropdown > button:hover { color: #111; }
   .nav-dropdown > button .caret {
     font-size: 10px; transition: transform 0.2s; display: inline-block;
   }
@@ -750,13 +927,21 @@
 <body>
 
 <!-- NAV -->
-<nav>
+<nav id="mainNav">
   <a href="index.html" class="nav-logo">
-    <img src="images/nav-logo.webp" alt="Continuum Visual Studio Logo" class="nav-logo-img"> CONTINUUM VISUAL STUDIO
+    <div class="nav-logo-icon">
+      <img src="images/nav-logo.webp" alt="Continuum Visual Studio Logo" class="nav-logo-img">
+    </div>
+    <div class="nav-logo-text">
+      <span class="logo-main">Continuum</span>
+      <span class="logo-sub">Visual Studio</span>
+    </div>
   </a>
   <div class="nav-links">
     <a href="#services">Services</a>
+    <span class="nav-sep"></span>
     <a href="#testimonials">Testimonials</a>
+    <span class="nav-sep"></span>
     <div class="nav-dropdown" id="portfolioDropdown">
       <button id="portfolioBtn" aria-haspopup="true" aria-expanded="false">
         Portfolio <i class="ti ti-chevron-down caret" aria-hidden="true"></i>
@@ -875,7 +1060,6 @@
 
       </div>
     </div>
-    <a href="#contact">Contact</a>
   </div>
   <a href="contact.html" class="nav-cta">Book A Session</a>
   <!-- Hamburger — visible on mobile only -->
@@ -941,14 +1125,15 @@
   <!-- Frosted overlay — images bleed through but text stays clear -->
   <div class="hero-overlay"></div>
 
-  <!-- Text content -->
+  <!-- Text content — bottom left -->
   <div class="hero-content">
-    <p class="hero-eyebrow">Photography &amp; Videography</p>
-    <h1>Continuum Visual Studio</h1>
-    <p>Professional photography and videography services in Johannesburg and Kempton Park for businesses, brands, families, and special moments.</p>
-    <div class="btn-group">
-      <a href="#services" class="btn-dark">View Portfolio</a>
-      <a href="contact.html" class="btn-outline">Book A Session</a>
+    <div class="hero-location">
+      <span class="hero-location-dot"></span>
+      Kempton Park &bull; Johannesburg
+    </div>
+    <h1 class="hero-tagline">Telling Your Story<br>Through Light</h1>
+    <div class="hero-rule">
+      <span class="hero-category">Photography &amp; Videography</span>
     </div>
   </div>
 
@@ -1015,24 +1200,24 @@
       <div class="featured-text">
         <h2>Cake Smash Photography</h2>
         <p>Fun and creative cake smash photography sessions with custom themes, outfits, milk bath shoots, and beautiful birthday memories for little ones.</p>
-        <img src="images/cakesmash3.webp" alt="Cake Smash Photography" class="featured-banner">
+        <img src="images/cakesmash3.webp" alt="Cake Smash Photography" class="featured-banner" loading="lazy"	decoding="async">
       </div>
       <div class="img-grid">
-        <img src="images/cakesmash1.webp" alt="Cake Smash Photography 1">
-        <img src="images/cakesmash2.webp" alt="Cake Smash Photography 2">
+        <img src="images/cakesmash1.webp" alt="Cake Smash Photography 1" loading="lazy"	decoding="async">
+        <img src="images/cakesmash2.webp" alt="Cake Smash Photography 2" loading="lazy"	decoding="async">
       </div>
     </div>
 
     <!-- Maternity -->
     <div class="featured-row featured-row--maternity">
       <div class="img-grid">
-        <img src="images/maternity1.webp" alt="Maternity Photography 1">
-        <img src="images/maternity2.webp" alt="Maternity Photography 2">
+        <img src="images/maternity1.webp" alt="Maternity Photography 1" loading="lazy"	decoding="async">
+        <img src="images/maternity2.webp" alt="Maternity Photography 2" loading="lazy"	decoding="async">
       </div>
       <div class="featured-text">
         <h2>Maternity Photography</h2>
         <p>Elegant maternity photography sessions in studio or outdoors with beautiful backdrops, outfit options, and family-friendly packages.</p>
-        <img src="images/maternity3.webp" alt="Maternity Photography" class="featured-banner">
+        <img src="images/maternity3.webp" alt="Maternity Photography" class="featured-banner" loading="lazy"	decoding="async">
       </div>
     </div>
 
@@ -1041,24 +1226,24 @@
       <div class="featured-text">
         <h2>Studio Photography</h2>
         <p>Controlled lighting, premium backdrops, and a fully equipped studio space — ideal for portraits, product photography, fashion shoots, and creative concepts.</p>
-        <img src="images/studio3.webp" alt="Studio Photography" class="featured-banner">
+        <img src="images/studio3.webp" alt="Studio Photography" class="featured-banner" loading="lazy"	decoding="async">
       </div>
       <div class="img-grid">
-        <img src="images/studio1.webp" alt="Studio Photography 1">
-        <img src="images/studio2.webp" alt="Studio Photography 2">
+        <img src="images/studio1.webp" alt="Studio Photography 1" loading="lazy"	decoding="async">
+        <img src="images/studio2.webp" alt="Studio Photography 2" loading="lazy"	decoding="async">
       </div>
     </div>
 
     <!-- Outdoor Photography -->
     <div class="featured-row featured-row--outdoor">
       <div class="img-grid">
-        <img src="images/outdoor1.webp" alt="Outdoor Photography 1">
-        <img src="images/outdoor2.webp" alt="Outdoor Photography 2">
+        <img src="images/outdoor1.webp" alt="Outdoor Photography 1" loading="lazy"	decoding="async">
+        <img src="images/outdoor2.webp" alt="Outdoor Photography 2" loading="lazy"	decoding="async">
       </div>
       <div class="featured-text">
         <h2>Outdoor Photography</h2>
         <p>Natural light sessions in parks, gardens, and scenic locations across Johannesburg — perfect for families, couples, lifestyle shoots, and brand content that breathes.</p>
-        <img src="images/outdoor3.webp" alt="Outdoor Photography" class="featured-banner">
+        <img src="images/outdoor3.webp" alt="Outdoor Photography" class="featured-banner" loading="lazy"	decoding="async">
       </div>
     </div>
 
@@ -1321,6 +1506,20 @@
     function next() { goTo(current + 1); }
 
     timer = setInterval(next, 5000);
+  })();
+
+  // ── Transparent nav scroll behaviour ─────────────────────────
+  (function() {
+    var nav = document.getElementById('mainNav');
+    function updateNav() {
+      if (window.scrollY > 60) {
+        nav.classList.add('nav-scrolled');
+      } else {
+        nav.classList.remove('nav-scrolled');
+      }
+    }
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav(); // run on load in case page is already scrolled
   })();
 
   // ── Hamburger / mobile menu ───────────────────────────────────

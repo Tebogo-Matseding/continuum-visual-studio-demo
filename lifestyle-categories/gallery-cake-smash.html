@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cake Smash Gallery — Continuum Visual Studio</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
 <style>
   /* ── RESET & BASE ─────────────────────────────────────────────── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -41,6 +42,8 @@
     display: flex; align-items: center; justify-content: space-between;
     padding: 18px 48px;
   }
+  .nav-logo { display: flex; align-items: center; gap: 10px; font-size: 15px; letter-spacing: 0.12em; }
+	.nav-logo-img { height: 52px; width: auto; display: block; }
   .nav-logo { font-size: 15px; letter-spacing: 0.12em; }
   .nav-links { display: flex; gap: 32px; }
   .nav-links a { font-size: 13px; letter-spacing: 0.08em; color: #555; transition: color 0.2s; }
@@ -315,6 +318,17 @@
   }
   .img-wrap:hover img { transform: scale(1.03); }
 
+  /* ── GLIGHTBOX ANCHOR ─────────────────────────────────────────── */
+  .img-wrap a.glightbox {
+    display: block;
+    width: 100%; height: 100%;
+    cursor: zoom-in;
+  }
+  .img-wrap a.glightbox img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+
   /* ── GALLERY LAYOUTS ──────────────────────────────────────────── */
 
   /* Hero full-width */
@@ -426,9 +440,12 @@
 
 <!-- ════════════════════════════════════════ NAV -->
 <nav>
-  <a href="../index.html" class="nav-logo">CONTINUUM</a>
+  <a href="index.html" class="nav-logo">
+    <img src="../images/nav-logo.webp" alt="Continuum Visual Studio Logo" class="nav-logo-img"> CONTINUUM VISUAL STUDIO
+  </a>
   <div class="nav-links">
     <a href="../index.html">Services</a>
+    <a href="../index.html">Testimonials</a>
     <div class="nav-dropdown" id="portfolioDropdown">
       <button id="portfolioBtn" aria-haspopup="true" aria-expanded="false">
         Portfolio <i class="ti ti-chevron-down caret" aria-hidden="true"></i>
@@ -513,10 +530,8 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
-    <a href="#cta">Contact</a>
   </div>
   <a href="#cta" class="nav-cta">Book A Session</a>
   <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
@@ -599,34 +614,48 @@
   <!-- Full-width opener -->
   <div class="g-hero">
     <div class="img-wrap">
-      <img src="../lifestyle-categories/cake-smash/cake-smash18.webp" alt="Cake smash photography — baby with birthday cake wide shot">
+      <a href="../lifestyle-categories/cake-smash/cake-smash18.webp" class="glightbox" data-gallery="cake-smash-gallery" data-title="Cake smash photography — baby with birthday cake wide shot">
+        <img src="../lifestyle-categories/cake-smash/cake-smash18.webp" alt="Cake smash photography — baby with birthday cake wide shot" loading="lazy"	decoding="async">
+      </a>
     </div>
   </div>
 
   <!-- 3 equal -->
   <div class="g-trio">
     <div class="img-wrap">
-      <img src="../lifestyle-categories/cake-smash/cake-smash25.webp" alt="Cake smash photography — baby with birthday cake wide shot">
+      <a href="../lifestyle-categories/cake-smash/cake-smash25.webp" class="glightbox" data-gallery="cake-smash-gallery" data-title="Cake smash photography — baby with birthday cake wide shot">
+        <img src="../lifestyle-categories/cake-smash/cake-smash25.webp" alt="Cake smash photography — baby with birthday cake wide shot" loading="lazy"	decoding="async">
+      </a>
     </div>
     <div class="img-wrap">
-      <img src="../lifestyle-categories/cake-smash/cake-smash28.webp" alt="Cake smash — close up baby face with frosting">
+      <a href="../lifestyle-categories/cake-smash/cake-smash28.webp" class="glightbox" data-gallery="cake-smash-gallery" data-title="Cake smash — close up baby face with frosting">
+        <img src="../lifestyle-categories/cake-smash/cake-smash28.webp" alt="Cake smash — close up baby face with frosting" loading="lazy"	decoding="async">
+      </a>
     </div>
     <div class="img-wrap">
-      <img src="../lifestyle-categories/cake-smash/cake-smash29.webp" alt="Cake smash — candid moment with birthday cake">
+      <a href="../lifestyle-categories/cake-smash/cake-smash29.webp" class="glightbox" data-gallery="cake-smash-gallery" data-title="Cake smash — candid moment with birthday cake">
+        <img src="../lifestyle-categories/cake-smash/cake-smash29.webp" alt="Cake smash — candid moment with birthday cake" loading="lazy"	decoding="async">
+      </a>
     </div>
   </div>
 
   <!-- Asymmetric left-wide -->
   <div class="g-split">
     <div class="img-wrap">
-      <img src="../lifestyle-categories/cake-smash/cake-smash1.webp" alt="Cake smash photography — baby with birthday cake wide shot">
+      <a href="../lifestyle-categories/cake-smash/cake-smash1.webp" class="glightbox" data-gallery="cake-smash-gallery" data-title="Cake smash photography — baby with birthday cake wide shot">
+        <img src="../lifestyle-categories/cake-smash/cake-smash1.webp" alt="Cake smash photography — baby with birthday cake wide shot" loading="lazy"	decoding="async">
+      </a>
     </div>
     <div class="col-stack">
       <div class="img-wrap">
-        <img src="../lifestyle-categories/cake-smash/cake-smash32.webp" alt="Cake smash — close up baby face with frosting">
+        <a href="../lifestyle-categories/cake-smash/cake-smash32.webp" class="glightbox" data-gallery="cake-smash-gallery" data-title="Cake smash — close up baby face with frosting">
+          <img src="../lifestyle-categories/cake-smash/cake-smash32.webp" alt="Cake smash — close up baby face with frosting" loading="lazy"	decoding="async">
+        </a>
       </div>
       <div class="img-wrap">
-        <img src="../lifestyle-categories/cake-smash/cake-smash12.webp" alt="Cake smash — family moment with birthday cake">
+        <a href="../lifestyle-categories/cake-smash/cake-smash12.webp" class="glightbox" data-gallery="cake-smash-gallery" data-title="Cake smash — family moment with birthday cake">
+          <img src="../lifestyle-categories/cake-smash/cake-smash12.webp" alt="Cake smash — family moment with birthday cake" loading="lazy"	decoding="async">
+        </a>
       </div>
     </div>
   </div>
@@ -634,26 +663,38 @@
   <!-- 2 equal -->
   <div class="g-duo">
     <div class="img-wrap">
-      <img src="../lifestyle-categories/cake-smash/cake-smash31.webp" alt="Cake smash — outdoor garden portrait">
+      <a href="../lifestyle-categories/cake-smash/cake-smash31.webp" class="glightbox" data-gallery="cake-smash-gallery" data-title="Cake smash — outdoor garden portrait">
+        <img src="../lifestyle-categories/cake-smash/cake-smash31.webp" alt="Cake smash — outdoor garden portrait" loading="lazy"	decoding="async">
+      </a>
     </div>
     <div class="img-wrap">
-      <img src="../lifestyle-categories/cake-smash/cake-smash24.webp" alt="Cake smash — nursery lifestyle session">
+      <a href="../lifestyle-categories/cake-smash/cake-smash24.webp" class="glightbox" data-gallery="cake-smash-gallery" data-title="Cake smash — nursery lifestyle session">
+        <img src="../lifestyle-categories/cake-smash/cake-smash24.webp" alt="Cake smash — nursery lifestyle session" loading="lazy"	decoding="async">
+      </a>
     </div>
   </div>
 
   <!-- 4-column detail strip -->
   <div class="g-quad">
     <div class="img-wrap">
-      <img src="../lifestyle-categories/cake-smash/cake-smash2.webp" alt="Cake smash detail — baby shoes with frosting">
+      <a href="../lifestyle-categories/cake-smash/cake-smash2.webp" class="glightbox" data-gallery="cake-smash-gallery" data-title="Cake smash detail — baby shoes with frosting">
+        <img src="../lifestyle-categories/cake-smash/cake-smash2.webp" alt="Cake smash detail — baby shoes with frosting" loading="lazy"	decoding="async">
+      </a>
     </div>
     <div class="img-wrap">
-      <img src="../lifestyle-categories/cake-smash/cake-smash3.webp" alt="Cake smash detail — hands cradling bump">
+      <a href="../lifestyle-categories/cake-smash/cake-smash3.webp" class="glightbox" data-gallery="cake-smash-gallery" data-title="Cake smash detail — hands cradling bump">
+        <img src="../lifestyle-categories/cake-smash/cake-smash3.webp" alt="Cake smash detail — hands cradling bump" loading="lazy"	decoding="async">
+      </a>
     </div>
     <div class="img-wrap">
-      <img src="../lifestyle-categories/cake-smash/cake-smash4.webp" alt="Cake smash detail — ultrasound scan with flowers">
+      <a href="../lifestyle-categories/cake-smash/cake-smash4.webp" class="glightbox" data-gallery="cake-smash-gallery" data-title="Cake smash detail — ultrasound scan with flowers">
+        <img src="../lifestyle-categories/cake-smash/cake-smash4.webp" alt="Cake smash detail — ultrasound scan with flowers" loading="lazy"	decoding="async">
+      </a>
     </div>
     <div class="img-wrap">
-      <img src="../lifestyle-categories/cake-smash/cake-smash16.webp" alt="Cake smash detail — name letters on nursery shelf">
+      <a href="../lifestyle-categories/cake-smash/cake-smash16.webp" class="glightbox" data-gallery="cake-smash-gallery" data-title="Cake smash detail — name letters on nursery shelf">
+        <img src="../lifestyle-categories/cake-smash/cake-smash16.webp" alt="Cake smash detail — name letters on nursery shelf" loading="lazy"	decoding="async">
+      </a>
     </div>
   </div>
 
@@ -661,14 +702,20 @@
   <div class="g-split-r">
     <div class="col-stack">
       <div class="img-wrap">
-        <img src="../lifestyle-categories/cake-smash/cake-smash21.webp" alt="Cake smash session — partner kiss on bump">
+        <a href="../lifestyle-categories/cake-smash/cake-smash21.webp" class="glightbox" data-gallery="cake-smash-gallery" data-title="Cake smash session — partner kiss on bump">
+          <img src="../lifestyle-categories/cake-smash/cake-smash21.webp" alt="Cake smash session — partner kiss on bump" loading="lazy"	decoding="async">
+        </a>
       </div>
       <div class="img-wrap">
-        <img src="../lifestyle-categories/cake-smash/cake-smash19.webp" alt="Cake smash — toddler sibling with bump">
+        <a href="../lifestyle-categories/cake-smash/cake-smash19.webp" class="glightbox" data-gallery="cake-smash-gallery" data-title="Cake smash — toddler sibling with bump">
+          <img src="../lifestyle-categories/cake-smash/cake-smash19.webp" alt="Cake smash — toddler sibling with bump" loading="lazy"	decoding="async">
+        </a>
       </div>
     </div>
     <div class="img-wrap">
-      <img src="../lifestyle-categories/cake-smash/cake-smash30.webp" alt="Cake smash — flowing dress outdoor wide shot">
+      <a href="../lifestyle-categories/cake-smash/cake-smash30.webp" class="glightbox" data-gallery="cake-smash-gallery" data-title="Cake smash — flowing dress outdoor wide shot">
+        <img src="../lifestyle-categories/cake-smash/cake-smash30.webp" alt="Cake smash — flowing dress outdoor wide shot" loading="lazy"	decoding="async">
+      </a>
     </div>
   </div>
 
@@ -676,18 +723,24 @@
   <div class="g-masonry">
     <div class="img-tall">
       <div class="img-wrap">
-        <img src="../lifestyle-categories/cake-smash/cake-smash11.webp" alt="Cake smash photography — dramatic studio lighting">
+        <a href="../lifestyle-categories/cake-smash/cake-smash11.webp" class="glightbox" data-gallery="cake-smash-gallery" data-title="Cake smash photography — dramatic studio lighting">
+          <img src="../lifestyle-categories/cake-smash/cake-smash11.webp" alt="Cake smash photography — dramatic studio lighting" loading="lazy"	decoding="async">
+        </a>
       </div>
     </div>
     <div>
       <div class="img-short">
         <div class="img-wrap" style="margin-bottom:14px;">
-          <img src="../lifestyle-categories/cake-smash/cake-smash22.webp" alt="Cake smash — candid laughter moment">
+          <a href="../lifestyle-categories/cake-smash/cake-smash22.webp" class="glightbox" data-gallery="cake-smash-gallery" data-title="Cake smash — candid laughter moment">
+            <img src="../lifestyle-categories/cake-smash/cake-smash22.webp" alt="Cake smash — candid laughter moment" loading="lazy"	decoding="async">
+          </a>
         </div>
       </div>
       <div class="img-short">
         <div class="img-wrap">
-          <img src="../lifestyle-categories/cake-smash/cake-smash6.webp" alt="Cake smash — editorial style portrait">
+          <a href="../lifestyle-categories/cake-smash/cake-smash6.webp" class="glightbox" data-gallery="cake-smash-gallery" data-title="Cake smash — editorial style portrait">
+            <img src="../lifestyle-categories/cake-smash/cake-smash6.webp" alt="Cake smash — editorial style portrait" loading="lazy"	decoding="async">
+          </a>
         </div>
       </div>
     </div>
@@ -696,13 +749,19 @@
   <!-- Final trio closer -->
   <div class="g-trio">
     <div class="img-wrap">
-      <img src="../lifestyle-categories/cake-smash/cake-smash7.webp" alt="Cake smash — peaceful resting portrait">
+      <a href="../lifestyle-categories/cake-smash/cake-smash7.webp" class="glightbox" data-gallery="cake-smash-gallery" data-title="Cake smash — peaceful resting portrait">
+        <img src="../lifestyle-categories/cake-smash/cake-smash7.webp" alt="Cake smash — peaceful resting portrait" loading="lazy"	decoding="async">
+      </a>
     </div>
     <div class="img-wrap">
-      <img src="../lifestyle-categories/cake-smash/cake-smash13.webp" alt="Cake smash — close up baby face with frosting">
+      <a href="../lifestyle-categories/cake-smash/cake-smash13.webp" class="glightbox" data-gallery="cake-smash-gallery" data-title="Cake smash — close up baby face with frosting">
+        <img src="../lifestyle-categories/cake-smash/cake-smash13.webp" alt="Cake smash — close up baby face with frosting" loading="lazy"	decoding="async">
+      </a>
     </div>
     <div class="img-wrap">
-      <img src="../lifestyle-categories/cake-smash/cake-smash27.webp" alt="Cake smash — nursery lifestyle session">
+      <a href="../lifestyle-categories/cake-smash/cake-smash27.webp" class="glightbox" data-gallery="cake-smash-gallery" data-title="Cake smash — nursery lifestyle session">
+        <img src="../lifestyle-categories/cake-smash/cake-smash27.webp" alt="Cake smash — nursery lifestyle session" loading="lazy"	decoding="async">
+      </a>
     </div>
   </div>
 
@@ -785,6 +844,41 @@
     });
   }
 </script>
+
+<!-- GLIGHTBOX -->
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+
+<script>
+  // Initialise GLightbox — selector matches our <a class="glightbox"> wrappers
+  const lightbox = GLightbox({
+    selector: '.glightbox',
+    touchNavigation: true,
+    loop: true,
+    openEffect: 'zoom',
+    closeEffect: 'zoom'
+  });
+
+  // ── DOUBLE-CLICK TO OPEN ─────────────────────────────────────────
+  // GLightbox attaches its own click listener in the bubble phase.
+  // We intercept in the capture phase (runs first) to cancel single
+  // clicks, then re-open manually on dblclick.
+  const glItems = document.querySelectorAll('.glightbox');
+
+  glItems.forEach((el, index) => {
+    // Block GLightbox's own single-click handler
+    el.addEventListener('click', e => {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    }, true); // capture = true → fires before bubble-phase listeners
+
+    // Open lightbox on double-click
+    el.addEventListener('dblclick', e => {
+      e.preventDefault();
+      lightbox.openAt(index);
+    });
+  });
+</script>
+
 
 </body>
 </html>

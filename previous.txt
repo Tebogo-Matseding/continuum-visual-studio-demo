@@ -4,23 +4,145 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
-<link rel="icon" href="images/nav-logo.png">
+<link rel="icon" href="images/nav-logo.webp">
 <title>Continuum Visual Studio</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { overflow-x: hidden; }
   body { font-family: 'Century Gothic', 'Gill Sans', Futura, 'Trebuchet MS', sans-serif; background: #fff; color: #111; overflow-x: hidden; }
+  /* On desktop the nav is fixed+transparent and overlaps the hero — no padding needed */
+  @media (max-width: 768px) {
+    /* On mobile nav is sticky so no offset needed */
+  }
   a { text-decoration: none; color: inherit; }
 
-  /* NAV */
-  nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); border-bottom: 0.5px solid #e5e5e5; display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; }
-  .nav-logo { display: flex; align-items: center; gap: 10px; font-size: 15px; letter-spacing: 0.12em; }
-  .nav-logo-img { height: 52px; width: auto; display: block; }
-  .nav-links { display: flex; gap: 32px; }
-  .nav-links a { font-size: 13px; letter-spacing: 0.08em; color: #555; transition: color 0.2s; }
-  .nav-links a:hover { color: #111; }
-  .nav-cta { background: #111; color: #fff; border: none; padding: 10px 22px; border-radius: 999px; font-size: 12px; letter-spacing: 0.1em; cursor: pointer; font-family: inherit; transition: opacity 0.2s; }
-  .nav-cta:hover { opacity: 0.8; }
+  /* NAV — transparent shell, no background */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    transition: padding 0.4s ease;
+  }
+  nav.nav-scrolled { padding: 14px 40px; }
+
+  /* ── Logo ── */
+  .nav-logo {
+    display: flex; align-items: center; gap: 11px;
+    text-decoration: none;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 999px;
+    padding: 7px 18px 7px 8px;
+    transition: background 0.4s ease, border-color 0.4s ease;
+  }
+  nav.nav-scrolled .nav-logo {
+    background: rgba(255,255,255,0.78);
+    border-color: rgba(255,255,255,0.6);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  }
+  .nav-logo-icon {
+    width: 34px; height: 34px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.4s ease, border-color 0.4s ease;
+  }
+  nav.nav-scrolled .nav-logo-icon {
+    background: rgba(17,17,17,0.07);
+    border-color: rgba(17,17,17,0.15);
+  }
+  .nav-logo-img {
+    height: 22px; width: auto; display: block;
+    filter: brightness(0) invert(1);
+    transition: filter 0.4s ease;
+  }
+  nav.nav-scrolled .nav-logo-img { filter: none; }
+  .nav-logo-text { display: flex; flex-direction: column; gap: 1px; }
+  .nav-logo-text .logo-main {
+    font-size: 12px; font-weight: 400; letter-spacing: 0.2em;
+    text-transform: uppercase; color: #fff; line-height: 1;
+    transition: color 0.4s ease;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.2);
+  }
+  .nav-logo-text .logo-sub {
+    font-size: 8.5px; font-weight: 300; letter-spacing: 0.28em;
+    text-transform: uppercase; color: rgba(255,255,255,0.6); line-height: 1;
+    transition: color 0.4s ease;
+  }
+  nav.nav-scrolled .logo-main { color: #111; text-shadow: none; }
+  nav.nav-scrolled .logo-sub  { color: #888; }
+
+  /* ── Glass pill: nav links ── */
+  .nav-links {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 999px;
+    padding: 8px 20px;
+    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+  nav.nav-scrolled .nav-links {
+    background: rgba(255,255,255,0.78);
+    border-color: rgba(255,255,255,0.6);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  }
+  .nav-links a {
+    font-size: 12.5px; letter-spacing: 0.07em;
+    color: rgba(255,255,255,0.92);
+    transition: color 0.2s;
+    padding: 2px 10px;
+    text-shadow: 0 1px 5px rgba(0,0,0,0.18);
+  }
+  .nav-links a:hover { color: #fff; }
+  nav.nav-scrolled .nav-links a { color: #444; text-shadow: none; }
+  nav.nav-scrolled .nav-links a:hover { color: #111; }
+
+  /* Separator dot between links */
+  .nav-links .nav-sep {
+    width: 3px; height: 3px; border-radius: 50%;
+    background: rgba(255,255,255,0.35);
+    flex-shrink: 0;
+    transition: background 0.4s;
+  }
+  nav.nav-scrolled .nav-links .nav-sep { background: rgba(0,0,0,0.15); }
+
+  /* ── Glass pill: CTA button ── */
+  .nav-cta {
+    background: rgba(255,255,255,0.14);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.35);
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.25s, color 0.25s, border-color 0.25s, box-shadow 0.25s;
+    text-shadow: 0 1px 5px rgba(0,0,0,0.18);
+  }
+  .nav-cta:hover {
+    background: rgba(255,255,255,0.28);
+    box-shadow: 0 4px 18px rgba(0,0,0,0.14);
+  }
+  nav.nav-scrolled .nav-cta {
+    background: #111; color: #fff; border-color: #111;
+    backdrop-filter: none; text-shadow: none;
+  }
+  nav.nav-scrolled .nav-cta:hover { background: #333; }
 
   /* HAMBURGER BUTTON */
   .hamburger {
@@ -175,10 +297,24 @@
 
   /* RESPONSIVE — TABLET (768px) */
   @media (max-width: 768px) {
-    /* Nav */
-    nav { padding: 14px 20px; }
-    .nav-links { display: none; }
-    .nav-cta  { display: none; }
+    /* Nav — sticky on mobile with adjusted logo pill */
+    nav {
+      position: sticky;
+      top: 0;
+      padding: 12px 18px !important;
+      background: transparent !important;
+    }
+    nav .nav-logo {
+      background: rgba(255,255,255,0.82) !important;
+      border-color: rgba(255,255,255,0.6) !important;
+      backdrop-filter: blur(16px) !important;
+    }
+    nav .nav-logo-icon { background: rgba(17,17,17,0.07) !important; border-color: rgba(17,17,17,0.15) !important; }
+    nav .nav-logo-img  { filter: none !important; }
+    nav .logo-main { color: #111 !important; text-shadow: none !important; }
+    nav .logo-sub  { color: #888 !important; }
+    .nav-links { display: none !important; }
+    .nav-cta  { display: none !important; }
     .hamburger { display: flex; }
 
     /* Services — 2 columns on tablet */
@@ -265,12 +401,11 @@
   /* HERO */
   .hero {
     position: relative;
-    height: 88vh;
+    height: 100vh;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 0 24px;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 0;
     overflow: hidden;
   }
   /* Slider sits behind everything */
@@ -286,7 +421,6 @@
     background-position: center center;
     background-repeat: no-repeat;
     opacity: 0;
-    transition: opacity 1.6s ease;
     will-change: opacity;
     transform: scale(1.04);
     transition: opacity 1.6s ease, transform 6s ease;
@@ -295,32 +429,80 @@
     opacity: 1;
     transform: scale(1);
   }
-  /* Gradient overlay — dark vignette so images show beautifully */
+  /* Gradient — stronger at bottom-left for text legibility */
   .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      to bottom,
-      rgba(0,0,0,0.18) 0%,
-      rgba(0,0,0,0.10) 40%,
-      rgba(0,0,0,0.55) 100%
-    );
+    background:
+      linear-gradient(to top,  rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.20) 45%, transparent 100%),
+      linear-gradient(to right, rgba(0,0,0,0.30) 0%, transparent 60%);
     z-index: 1;
   }
-  /* Text content sits on top */
+  /* Bottom-left hero content */
   .hero-content {
     position: relative;
     z-index: 2;
+    padding: 0 56px 64px;
+    max-width: 620px;
   }
-  .hero-eyebrow { font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-bottom: 24px; }
-  .hero h1 { font-size: clamp(40px, 7vw, 76px); font-weight: 300; line-height: 1.1; margin-bottom: 24px; color: #fff; text-shadow: 0 2px 24px rgba(0,0,0,0.25); }
-  .hero p { font-size: 17px; color: rgba(255,255,255,0.82); max-width: 560px; line-height: 1.7; margin: 0 auto 36px; }
+  /* Location badge */
+  .hero-location {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 999px;
+    padding: 5px 14px 5px 10px;
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.88);
+    margin-bottom: 24px;
+  }
+  .hero-location-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: rgba(255,255,255,0.6);
+    flex-shrink: 0;
+  }
+  /* Main tagline */
+  .hero-tagline {
+    font-size: clamp(34px, 5vw, 62px);
+    font-weight: 200;
+    line-height: 1.12;
+    letter-spacing: 0.02em;
+    color: #fff;
+    text-shadow: 0 2px 28px rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+  }
+  /* Thin rule + category line */
+  .hero-rule {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 0;
+  }
+  .hero-rule::before {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 1px;
+    background: rgba(255,255,255,0.45);
+    flex-shrink: 0;
+  }
+  .hero-category {
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.60);
+  }
   /* Dot indicators */
   .hero-dots {
     position: absolute;
     bottom: 32px;
-    left: 50%;
-    transform: translateX(-50%);
+    right: 56px;
     display: flex;
     gap: 6px;
     z-index: 2;
@@ -328,6 +510,8 @@
   }
   @media (max-width: 768px) {
     .hero-dots { display: none !important; }
+    .hero-content { padding: 0 24px 52px; }
+    .hero-tagline { font-size: clamp(28px, 8vw, 44px); }
   }
   .hero-dot {
     width: 28px; height: 2px;
@@ -418,19 +602,256 @@
   .btn-outline-white { display: inline-block; background: transparent; color: #fff; border: 1.5px solid #fff; padding: 13px 32px; border-radius: 999px; font-size: 12px; letter-spacing: 0.1em; cursor: pointer; font-family: inherit; transition: background 0.2s, color 0.2s; }
   .btn-outline-white:hover { background: #fff; color: #111; }
 
-  /* FOOTER */
-  footer { background: #f2f2f2; padding: 32px 24px; text-align: center; font-size: 12px; color: #999; letter-spacing: 0.08em; }
+  /* ── FOOTER ─────────────────────────────────────────────────── */
+
+  /* Top rule — thin separator between CTA and footer */
+  .footer-wrap {
+    background: #0e0e0e;
+    color: #fff;
+  }
+
+  /* Inner top border accent */
+  .footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 72px 48px 0;
+  }
+
+  /* 5-column grid: brand | services | categories | links | social */
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1.4fr 1fr 1fr;
+    gap: 48px 40px;
+    padding-bottom: 64px;
+    border-bottom: 0.5px solid rgba(255,255,255,0.10);
+  }
+
+  /* ── Brand column ── */
+  .footer-brand {}
+  .footer-brand-name {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 18px;
+    display: block;
+    font-weight: 400;
+  }
+  .footer-brand-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.85;
+    letter-spacing: 0.02em;
+    margin-bottom: 28px;
+    max-width: 240px;
+  }
+  .footer-location {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+  }
+  .footer-location-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    flex-shrink: 0;
+  }
+
+  /* ── Column headings ── */
+  .footer-col-label {
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.30);
+    margin-bottom: 22px;
+    display: block;
+    font-weight: 400;
+    padding-bottom: 14px;
+    border-bottom: 0.5px solid rgba(255,255,255,0.07);
+  }
+
+  /* ── Link lists ── */
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .footer-links li {}
+  .footer-links a {
+    display: block;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.55);
+    padding: 7px 0;
+    transition: color 0.22s ease, letter-spacing 0.22s ease;
+    position: relative;
+  }
+  .footer-links a::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: 4px;
+    width: 0; height: 0.5px;
+    background: rgba(255,255,255,0.4);
+    transition: width 0.28s ease;
+  }
+  .footer-links a:hover {
+    color: rgba(255,255,255,0.90);
+    letter-spacing: 0.09em;
+  }
+  .footer-links a:hover::after {
+    width: 100%;
+  }
+
+  /* ── Social icons ── */
+  .footer-social-icons {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .footer-social-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 0;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.50);
+    text-transform: uppercase;
+    transition: color 0.22s ease;
+    position: relative;
+  }
+  .footer-social-link::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: 3px;
+    width: 0; height: 0.5px;
+    background: rgba(255,255,255,0.35);
+    transition: width 0.28s ease;
+  }
+  .footer-social-link:hover {
+    color: rgba(255,255,255,0.90);
+  }
+  .footer-social-link:hover::after {
+    width: 100%;
+  }
+  .footer-social-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 0.5px solid rgba(255,255,255,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: border-color 0.22s ease, background 0.22s ease;
+  }
+  .footer-social-link:hover .footer-social-icon {
+    border-color: rgba(255,255,255,0.35);
+    background: rgba(255,255,255,0.05);
+  }
+  .footer-social-icon svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+    opacity: 0.65;
+    transition: opacity 0.22s;
+  }
+  .footer-social-link:hover .footer-social-icon svg {
+    opacity: 1;
+  }
+
+  /* ── Bottom bar ── */
+  .footer-bottom {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 24px 48px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .footer-copyright {
+    font-size: 11px;
+    color: rgba(255,255,255,0.22);
+    letter-spacing: 0.12em;
+  }
+  .footer-tagline {
+    font-size: 10px;
+    color: rgba(255,255,255,0.18);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+  }
+
+  /* ── Responsive — tablet (≤1024px) ── */
+  @media (max-width: 1024px) {
+    .footer-inner { padding: 64px 32px 0; }
+    .footer-bottom { padding: 24px 32px 32px; }
+    .footer-grid {
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 40px 32px;
+    }
+    /* Brand spans full top row */
+    .footer-brand {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+    .footer-brand-name { grid-column: 1 / -1; }
+  }
+
+  /* ── Responsive — mobile (≤640px) ── */
+  @media (max-width: 640px) {
+    .footer-inner { padding: 52px 20px 0; }
+    .footer-bottom { padding: 20px 20px 28px; flex-direction: column; align-items: flex-start; gap: 6px; }
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 36px 24px;
+    }
+    /* Brand spans full width on mobile */
+    .footer-brand {
+      grid-column: 1 / -1;
+      display: block;
+    }
+    .footer-brand-desc { max-width: 100%; }
+    /* Categories col spans full width so the long list isn't cramped */
+    .footer-col--categories {
+      grid-column: 1 / -1;
+    }
+    .footer-links a { font-size: 14px; padding: 9px 0; }
+    .footer-social-icons { flex-direction: row; flex-wrap: wrap; gap: 16px; }
+    .footer-social-link { flex-direction: column; align-items: center; gap: 6px; font-size: 10px; }
+    .footer-social-link::after { display: none; }
+  }
+
+  /* ── Responsive — small mobile (≤400px) ── */
+  @media (max-width: 400px) {
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-col--categories { grid-column: auto; }
+  }
 
   /* ── PORTFOLIO DROPDOWN ───────────────────────────────────────── */
   .nav-dropdown { position: relative; }
   .nav-dropdown > button {
-    background: none; border: none; padding: 0;
-    font-size: 13px; letter-spacing: 0.08em; color: #555;
+    background: none; border: none; padding: 2px 10px;
+    font-size: 12.5px; letter-spacing: 0.07em; color: rgba(255,255,255,0.92);
     font-family: inherit; cursor: pointer;
     display: flex; align-items: center; gap: 5px;
     transition: color 0.2s;
+    text-shadow: 0 1px 5px rgba(0,0,0,0.18);
   }
-  .nav-dropdown > button:hover { color: #111; }
+  .nav-dropdown > button:hover { color: #fff; }
+  nav.nav-scrolled .nav-dropdown > button { color: #444; text-shadow: none; }
+  nav.nav-scrolled .nav-dropdown > button:hover { color: #111; }
   .nav-dropdown > button .caret {
     font-size: 10px; transition: transform 0.2s; display: inline-block;
   }
@@ -516,13 +937,21 @@
 <body>
 
 <!-- NAV -->
-<nav>
+<nav id="mainNav">
   <a href="index.html" class="nav-logo">
-    <img src="images/nav-logo.png" alt="Continuum Visual Studio Logo" class="nav-logo-img"> CONTINUUM VISUAL STUDIO
+    <div class="nav-logo-icon">
+      <img src="images/nav-logo.webp" alt="Continuum Visual Studio Logo" class="nav-logo-img">
+    </div>
+    <div class="nav-logo-text">
+      <span class="logo-main">Continuum</span>
+      <span class="logo-sub">Visual Studio</span>
+    </div>
   </a>
   <div class="nav-links">
     <a href="#services">Services</a>
+    <span class="nav-sep"></span>
     <a href="#testimonials">Testimonials</a>
+    <span class="nav-sep"></span>
     <div class="nav-dropdown" id="portfolioDropdown">
       <button id="portfolioBtn" aria-haspopup="true" aria-expanded="false">
         Portfolio <i class="ti ti-chevron-down caret" aria-hidden="true"></i>
@@ -546,6 +975,12 @@
               <div class="dl2-header">Cake Smash <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
               <div class="dropdown-l3">
                 <a href="lifestyle-categories/gallery-cake-smash.html">Cake Smash Gallery</a>
+              </div>
+            </div>
+            <div class="dl2-item">
+            <div class="dl2-header">Birthday Shoots <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
+              <div class="dropdown-l3">
+                <a href="lifestyle-categories/gallery-birthday.html">Birthday Gallery</a>
               </div>
             </div>
             <div class="dl2-item">
@@ -635,9 +1070,8 @@
 
       </div>
     </div>
-    <a href="#contact">Contact</a>
   </div>
-  <a href="#contact" class="nav-cta">Book A Session</a>
+  <a href="contact.html" class="nav-cta">Book A Session</a>
   <!-- Hamburger — visible on mobile only -->
   <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
     <span></span>
@@ -657,6 +1091,7 @@
     <a href="lifestyle-photography.html" class="mobile-sub-link">— Lifestyle Photography</a>
     <a href="lifestyle-categories/gallery-maternity.html" class="mobile-sub-link mobile-gallery-link">↳ Maternity Gallery</a>
     <a href="lifestyle-categories/gallery-cake-smash.html" class="mobile-sub-link mobile-gallery-link">↳ Cake Smash Gallery</a>
+    <a href="lifestyle-categories/gallery-birthday.html" class="mobile-sub-link mobile-gallery-link">↳ Birthday Gallery</a>
     <a href="lifestyle-categories/gallery-weddings-events.html" class="mobile-sub-link mobile-gallery-link">↳ Weddings & Events Gallery</a>
     <a href="lifestyle-categories/gallery-outdoor.html" class="mobile-sub-link mobile-gallery-link">↳ Outdoor Gallery</a>
     <a href="lifestyle-categories/gallery-studio.html" class="mobile-sub-link mobile-gallery-link">↳ Studio Gallery</a>
@@ -671,7 +1106,7 @@
     <a href="videography-categories/gallery-music-videos.html" class="mobile-sub-link mobile-gallery-link">↳ Music Videos Gallery</a>
   </div>
   <div class="mobile-menu-divider"></div>
-  <a href="#contact" class="mobile-menu-cta">Book A Session</a>
+  <a href="contact.html" class="mobile-menu-cta">Book A Session</a>
   <span class="mobile-menu-footer">Kempton Park &bull; Johannesburg</span>
 </div>
 
@@ -680,34 +1115,35 @@
 
   <!-- Background image slider -->
   <div class="hero-slider" id="heroSlider">
-    <div class="hero-slide active" style="background-image: url('images/slide1.png');"></div>
-    <div class="hero-slide" style="background-image: url('images/slide2.jpg');"></div>
-    <div class="hero-slide" style="background-image: url('images/slide3.jpg');"></div>
-    <div class="hero-slide" style="background-image: url('images/slide4.jpg');"></div>
-    <div class="hero-slide" style="background-image: url('images/slide5.jpg');"></div>
-    <div class="hero-slide" style="background-image: url('images/slide6.jpg');"></div>
-    <div class="hero-slide" style="background-image: url('images/slide7.jpg');"></div>
-    <div class="hero-slide" style="background-image: url('images/slide8.jpg');"></div>
-    <div class="hero-slide" style="background-image: url('images/slide9.jpg');"></div>
-    <div class="hero-slide" style="background-image: url('images/slide10.jpg');"></div>
-    <div class="hero-slide" style="background-image: url('images/slide11.jpg');"></div>
-    <div class="hero-slide" style="background-image: url('images/slide12.jpg');"></div>
-    <div class="hero-slide" style="background-image: url('images/slide13.jpg');"></div>
-    <div class="hero-slide" style="background-image: url('images/slide14.jpg');"></div>
-    <div class="hero-slide" style="background-image: url('images/slide15.jpg');"></div>
+    <div class="hero-slide active" style="background-image: url('images/slide1.webp');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide2.webp');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide3.webp');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide4.webp');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide5.webp');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide6.webp');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide7.webp');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide8.webp');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide9.webp');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide10.webp');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide11.webp');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide12.webp');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide13.webp');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide14.webp');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide15.webp');"></div>
   </div>
 
   <!-- Frosted overlay — images bleed through but text stays clear -->
   <div class="hero-overlay"></div>
 
-  <!-- Text content -->
+  <!-- Text content — bottom left -->
   <div class="hero-content">
-    <p class="hero-eyebrow">Photography &amp; Videography</p>
-    <h1>Continuum Visual Studio</h1>
-    <p>Professional photography and videography services in Johannesburg and Kempton Park for businesses, brands, families, and special moments.</p>
-    <div class="btn-group">
-      <a href="#services" class="btn-dark">View Portfolio</a>
-      <a href="#contact" class="btn-outline">Book A Session</a>
+    <div class="hero-location">
+      <span class="hero-location-dot"></span>
+      Kempton Park &bull; Johannesburg
+    </div>
+    <h1 class="hero-tagline">Telling Your Story<br>Through Light</h1>
+    <div class="hero-rule">
+      <span class="hero-category">Photography &amp; Videography</span>
     </div>
   </div>
 
@@ -728,7 +1164,7 @@
 
     <div class="service-card">
       <div class="service-img">
-        <img src="images/corporate.jpg" alt="Corporate & Commercial Photography">
+        <img src="images/corporate.webp" alt="Corporate & Commercial Photography">
         <span class="service-img-label">Corporate</span>
       </div>
       <div class="service-body">
@@ -740,7 +1176,7 @@
 
     <div class="service-card">
       <div class="service-img">
-        <img src="images/lifestyle.png" alt="Lifestyle Photography">
+        <img src="images/lifestyle.webp" alt="Lifestyle Photography">
         <span class="service-img-label">Lifestyle</span>
       </div>
       <div class="service-body">
@@ -752,7 +1188,7 @@
 
     <div class="service-card">
       <div class="service-img">
-        <img src="images/videography.png" alt="Videography Services">
+        <img src="images/videography.webp" alt="Videography Services">
         <span class="service-img-label">Videography</span>
       </div>
       <div class="service-body">
@@ -774,24 +1210,24 @@
       <div class="featured-text">
         <h2>Cake Smash Photography</h2>
         <p>Fun and creative cake smash photography sessions with custom themes, outfits, milk bath shoots, and beautiful birthday memories for little ones.</p>
-        <img src="images/cakesmash3.jpg" alt="Cake Smash Photography" class="featured-banner">
+        <img src="images/cakesmash3.webp" alt="Cake Smash Photography" class="featured-banner">
       </div>
       <div class="img-grid">
-        <img src="images/cakesmash1.jpg" alt="Cake Smash Photography 1">
-        <img src="images/cakesmash2.jpg" alt="Cake Smash Photography 2">
+        <img src="images/cakesmash1.webp" alt="Cake Smash Photography 1">
+        <img src="images/cakesmash2.webp" alt="Cake Smash Photography 2">
       </div>
     </div>
 
     <!-- Maternity -->
     <div class="featured-row featured-row--maternity">
       <div class="img-grid">
-        <img src="images/maternity1.jpg" alt="Maternity Photography 1">
-        <img src="images/maternity2.png" alt="Maternity Photography 2">
+        <img src="images/maternity1.webp" alt="Maternity Photography 1">
+        <img src="images/maternity2.webp" alt="Maternity Photography 2">
       </div>
       <div class="featured-text">
         <h2>Maternity Photography</h2>
         <p>Elegant maternity photography sessions in studio or outdoors with beautiful backdrops, outfit options, and family-friendly packages.</p>
-        <img src="images/maternity3.png" alt="Maternity Photography" class="featured-banner">
+        <img src="images/maternity3.webp" alt="Maternity Photography" class="featured-banner">
       </div>
     </div>
 
@@ -800,24 +1236,24 @@
       <div class="featured-text">
         <h2>Studio Photography</h2>
         <p>Controlled lighting, premium backdrops, and a fully equipped studio space — ideal for portraits, product photography, fashion shoots, and creative concepts.</p>
-        <img src="images/studio3.png" alt="Studio Photography" class="featured-banner">
+        <img src="images/studio3.webp" alt="Studio Photography" class="featured-banner">
       </div>
       <div class="img-grid">
-        <img src="images/studio1.png" alt="Studio Photography 1">
-        <img src="images/studio2.png" alt="Studio Photography 2">
+        <img src="images/studio1.webp" alt="Studio Photography 1">
+        <img src="images/studio2.webp" alt="Studio Photography 2">
       </div>
     </div>
 
     <!-- Outdoor Photography -->
     <div class="featured-row featured-row--outdoor">
       <div class="img-grid">
-        <img src="images/outdoor1.jpg" alt="Outdoor Photography 1">
-        <img src="images/outdoor2.jpg" alt="Outdoor Photography 2">
+        <img src="images/outdoor1.webp" alt="Outdoor Photography 1">
+        <img src="images/outdoor2.webp" alt="Outdoor Photography 2">
       </div>
       <div class="featured-text">
         <h2>Outdoor Photography</h2>
         <p>Natural light sessions in parks, gardens, and scenic locations across Johannesburg — perfect for families, couples, lifestyle shoots, and brand content that breathes.</p>
-        <img src="images/outdoor3.jpg" alt="Outdoor Photography" class="featured-banner">
+        <img src="images/outdoor3.webp" alt="Outdoor Photography" class="featured-banner">
       </div>
     </div>
 
@@ -937,20 +1373,117 @@
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta" id="contact">
-  <h2>Let's Create Something Beautiful</h2>
-  <p>Whether you need professional business imagery, family portraits, maternity photography, or cinematic video production, we're ready to bring your vision to life.</p>
-  <div class="btn-group">
-    <a href="https://wa.me/27000000000" target="_blank" class="btn-white">WhatsApp Us</a>
-    <a href="#services" class="btn-outline-white">View Services</a>
-  </div>
-</section>
 
 <!-- FOOTER -->
-<footer>
-  Continuum Visual Studio &bull; Kempton Park &bull; Johannesburg &bull; Photography &amp; Videography
-</footer>
+<div class="footer-wrap">
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+
+        <!-- ── 1. Brand / Studio ── -->
+        <div class="footer-brand">
+          <span class="footer-brand-name">Continuum Visual Studio</span>
+          <p class="footer-brand-desc">
+            Photography &amp; Videography Studio.<br>
+            Corporate, Lifestyle &amp; Commercial Content<br>
+            crafted with intention and precision.
+          </p>
+          <div class="footer-location">
+            <span class="footer-location-dot"></span>
+            Johannesburg &amp; Kempton Park
+          </div>
+        </div>
+
+        <!-- ── 2. Services ── -->
+        <div class="footer-col">
+          <span class="footer-col-label">Services</span>
+          <ul class="footer-links">
+            <li><a href="corporate-commercial.html">Corporate &amp; Commercial</a></li>
+            <li><a href="lifestyle-photography.html">Lifestyle Photography</a></li>
+            <li><a href="videography-services.html">Videography Services</a></li>
+          </ul>
+        </div>
+
+        <!-- ── 3. Categories ── -->
+        <div class="footer-col footer-col--categories">
+          <span class="footer-col-label">Categories</span>
+          <ul class="footer-links">
+            <li><a href="lifestyle-categories/gallery-maternity.html">Maternity</a></li>
+            <li><a href="lifestyle-categories/gallery-cake-smash.html">Cake Smash</a></li>
+            <li><a href="lifestyle-categories/gallery-weddings-events.html">Weddings &amp; Events</a></li>
+            <li><a href="lifestyle-categories/gallery-outdoor.html">Outdoor Photography</a></li>
+            <li><a href="lifestyle-categories/gallery-studio.html">Studio Photography</a></li>
+            <li><a href="corporate-categories/gallery-branding.html">Branding</a></li>
+            <li><a href="corporate-categories/gallery-corporate-events.html">Corporate Events</a></li>
+            <li><a href="corporate-categories/gallery-fashion.html">Fashion</a></li>
+            <li><a href="corporate-categories/gallery-headshots.html">Headshots</a></li>
+            <li><a href="videography-categories/gallery-corporate-videos.html">Corporate Videos</a></li>
+            <li><a href="videography-categories/gallery-events-videos.html">Event Videos</a></li>
+            <li><a href="videography-categories/gallery-music-videos.html">Music Videos</a></li>
+          </ul>
+        </div>
+
+        <!-- ── 4. Quick Links ── -->
+        <div class="footer-col">
+          <span class="footer-col-label">Navigate</span>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#services">Portfolio</a></li>
+          </ul>
+        </div>
+
+        <!-- ── 5. Social ── -->
+        <div class="footer-col">
+          <span class="footer-col-label">Connect</span>
+          <div class="footer-social-icons">
+
+            <!-- WhatsApp — replace href with your actual number -->
+            <a href="https://wa.me/27000000000" class="footer-social-link" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <span class="footer-social-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+              </span>
+              WhatsApp
+            </a>
+
+            <!-- Instagram — replace href with your handle -->
+            <a href="https://instagram.com/" class="footer-social-link" target="_blank" rel="noopener" aria-label="Instagram">
+              <span class="footer-social-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                </svg>
+              </span>
+              Instagram
+            </a>
+
+            <!-- Facebook — replace href with your page -->
+            <a href="https://facebook.com/" class="footer-social-link" target="_blank" rel="noopener" aria-label="Facebook">
+              <span class="footer-social-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </span>
+              Facebook
+            </a>
+
+          </div>
+        </div>
+
+      </div><!-- /footer-grid -->
+    </div><!-- /footer-inner -->
+
+    <!-- Bottom bar -->
+    <div class="footer-bottom">
+      <span class="footer-copyright">&copy; 2025 Continuum Visual Studio. All rights reserved.</span>
+      <span class="footer-tagline">Crafting Visual Stories</span>
+    </div>
+
+  </footer>
+</div><!-- /footer-wrap -->
 
 <script>
   // ── Hero image slider ─────────────────────────────────────────
@@ -983,6 +1516,20 @@
     function next() { goTo(current + 1); }
 
     timer = setInterval(next, 5000);
+  })();
+
+  // ── Transparent nav scroll behaviour ─────────────────────────
+  (function() {
+    var nav = document.getElementById('mainNav');
+    function updateNav() {
+      if (window.scrollY > 60) {
+        nav.classList.add('nav-scrolled');
+      } else {
+        nav.classList.remove('nav-scrolled');
+      }
+    }
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav(); // run on load in case page is already scrolled
   })();
 
   // ── Hamburger / mobile menu ───────────────────────────────────
