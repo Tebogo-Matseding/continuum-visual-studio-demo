@@ -35,47 +35,38 @@
   .nav-logo {
     display: flex; align-items: center; gap: 11px;
     text-decoration: none;
-    background: rgba(255,255,255,0.12);
-    backdrop-filter: blur(16px) saturate(160%);
-    -webkit-backdrop-filter: blur(16px) saturate(160%);
-    border: 1px solid rgba(255,255,255,0.22);
-    border-radius: 999px;
-    padding: 7px 18px 7px 8px;
-    transition: background 0.4s ease, border-color 0.4s ease;
-  }
-  nav.nav-scrolled .nav-logo {
-    background: rgba(255,255,255,0.78);
-    border-color: rgba(255,255,255,0.6);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
   }
   .nav-logo-icon {
-    width: 34px; height: 34px;
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.3);
-    border-radius: 50%;
+    width: 50px; height: 50px;
+    background: rgba(255,255,255,0.14);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border: 1px solid rgba(255,255,255,0.28);
+    border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
-    transition: background 0.4s ease, border-color 0.4s ease;
+    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
   }
   nav.nav-scrolled .nav-logo-icon {
-    background: rgba(17,17,17,0.07);
-    border-color: rgba(17,17,17,0.15);
+    background: rgba(255,255,255,0.78);
+    border-color: rgba(255,255,255,0.6);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
   }
   .nav-logo-img {
-    height: 22px; width: auto; display: block;
+    height: 50px; width: auto; display: block;
     filter: brightness(0) invert(1);
     transition: filter 0.4s ease;
   }
   nav.nav-scrolled .nav-logo-img { filter: none; }
   .nav-logo-text { display: flex; flex-direction: column; gap: 1px; }
   .nav-logo-text .logo-main {
-    font-size: 12px; font-weight: 400; letter-spacing: 0.2em;
+    font-size: 14px; font-weight: 400; letter-spacing: 0.2em;
     text-transform: uppercase; color: #fff; line-height: 1;
     transition: color 0.4s ease;
     text-shadow: 0 1px 6px rgba(0,0,0,0.2);
   }
   .nav-logo-text .logo-sub {
-    font-size: 8.5px; font-weight: 300; letter-spacing: 0.28em;
+    font-size: 10px; font-weight: 300; letter-spacing: 0.28em;
     text-transform: uppercase; color: rgba(255,255,255,0.6); line-height: 1;
     transition: color 0.4s ease;
   }
@@ -297,25 +288,37 @@
 
   /* RESPONSIVE — TABLET (768px) */
   @media (max-width: 768px) {
-    /* Nav — sticky on mobile with adjusted logo pill */
+    /* Nav — sticky on mobile, plain solid white, zero glassmorphism */
     nav {
       position: sticky;
       top: 0;
       padding: 12px 18px !important;
+      background: #fff !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      border-bottom: 0.5px solid #e5e5e5 !important;
+      box-shadow: none !important;
+      transition: none !important;
+    }
+    /* Strip the glass icon wrapper completely */
+    nav .nav-logo-icon {
       background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      width: auto !important;
+      height: auto !important;
+      border-radius: 0 !important;
+      padding: 0 !important;
     }
-    nav .nav-logo {
-      background: rgba(255,255,255,0.82) !important;
-      border-color: rgba(255,255,255,0.6) !important;
-      backdrop-filter: blur(16px) !important;
-    }
-    nav .nav-logo-icon { background: rgba(17,17,17,0.07) !important; border-color: rgba(17,17,17,0.15) !important; }
-    nav .nav-logo-img  { filter: none !important; }
+    nav .nav-logo-img  { filter: none !important; height: 44px !important; }
     nav .logo-main { color: #111 !important; text-shadow: none !important; }
     nav .logo-sub  { color: #888 !important; }
     .nav-links { display: none !important; }
     .nav-cta  { display: none !important; }
     .hamburger { display: flex; }
+    .hamburger span { background: #111; }
 
     /* Services — 2 columns on tablet */
     .services { padding: 0 20px 64px; }
@@ -402,6 +405,7 @@
   .hero {
     position: relative;
     height: 100vh;
+    height: 100svh; /* uses small viewport height — excludes browser chrome on mobile */
     display: flex;
     align-items: flex-end;
     justify-content: flex-start;
@@ -413,6 +417,7 @@
     position: absolute;
     inset: 0;
     z-index: 0;
+    overflow: hidden; /* belt-and-suspenders: clips any stray image overflow */
   }
   .hero-slide {
     position: absolute;
@@ -512,6 +517,36 @@
     .hero-dots { display: none !important; }
     .hero-content { padding: 0 24px 52px; }
     .hero-tagline { font-size: clamp(28px, 8vw, 44px); }
+
+    /* On mobile the nav is sticky and occupies real vertical space, so the
+       hero height must be reduced by the nav height to avoid overflowing the viewport */
+    .hero {
+      height: calc(100vh - 74px);    /* fallback for older browsers */
+      height: calc(100svh - 74px);   /* svh = small viewport height, excludes browser chrome */
+      min-height: 480px;
+    }
+
+    /* Belt-and-suspenders: keep slides strictly inside the hero box */
+    .hero-slider,
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Landscape images on portrait screens: anchor to top so subjects aren't cropped */
+    .hero-slide {
+      background-position: center top;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero {
+      height: calc(100vh - 68px);
+      height: calc(100svh - 68px);
+      min-height: 420px;
+    }
   }
   .hero-dot {
     width: 28px; height: 2px;
@@ -837,6 +872,26 @@
   @media (max-width: 400px) {
     .footer-grid { grid-template-columns: 1fr; }
     .footer-col--categories { grid-column: auto; }
+  }
+
+  /* Prevent scroll-triggered glass re-appearing on mobile */
+  @media (max-width: 768px) {
+    nav.nav-scrolled {
+      background: #fff !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      padding: 12px 18px !important;
+      box-shadow: none !important;
+    }
+    nav.nav-scrolled .nav-logo-icon {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+    nav.nav-scrolled .nav-links { display: none !important; }
+    nav.nav-scrolled .nav-cta   { display: none !important; }
   }
 
   /* ── PORTFOLIO DROPDOWN ───────────────────────────────────────── */
@@ -1210,24 +1265,24 @@
       <div class="featured-text">
         <h2>Cake Smash Photography</h2>
         <p>Fun and creative cake smash photography sessions with custom themes, outfits, milk bath shoots, and beautiful birthday memories for little ones.</p>
-        <img src="images/cakesmash3.webp" alt="Cake Smash Photography" class="featured-banner">
+        <img src="images/cakesmash3.webp" alt="Cake Smash Photography" class="featured-banner" loading="lazy"	decoding="async">
       </div>
       <div class="img-grid">
-        <img src="images/cakesmash1.webp" alt="Cake Smash Photography 1">
-        <img src="images/cakesmash2.webp" alt="Cake Smash Photography 2">
+        <img src="images/cakesmash1.webp" alt="Cake Smash Photography 1" loading="lazy"	decoding="async">
+        <img src="images/cakesmash2.webp" alt="Cake Smash Photography 2" loading="lazy"	decoding="async">
       </div>
     </div>
 
     <!-- Maternity -->
     <div class="featured-row featured-row--maternity">
       <div class="img-grid">
-        <img src="images/maternity1.webp" alt="Maternity Photography 1">
-        <img src="images/maternity2.webp" alt="Maternity Photography 2">
+        <img src="images/maternity1.webp" alt="Maternity Photography 1" loading="lazy"	decoding="async">
+        <img src="images/maternity2.webp" alt="Maternity Photography 2" loading="lazy"	decoding="async">
       </div>
       <div class="featured-text">
         <h2>Maternity Photography</h2>
         <p>Elegant maternity photography sessions in studio or outdoors with beautiful backdrops, outfit options, and family-friendly packages.</p>
-        <img src="images/maternity3.webp" alt="Maternity Photography" class="featured-banner">
+        <img src="images/maternity3.webp" alt="Maternity Photography" class="featured-banner" loading="lazy"	decoding="async">
       </div>
     </div>
 
@@ -1236,24 +1291,24 @@
       <div class="featured-text">
         <h2>Studio Photography</h2>
         <p>Controlled lighting, premium backdrops, and a fully equipped studio space — ideal for portraits, product photography, fashion shoots, and creative concepts.</p>
-        <img src="images/studio3.webp" alt="Studio Photography" class="featured-banner">
+        <img src="images/studio3.webp" alt="Studio Photography" class="featured-banner" loading="lazy"	decoding="async">
       </div>
       <div class="img-grid">
-        <img src="images/studio1.webp" alt="Studio Photography 1">
-        <img src="images/studio2.webp" alt="Studio Photography 2">
+        <img src="images/studio1.webp" alt="Studio Photography 1" loading="lazy"	decoding="async">
+        <img src="images/studio2.webp" alt="Studio Photography 2" loading="lazy"	decoding="async">
       </div>
     </div>
 
     <!-- Outdoor Photography -->
     <div class="featured-row featured-row--outdoor">
       <div class="img-grid">
-        <img src="images/outdoor1.webp" alt="Outdoor Photography 1">
-        <img src="images/outdoor2.webp" alt="Outdoor Photography 2">
+        <img src="images/outdoor1.webp" alt="Outdoor Photography 1" loading="lazy"	decoding="async">
+        <img src="images/outdoor2.webp" alt="Outdoor Photography 2" loading="lazy"	decoding="async">
       </div>
       <div class="featured-text">
         <h2>Outdoor Photography</h2>
         <p>Natural light sessions in parks, gardens, and scenic locations across Johannesburg — perfect for families, couples, lifestyle shoots, and brand content that breathes.</p>
-        <img src="images/outdoor3.webp" alt="Outdoor Photography" class="featured-banner">
+        <img src="images/outdoor3.webp" alt="Outdoor Photography" class="featured-banner" loading="lazy"	decoding="async">
       </div>
     </div>
 
