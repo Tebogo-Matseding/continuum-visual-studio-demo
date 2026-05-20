@@ -505,12 +505,12 @@ footer { background: #f2f2f2; padding: 32px 24px; text-align: center; font-size:
         <div class="field">
           <label class="field-label">Intended Usage</label>
           <div class="check-group" id="usage-group">
-            <label class="check-item" onclick="toggleCheck(this, 'usage'); return false;"><input type="checkbox" value="Website"> Website</label>
-            <label class="check-item" onclick="toggleCheck(this, 'usage'); return false;"><input type="checkbox" value="Social Media"> Social Media</label>
-            <label class="check-item" onclick="toggleCheck(this, 'usage'); return false;"><input type="checkbox" value="Advertising"> Advertising</label>
-            <label class="check-item" onclick="toggleCheck(this, 'usage'); return false;"><input type="checkbox" value="Ecommerce"> Ecommerce</label>
-            <label class="check-item" onclick="toggleCheck(this, 'usage'); return false;"><input type="checkbox" value="Internal Use"> Internal Use</label>
-            <label class="check-item" onclick="toggleCheck(this, 'usage'); return false;"><input type="checkbox" value="Campaign Launch"> Campaign Launch</label>
+            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Website"> Website</label>
+            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Social Media"> Social Media</label>
+            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Advertising"> Advertising</label>
+            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Ecommerce"> Ecommerce</label>
+            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Internal Use"> Internal Use</label>
+            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Campaign Launch"> Campaign Launch</label>
           </div>
         </div>
 
@@ -535,13 +535,13 @@ footer { background: #f2f2f2; padding: 32px 24px; text-align: center; font-size:
         <div class="field">
           <label class="field-label">What Do You Need?</label>
           <div class="check-group" id="production-group">
-            <label class="check-item" onclick="toggleCheck(this, 'production'); return false;"><input type="checkbox" value="Photography"> Photography</label>
-            <label class="check-item" onclick="toggleCheck(this, 'production'); return false;"><input type="checkbox" value="Videography"> Videography</label>
-            <label class="check-item" onclick="toggleCheck(this, 'production'); return false;"><input type="checkbox" value="Drone Footage"> Drone Footage</label>
-            <label class="check-item" onclick="toggleCheck(this, 'production'); return false;"><input type="checkbox" value="Editing"> Editing</label>
-            <label class="check-item" onclick="toggleCheck(this, 'production'); return false;"><input type="checkbox" value="Retouching"> Retouching</label>
-            <label class="check-item" onclick="toggleCheck(this, 'production'); return false;"><input type="checkbox" value="Reels / Short-form">Reels / Short-form</label>
-            <label class="check-item" onclick="toggleCheck(this, 'production'); return false;"><input type="checkbox" value="Raw File Delivery"> Raw File Delivery</label>
+            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Photography"> Photography</label>
+            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Videography"> Videography</label>
+            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Drone Footage"> Drone Footage</label>
+            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Editing"> Editing</label>
+            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Retouching"> Retouching</label>
+            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Reels / Short-form">Reels / Short-form</label>
+            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Raw File Delivery"> Raw File Delivery</label>
           </div>
         </div>
 
@@ -1196,6 +1196,7 @@ function buildStudioEmail(isInd) {
   return `
     <div style="font-family:'Gill Sans','Century Gothic',Futura,sans-serif;max-width:600px;margin:0 auto;color:#111;">
       <div style="background:#111;padding:28px 32px;border-radius:12px 12px 0 0;">
+        <img src="https://tebogo-matseding.github.io/continuum-visual-studio-demo/images/nav-logo.webp" alt="Continuum Visual Studio" style="height:48px;width:auto;display:block;margin-bottom:12px;filter:brightness(0) invert(1);">
         <p style="color:rgba(255,255,255,0.5);font-size:10px;letter-spacing:0.3em;text-transform:uppercase;margin:0 0 8px;">Continuum Visual Studio</p>
         <h1 style="color:#fff;font-weight:300;font-size:22px;margin:0;letter-spacing:0.04em;">New ${isInd ? 'Individual' : 'Business'} Inquiry</h1>
       </div>
@@ -1234,6 +1235,7 @@ function buildReplyEmail(isInd, clientName) {
   return `
     <div style="font-family:'Gill Sans','Century Gothic',Futura,sans-serif;max-width:600px;margin:0 auto;color:#111;">
       <div style="background:#111;padding:28px 32px;border-radius:12px 12px 0 0;">
+        <img src="https://tebogo-matseding.github.io/continuum-visual-studio-demo/images/nav-logo.webp" alt="Continuum Visual Studio" style="height:48px;width:auto;display:block;margin-bottom:12px;filter:brightness(0) invert(1);">
         <p style="color:rgba(255,255,255,0.5);font-size:10px;letter-spacing:0.3em;text-transform:uppercase;margin:0 0 8px;">Continuum Visual Studio</p>
         <h1 style="color:#fff;font-weight:300;font-size:20px;margin:0;letter-spacing:0.04em;">Inquiry Received</h1>
       </div>
@@ -1347,9 +1349,7 @@ function setRadio(groupId, label, name, value) {
 }
 
 function toggleCheck(label, groupId) {
-  const input = label.querySelector('input');
-  input.checked = !input.checked;
-  label.classList.toggle('selected', input.checked);
+  label.classList.toggle('selected');
 }
 
 function validateField(inputId, errorId, predicate) {
