@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <link rel="icon" href="images/nav-logo.webp">
 <title>Book a Session — Continuum Visual Studio</title>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
 <style>
 /* ─── RESET & BASE ───────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -505,12 +505,12 @@ footer { background: #f2f2f2; padding: 32px 24px; text-align: center; font-size:
         <div class="field">
           <label class="field-label">Intended Usage</label>
           <div class="check-group" id="usage-group">
-            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Website"> Website</label>
-            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Social Media"> Social Media</label>
-            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Advertising"> Advertising</label>
-            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Ecommerce"> Ecommerce</label>
-            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Internal Use"> Internal Use</label>
-            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Campaign Launch"> Campaign Launch</label>
+            <label class="check-item" onclick="toggleCheck(this, 'usage'); return false;"><input type="checkbox" value="Website"> Website</label>
+            <label class="check-item" onclick="toggleCheck(this, 'usage'); return false;"><input type="checkbox" value="Social Media"> Social Media</label>
+            <label class="check-item" onclick="toggleCheck(this, 'usage'); return false;"><input type="checkbox" value="Advertising"> Advertising</label>
+            <label class="check-item" onclick="toggleCheck(this, 'usage'); return false;"><input type="checkbox" value="Ecommerce"> Ecommerce</label>
+            <label class="check-item" onclick="toggleCheck(this, 'usage'); return false;"><input type="checkbox" value="Internal Use"> Internal Use</label>
+            <label class="check-item" onclick="toggleCheck(this, 'usage'); return false;"><input type="checkbox" value="Campaign Launch"> Campaign Launch</label>
           </div>
         </div>
 
@@ -535,13 +535,13 @@ footer { background: #f2f2f2; padding: 32px 24px; text-align: center; font-size:
         <div class="field">
           <label class="field-label">What Do You Need?</label>
           <div class="check-group" id="production-group">
-            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Photography"> Photography</label>
-            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Videography"> Videography</label>
-            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Drone Footage"> Drone Footage</label>
-            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Editing"> Editing</label>
-            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Retouching"> Retouching</label>
-            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Reels / Short-form">Reels / Short-form</label>
-            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Raw File Delivery"> Raw File Delivery</label>
+            <label class="check-item" onclick="toggleCheck(this, 'production'); return false;"><input type="checkbox" value="Photography"> Photography</label>
+            <label class="check-item" onclick="toggleCheck(this, 'production'); return false;"><input type="checkbox" value="Videography"> Videography</label>
+            <label class="check-item" onclick="toggleCheck(this, 'production'); return false;"><input type="checkbox" value="Drone Footage"> Drone Footage</label>
+            <label class="check-item" onclick="toggleCheck(this, 'production'); return false;"><input type="checkbox" value="Editing"> Editing</label>
+            <label class="check-item" onclick="toggleCheck(this, 'production'); return false;"><input type="checkbox" value="Retouching"> Retouching</label>
+            <label class="check-item" onclick="toggleCheck(this, 'production'); return false;"><input type="checkbox" value="Reels / Short-form">Reels / Short-form</label>
+            <label class="check-item" onclick="toggleCheck(this, 'production'); return false;"><input type="checkbox" value="Raw File Delivery"> Raw File Delivery</label>
           </div>
         </div>
 
@@ -1347,7 +1347,9 @@ function setRadio(groupId, label, name, value) {
 }
 
 function toggleCheck(label, groupId) {
-  label.classList.toggle('selected');
+  const input = label.querySelector('input');
+  input.checked = !input.checked;
+  label.classList.toggle('selected', input.checked);
 }
 
 function validateField(inputId, errorId, predicate) {
