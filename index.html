@@ -448,8 +448,43 @@
     position: relative;
     z-index: 2;
     padding: 0 56px 64px;
-    max-width: 620px;
+    max-width: calc(100% - 40px);
   }
+  .hero-studio-name {
+    font-size: clamp(32px, 5.2vw, 78px);
+    font-weight: 200;
+    line-height: 1;
+    letter-spacing: 0.14em;
+    color: #fff;
+    text-shadow: 0 2px 28px rgba(0,0,0,0.2);
+    white-space: nowrap;
+    margin-bottom: 18px;
+    text-transform: uppercase;
+  }
+  .hero-slogan {
+    font-size: clamp(12px, 1.1vw, 16px);
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 32px;
+  }
+  .hero-btn {
+    display: inline-block;
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.55);
+    padding: 12px 30px;
+    border-radius: 999px;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.25s, border-color 0.25s, color 0.25s;
+    margin-top: 8px;
+  }
+  .hero-btn:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.9); }
   /* Location badge */
   .hero-location {
     display: inline-flex;
@@ -516,7 +551,8 @@
   @media (max-width: 768px) {
     .hero-dots { display: none !important; }
     .hero-content { padding: 0 24px 52px; }
-    .hero-tagline { font-size: clamp(28px, 8vw, 44px); }
+    .hero-studio-name { font-size: clamp(26px, 7.5vw, 44px); white-space: normal; }
+    .hero-slogan { font-size: 11px; letter-spacing: 0.22em; }
 
     /* On mobile the nav is sticky and occupies real vertical space, so the
        hero height must be reduced by the nav height to avoid overflowing the viewport */
@@ -1196,10 +1232,12 @@
       <span class="hero-location-dot"></span>
       Kempton Park &bull; Johannesburg
     </div>
-    <h1 class="hero-tagline">Telling Your Story<br>Through Light</h1>
+    <h1 class="hero-studio-name">Continuum Visual Studio</h1>
+    <p class="hero-slogan">Telling Your Story Through Light</p>
     <div class="hero-rule">
       <span class="hero-category">Photography &amp; Videography</span>
     </div>
+    <a href="#cta" class="hero-btn">Book A Session</a>
   </div>
 
   <!-- Dot indicators -->
@@ -1325,7 +1363,7 @@
       <!-- original set -->
       <div class="review-chip">
         <div class="review-chip-header">
-          <img src="" alt="Lucy L" class="review-avatar">
+          <img src="images/lucy.webp" alt="Lucy L" class="review-avatar">
           <div class="review-chip-meta">
             <div class="review-stars">★★★★★</div>
             <span class="review-name">Lucy L, May 2025</span>
@@ -1335,7 +1373,7 @@
       </div>
       <div class="review-chip">
         <div class="review-chip-header">
-          <img src="" alt="Ayanda M" class="review-avatar">
+          <img src="images/ayanda.webp" alt="Ayanda M" class="review-avatar">
           <div class="review-chip-meta">
             <div class="review-stars">★★★★☆</div>
             <span class="review-name">Ayanda M, December 2023</span>
@@ -1345,7 +1383,7 @@
       </div>
       <div class="review-chip">
         <div class="review-chip-header">
-          <img src="" alt="Lenkeme L" class="review-avatar">
+          <img src="images/lenkeme.webp" alt="Lenkeme L" class="review-avatar">
           <div class="review-chip-meta">
             <div class="review-stars">★★★★★</div>
             <span class="review-name">Lenkeme L, December 2024</span>
@@ -1355,7 +1393,7 @@
       </div>
       <div class="review-chip">
         <div class="review-chip-header">
-          <img src="" alt="Maanda M" class="review-avatar">
+          <img src="images/maanda.webp" alt="Maanda M" class="review-avatar">
           <div class="review-chip-meta">
             <div class="review-stars">★★★★★</div>
             <span class="review-name">Maanda M, December 2023</span>
@@ -1365,7 +1403,7 @@
       </div>
       <div class="review-chip">
         <div class="review-chip-header">
-          <img src="" alt="Sarah N" class="review-avatar">
+          <img src="images/sarah.webp" alt="Sarah N" class="review-avatar">
           <div class="review-chip-meta">
             <div class="review-stars">★★★★★</div>
             <span class="review-name">Sarah N, April 2024</span>
@@ -1376,54 +1414,53 @@
       <!-- duplicate set for seamless loop -->
       <div class="review-chip">
         <div class="review-chip-header">
-          <img src="" alt="Lucy L" class="review-avatar">
+          <img src="images/thabo.webp" alt="Thabo M" class="review-avatar">
           <div class="review-chip-meta">
             <div class="review-stars">★★★★★</div>
-            <span class="review-name">Lucy L, May 2025</span>
+            <span class="review-name">Thabo M, April 2023</span>
           </div>
         </div>
-        <p class="review-text">"Thank you so much for a nice experience, I was very impressed with your work and professionalism. You made my daughter relax and enjoy her photoshoot."</p>
+        <p class="review-text">"My kids always look forward to a date at the photo shoot.  It has been a great relationship and we look forward to our 7th shoot in three years."</p>
       </div>
       <div class="review-chip">
         <div class="review-chip-header">
-          <img src="" alt="Ayanda M" class="review-avatar">
+          <img src="images/mankoana.webp" alt="Mankoana N" class="review-avatar">
           <div class="review-chip-meta">
-            <div class="review-stars">★★★★☆</div>
-            <span class="review-name">Ayanda M, December 2023</span>
+            <div class="review-stars">★★★★★</div>
+            <span class="review-name">Mankoana N, April 2023</span>
           </div>
         </div>
-        <p class="review-text">"Service from Continuum Studio is very professional and the delivery time is satisfactory. Thank you for capturing such beautiful memories for me, and making my day so perfect."</p>
+        <p class="review-text">"I'm always sure to get a great service, high level of professionalism and quality photos every time I shoot with Continuum Visual Studio.  Turnaround time is impressive and my photography requirements are well considered and executed by the team.🙏"</p>
       </div>
       <div class="review-chip">
         <div class="review-chip-header">
-          <img src="" alt="Lenkeme L" class="review-avatar">
+          <img src="images/slindile.webp" alt="Slindile J" class="review-avatar">
           <div class="review-chip-meta">
             <div class="review-stars">★★★★★</div>
-            <span class="review-name">Lenkeme L, December 2024</span>
+            <span class="review-name">Slindile J, April 2023</span>
           </div>
         </div>
-        <p class="review-text">"I had fun doing this photoshoot, I can't complain. The photographer was very friendly and patient as I had a 1 year old. I'm happy about the pictures I got."</p>
+        <p class="review-text">"My photographer for 7 years! He's work is absolutely flawless. The absolute best. Excellent work ethics so kind & so passionate, I'm a perfectionist it's so hard to please me but Continuum has nailed every vision I've had. 7 star rating for him…."</p>
       </div>
       <div class="review-chip">
         <div class="review-chip-header">
-          <img src="" alt="Maanda M" class="review-avatar">
+          <img src="images/ongeziwe.webp" alt="Ongeziwe T" class="review-avatar">
           <div class="review-chip-meta">
             <div class="review-stars">★★★★★</div>
-            <span class="review-name">Maanda M, December 2023</span>
+            <span class="review-name">Ongeziwe T, April 2025</span>
           </div>
         </div>
-        <p class="review-text">"Our experience with Continuum was awesome. Mr. Lee is very passionate about his work and very friendly. The quality of his work is top notch. We definitely going to use him again."</p>
+        <p class="review-text">"Amazing!! The experience was nothing short of amazing, the studio is perfect, the guy also made my family and I so comfortable. He suggested some poses, also allowed us to do ours. The pictures are just perfect! I will go to this place every time I need professional pictures 🔥♥️"</p>
       </div>
       <div class="review-chip">
         <div class="review-chip-header">
-          <img src="" alt="Sarah N" class="review-avatar">
+          <img src="images/thembi.webp" alt="Thembi M" class="review-avatar">
           <div class="review-chip-meta">
             <div class="review-stars">★★★★★</div>
-            <span class="review-name">Sarah N, April 2024</span>
+            <span class="review-name">Thembi M, April 2025</span>
           </div>
         </div>
-        <p class="review-text">"Lee truly lives up to expectations, he is so patient and kind. He makes you feel comfortable and he's accommodating. Truly great at what he does. I would 100% recommend!"</p>
-      </div>
+      </div>  
     </div>
   </div>
 </section>

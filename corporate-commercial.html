@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<link rel="icon" href="images/nav-logo.webp">
 <title>Corporate &amp; Commercial Photography — Continuum Visual Studio</title>
 <style>
   /* ── RESET & BASE ─────────────────────────────────────────────── */
@@ -223,33 +224,15 @@
 
   /* ── PAGE HERO ────────────────────────────────────────────────── */
   .page-hero {
-    height: 88vh;
-    background: linear-gradient(135deg, #f4f4f4 0%, #fff 50%, #ececec 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 0 24px;
+    padding: 80px 48px 64px; max-width: 1280px; margin: 0 auto;
+    border-bottom: 0.5px solid var(--grey-mid);
   }
-  .page-hero-inner { max-width: 1100px; }
-  .page-hero-inner .eyebrow {
-    font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase;
-    color: #888; margin-bottom: 24px;
+  .page-hero h1 {
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 300; letter-spacing: 0.02em; line-height: 1.1; margin-bottom: 20px;
   }
-  .page-hero-inner h1 {
-    font-size: clamp(40px, 7vw, 76px);
-    font-weight: 300; line-height: 1.1; margin-bottom: 24px;
-  }
-  @media (min-width: 769px) {
-    .page-hero-inner h1 { white-space: nowrap; }
-  }
-  .page-hero-inner p {
-    font-size: 17px; color: #666; max-width: 560px;
-    line-height: 1.7; margin: 0 auto;
-  }
-  @media (max-width: 480px) {
-    .page-hero { padding: 0 16px; }
-  }
+  .page-hero p { font-size: 16px; color: var(--grey-text); line-height: 1.8; max-width: 580px; }
+  @media (max-width: 768px) { .page-hero { padding: 56px 20px 48px; } }
 
   /* ── CATEGORY NAV (STICKY TOC) ───────────────────────────────── */
   .cat-nav {
@@ -528,7 +511,7 @@
     height: 72px;
   }
   .logo-item img {
-    height: 36px;
+    height: 70px;
     width: auto;
     max-width: 140px;
     object-fit: contain;
@@ -692,15 +675,10 @@
 </div>
 
 <!-- ════════════════════════════════════════════════════ PAGE HERO -->
-<header>
-  <div class="page-hero">
-    <div class="page-hero-inner">
-      <p class="eyebrow">Our Services</p>
-        <h1>Corporate &amp; Commercial</h1>
-      <p>From executive headshots to full brand campaigns, we craft imagery that positions your business with confidence and clarity. Every frame is intentional — built to communicate professionalism, trust, and vision.</p>
-    </div>
-  </div>
-</header>
+<div class="page-hero">
+  <h1>Corporate &amp;<br>Commercial</h1>
+  <p>From executive headshots to full brand campaigns, we craft imagery that positions your business with confidence and clarity. Every frame is intentional — built to communicate professionalism, trust, and vision.</p>
+</div>
 
 <!-- ════════════════════════════════════════════════════ CATEGORY NAV -->
 <nav class="cat-nav" aria-label="Service categories">
@@ -855,42 +833,37 @@
       <div class="logo-set" style="display:flex;align-items:center;">
 
         <div class="logo-item">
-          <img src="LOGO_URL_HERE" alt="Client company name">
+          <img src="logos/logo1.webp" alt="Client company name">
         </div>
         <span class="logo-divider">●</span>
 
         <div class="logo-item">
-          <img src="LOGO_URL_HERE" alt="Client company name">
+          <img src="logos/logo2.webp" alt="Client company name">
         </div>
         <span class="logo-divider">●</span>
 
         <div class="logo-item">
-          <img src="LOGO_URL_HERE" alt="Client company name">
+          <img src="logos/logo3.webp" alt="Client company name">
         </div>
         <span class="logo-divider">●</span>
 
         <div class="logo-item">
-          <img src="LOGO_URL_HERE" alt="Client company name">
+          <img src="logos/logo4.webp" alt="Client company name">
         </div>
         <span class="logo-divider">●</span>
 
         <div class="logo-item">
-          <img src="LOGO_URL_HERE" alt="Client company name">
+          <img src="logos/logo5.webp" alt="Client company name">
         </div>
         <span class="logo-divider">●</span>
 
         <div class="logo-item">
-          <img src="LOGO_URL_HERE" alt="Client company name">
+          <img src="logos/logo6.webp" alt="Client company name">
         </div>
         <span class="logo-divider">●</span>
 
         <div class="logo-item">
-          <img src="LOGO_URL_HERE" alt="Client company name">
-        </div>
-        <span class="logo-divider">●</span>
-
-        <div class="logo-item">
-          <img src="LOGO_URL_HERE" alt="Client company name">
+          <img src="logos/logo7.webp" alt="Client company name">
         </div>
         <span class="logo-divider">●</span>
 
@@ -900,42 +873,52 @@
       <div class="logo-set" style="display:flex;align-items:center;">
 
         <div class="logo-item">
-          <img src="LOGO_URL_HERE" alt="Client company name">
+          <img src="logos/logo8.webp" alt="Client company name">
         </div>
         <span class="logo-divider">●</span>
 
         <div class="logo-item">
-          <img src="LOGO_URL_HERE" alt="Client company name">
+          <img src="logos/logo9.webp" alt="Client company name">
         </div>
         <span class="logo-divider">●</span>
 
         <div class="logo-item">
-          <img src="LOGO_URL_HERE" alt="Client company name">
+          <img src="logos/logo10.webp" alt="Client company name">
         </div>
         <span class="logo-divider">●</span>
 
         <div class="logo-item">
-          <img src="LOGO_URL_HERE" alt="Client company name">
+          <img src="logos/logo11.webp" alt="Client company name">
         </div>
         <span class="logo-divider">●</span>
 
         <div class="logo-item">
-          <img src="LOGO_URL_HERE" alt="Client company name">
+          <img src="logos/logo12.webp" alt="Client company name">
         </div>
         <span class="logo-divider">●</span>
 
         <div class="logo-item">
-          <img src="LOGO_URL_HERE" alt="Client company name">
+          <img src="logos/logo13.webp" alt="Client company name">
         </div>
         <span class="logo-divider">●</span>
 
         <div class="logo-item">
-          <img src="LOGO_URL_HERE" alt="Client company name">
+          <img src="logos/logo14.webp" alt="Client company name">
         </div>
         <span class="logo-divider">●</span>
 
-        <div class="logo-item">
-          <img src="LOGO_URL_HERE" alt="Client company name">
+         <div class="logo-item">
+          <img src="logos/logo15.webp" alt="Client company name">
+        </div>
+        <span class="logo-divider">●</span>
+
+         <div class="logo-item">
+          <img src="logos/logo16.webp" alt="Client company name">
+        </div>
+        <span class="logo-divider">●</span>
+
+         <div class="logo-item">
+          <img src="logos/logo17.webp" alt="Client company name">
         </div>
         <span class="logo-divider">●</span>
 
