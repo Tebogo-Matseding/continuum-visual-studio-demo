@@ -492,7 +492,7 @@
     gap: 0;
     width: max-content;
     /* Animation: moves left by exactly half (one full set of logos) then resets */
-    animation: logoScroll 28s linear infinite;
+    animation: logoScroll 120s linear infinite;
   }
   /* Pause scroll when user hovers anywhere on the strip */
   .logo-track:hover { animation-play-state: paused; }
@@ -547,8 +547,8 @@
     <img src="images/nav-logo.webp" alt="Continuum Visual Studio Logo" class="nav-logo-img"> CONTINUUM VISUAL STUDIO
   </a>
   <div class="nav-links">
-    <a href="index.html">Services</a>
-    <a href="index.html">Testimonials</a>
+    <a href="index.html#services">Services</a>
+    <a href="index.html#testimonials">Testimonials</a>
     <div class="nav-dropdown" id="portfolioDropdown">
       <button id="portfolioBtn" aria-haspopup="true" aria-expanded="false">
         Portfolio <i class="ti ti-chevron-down caret" aria-hidden="true"></i>
@@ -639,7 +639,7 @@
       </div>
     </div>
   </div>
-  <a href="#cta" class="nav-cta">Book A Session</a>
+  <a href="contact.html" class="nav-cta">Book A Session</a>
   <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
@@ -647,7 +647,7 @@
 
 <!-- MOBILE MENU OVERLAY -->
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Navigation menu">
-  <a href="index.html" class="mobile-menu-link">Services</a>
+  <a href="index.html#services" class="mobile-menu-link">Services</a>
   <div class="mobile-menu-link mobile-portfolio-toggle" id="mobilePortfolioToggle">
     Portfolio <i class="ti ti-chevron-down caret" aria-hidden="true"></i>
   </div>
@@ -670,7 +670,7 @@
     <a href="videography-categories/gallery-music-videos.html" class="mobile-sub-link mobile-gallery-link">↳ Music Videos Gallery</a>
   </div>
   <div class="mobile-menu-divider"></div>
-  <a href="#cta" class="mobile-menu-cta">Book A Session</a>
+  <a href="contact.html" class="mobile-menu-cta">Book A Session</a>
   <span class="mobile-menu-footer">Kempton Park &bull; Johannesburg</span>
 </div>
 
@@ -917,8 +917,8 @@
 <section class="cta-strip" id ="cta">
   <h2>Ready to Elevate Your Brand?</h2>
   <p>Let's build a visual identity that represents your business with the professionalism it deserves. Studios available in Kempton Park — on-location across Johannesburg.</p>
-  <a href="#" class="btn-white">WhatsApp Us</a>
-  <a href="#" class="btn-outline-white">Back to Services</a>
+  <a href="https://wa.me/27631625506" target="_blank" class="btn-white" rel="noopener">WhatsApp Us</a>
+  <a href="/index.html#services" class="btn-outline-white">Back to Services</a>
 </section>
 
 <!-- ════════════════════════════════════════════════════ FOOTER -->
