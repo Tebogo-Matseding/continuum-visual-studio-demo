@@ -1119,9 +1119,9 @@ function showSuccess(isInd) {
 
 /* ── Email body builders ───────────────────────────────────────── */
 function buildStudioEmail(isInd) {
-  const d = state.details;
-  const c = state.contact;
-  const s = state.services;
+  const d = state.details || {};
+  const c = state.contact || {};
+  const s = Array.isArray(state.services) ? state.services : [];
 
   const section = (title, content) =>
     `<div style="margin-bottom:24px;"><h3 style="font-size:12px;letter-spacing:0.15em;text-transform:uppercase;color:#999;font-weight:400;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #f0f0f0;">${title}</h3>${content}</div>`;
@@ -1130,7 +1130,7 @@ function buildStudioEmail(isInd) {
     val ? `<p style="margin:8px 0;font-size:14px;color:#333;"><strong style="color:#999;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;">${label}:</strong> ${escHtml(String(val))}</p>` : '';
 
   const chips = (arr) =>
-    arr.length ? `<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">${arr.map(v=>`<span style="background:#f0f0f0;border-radius:20px;padding:4px 12px;font-size:12px;color:#555;">${escHtml(v)}</span>`).join('')}</div>` : '';
+    (Array.isArray(arr) && arr.length) ? `<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">${arr.map(v=>`<span style="background:#f0f0f0;border-radius:20px;padding:4px 12px;font-size:12px;color:#555;">${escHtml(v)}</span>`).join('')}</div>` : '';
 
   let contactSection = isInd
     ? section('Contact Details', field('Name', c.name) + field('Email', c.email) + field('Phone', c.phone) + field('Preferred Contact', c.method))
@@ -1144,20 +1144,18 @@ function buildStudioEmail(isInd) {
       field('Location Preference', d.locationPref) +
       field('Service Type', d.serviceType) +
       field('Number of People', d.numPeople) +
-      (d.vision ? `<p style="margin:12px 0 0;font-size:14px;color:#333;"><strong style="color:#999;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;">Vision & Details:</strong></p><p style="font-size:14px;color:#555;line-height:1.65;margin-top:6px;">${escHtml(d.vision)}</p>` : '') +
-      (d.files.length ? field('Uploaded Files', d.files.join(', ')) : '')
+      (d.vision ? `<p style="margin:12px 0 0;font-size:14px;color:#333;"><strong style="color:#999;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;">Vision & Details:</strong></p><p style="font-size:14px;color:#555;line-height:1.65;margin-top:6px;">${escHtml(d.vision)}</p>` : '')
     );
   } else {
     detailSection = section('Project Details',
       (d.projectGoal ? `<p style="margin:0 0 12px;font-size:14px;color:#555;line-height:1.65;"><strong style="color:#999;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;">Project Goal:</strong><br>${escHtml(d.projectGoal)}</p>` : '') +
-      (d.usage.length ? `<p style="margin:8px 0 4px;font-size:11px;color:#999;text-transform:uppercase;letter-spacing:0.1em;">Intended Usage:</p>${chips(d.usage)}` : '') +
+      (d.usage && d.usage.length ? `<p style="margin:8px 0 4px;font-size:11px;color:#999;text-transform:uppercase;letter-spacing:0.1em;">Intended Usage:</p>${chips(d.usage)}` : '') +
       field('Shoot Location', d.shootLocation) +
       field('Team Size', d.teamSize) +
       field('Deadline', d.deadline ? formatDate(d.deadline) : '') +
-      (d.production.length ? `<p style="margin:12px 0 4px;font-size:11px;color:#999;text-transform:uppercase;letter-spacing:0.1em;">Production Requirements:</p>${chips(d.production)}` : '') +
+      (d.production && d.production.length ? `<p style="margin:12px 0 4px;font-size:11px;color:#999;text-transform:uppercase;letter-spacing:0.1em;">Production Requirements:</p>${chips(d.production)}` : '') +
       field('Project Scope', d.projectScope) +
-      (d.notes ? `<p style="margin:12px 0 0;font-size:14px;color:#333;"><strong style="color:#999;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;">Additional Notes:</strong></p><p style="font-size:14px;color:#555;line-height:1.65;margin-top:6px;">${escHtml(d.notes)}</p>` : '') +
-      (d.files.length ? field('Uploaded Files', d.files.join(', ') + ' (client to send via WeTransfer/WhatsApp)') : '')
+      (d.notes ? `<p style="margin:12px 0 0;font-size:14px;color:#333;"><strong style="color:#999;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;">Additional Notes:</strong></p><p style="font-size:14px;color:#555;line-height:1.65;margin-top:6px;">${escHtml(d.notes)}</p>` : '')
     );
   }
 
@@ -1184,8 +1182,9 @@ function buildStudioEmail(isInd) {
 }
 
 function buildReplyEmail(isInd, clientName) {
-  const hasWedding = state.services.some(s => s.toLowerCase().includes('wedding'));
-  const hasCorporate = state.services.some(s => ['branding', 'headshots', 'commercial', 'corporate'].some(k => s.toLowerCase().includes(k)));
+  const services = Array.isArray(state.services) ? state.services : [];
+  const hasWedding = services.some(s => s.toLowerCase().includes('wedding'));
+  const hasCorporate = services.some(s => ['branding', 'headshots', 'commercial', 'corporate'].some(k => s.toLowerCase().includes(k)));
 
   let intro = '';
   if (!isInd) {
@@ -1196,7 +1195,7 @@ function buildReplyEmail(isInd, clientName) {
     intro = `Thank you for reaching out to Continuum Visual Studio. We've received your inquiry and are excited to hear more about your project.`;
   }
 
-  const serviceList = state.services.map(s =>
+  const serviceList = services.map(s =>
     `<li style="margin-bottom:6px;font-size:14px;color:#555;">${escHtml(s)}</li>`
   ).join('');
 
