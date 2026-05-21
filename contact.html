@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <link rel="icon" href="images/nav-logo.webp">
 <title>Book a Session — Continuum Visual Studio</title>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
 /* ─── RESET & BASE ───────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -478,18 +478,6 @@ footer { background: #f2f2f2; padding: 32px 24px; text-align: center; font-size:
           <textarea id="ind-details" name="ind_details" placeholder="Share your vision, preferred style, mood, important moments to capture, any inspiration, and anything else you'd like us to know..."></textarea>
         </div>
 
-        <div class="field">
-          <label class="field-label">Upload Inspiration & References</label>
-          <div class="upload-zone" id="ind-upload-zone">
-            <i class="ti ti-cloud-upload upload-zone-icon"></i>
-            <p><strong>Drag & drop files here</strong> or click to browse</p>
-            <small>JPG, PNG or PDF &bull; Max 10MB per file &bull; Up to 5 files</small>
-            <input type="file" id="ind-file-input" multiple accept=".jpg,.jpeg,.png,.pdf" onchange="handleFiles(this.files, 'ind')">
-          </div>
-          <div id="ind-upload-list" class="upload-list"></div>
-          <div id="ind-upload-error" class="upload-error"></div>
-        </div>
-
       </div>
 
       <!-- BUSINESS DETAILS -->
@@ -505,12 +493,12 @@ footer { background: #f2f2f2; padding: 32px 24px; text-align: center; font-size:
         <div class="field">
           <label class="field-label">Intended Usage</label>
           <div class="check-group" id="usage-group">
-            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Website"> Website</label>
-            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Social Media"> Social Media</label>
-            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Advertising"> Advertising</label>
-            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Ecommerce"> Ecommerce</label>
-            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Internal Use"> Internal Use</label>
-            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Campaign Launch"> Campaign Launch</label>
+            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Website" onclick="event.stopPropagation()"> Website</label>
+            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Social Media" onclick="event.stopPropagation()"> Social Media</label>
+            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Advertising" onclick="event.stopPropagation()"> Advertising</label>
+            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Ecommerce" onclick="event.stopPropagation()"> Ecommerce</label>
+            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Internal Use" onclick="event.stopPropagation()"> Internal Use</label>
+            <label class="check-item" onclick="toggleCheck(this, 'usage')"><input type="checkbox" value="Campaign Launch" onclick="event.stopPropagation()"> Campaign Launch</label>
           </div>
         </div>
 
@@ -535,13 +523,13 @@ footer { background: #f2f2f2; padding: 32px 24px; text-align: center; font-size:
         <div class="field">
           <label class="field-label">What Do You Need?</label>
           <div class="check-group" id="production-group">
-            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Photography"> Photography</label>
-            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Videography"> Videography</label>
-            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Drone Footage"> Drone Footage</label>
-            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Editing"> Editing</label>
-            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Retouching"> Retouching</label>
-            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Reels / Short-form">Reels / Short-form</label>
-            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Raw File Delivery"> Raw File Delivery</label>
+            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Photography" onclick="event.stopPropagation()"> Photography</label>
+            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Videography" onclick="event.stopPropagation()"> Videography</label>
+            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Drone Footage" onclick="event.stopPropagation()"> Drone Footage</label>
+            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Editing" onclick="event.stopPropagation()"> Editing</label>
+            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Retouching" onclick="event.stopPropagation()"> Retouching</label>
+            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Reels / Short-form" onclick="event.stopPropagation()">Reels / Short-form</label>
+            <label class="check-item" onclick="toggleCheck(this, 'production')"><input type="checkbox" value="Raw File Delivery" onclick="event.stopPropagation()"> Raw File Delivery</label>
           </div>
         </div>
 
@@ -558,18 +546,6 @@ footer { background: #f2f2f2; padding: 32px 24px; text-align: center; font-size:
         <div class="field">
           <label class="field-label" for="biz-details">Additional Notes & Creative Direction</label>
           <textarea id="biz-details" name="biz_details" placeholder="Describe your campaign direction, creative ideas, deliverables, references, expectations..."></textarea>
-        </div>
-
-        <div class="field">
-          <label class="field-label">Upload Brand Assets & References</label>
-          <div class="upload-zone" id="biz-upload-zone">
-            <i class="ti ti-cloud-upload upload-zone-icon"></i>
-            <p><strong>Drag & drop files here</strong> or click to browse</p>
-            <small>Logos, brand guidelines, campaign briefs, moodboards &bull; JPG, PNG or PDF &bull; Max 10MB &bull; Up to 5 files</small>
-            <input type="file" id="biz-file-input" multiple accept=".jpg,.jpeg,.png,.pdf" onchange="handleFiles(this.files, 'biz')">
-          </div>
-          <div id="biz-upload-list" class="upload-list"></div>
-          <div id="biz-upload-error" class="upload-error"></div>
         </div>
 
       </div>
@@ -777,7 +753,7 @@ const state = {
   services: [],
   details: {},
   contact: {},
-  files: { ind: [], biz: [] },
+  files: {},
   bookingRef: '',
   submitted: false
 };
@@ -801,8 +777,6 @@ const BUSINESS_SERVICES = [
   state.bookingRef = generateRef();
   buildServiceChips('individual-services', INDIVIDUAL_SERVICES);
   buildServiceChips('business-services', BUSINESS_SERVICES);
-  initDragDrop('ind-upload-zone', 'ind');
-  initDragDrop('biz-upload-zone', 'biz');
   initNav();
   initDropdown();
 })();
@@ -925,8 +899,7 @@ function nextFromStep3() {
       locationPref:  getRadio('location_pref'),
       serviceType:   getRadio('service_type'),
       numPeople:     v('num-people'),
-      vision:        v('ind-details'),
-      files:         state.files.ind.map(f => f.name)
+      vision:        v('ind-details')
     };
   } else {
     state.details = {
@@ -937,8 +910,7 @@ function nextFromStep3() {
       deadline:      v('deadline'),
       production:    getChecked('production'),
       projectScope:  getRadio('project_scope'),
-      notes:         v('biz-details'),
-      files:         state.files.biz.map(f => f.name)
+      notes:         v('biz-details')
     };
   }
   goToStep(4);
@@ -1262,71 +1234,6 @@ function buildReplyEmail(isInd, clientName) {
       </div>
     </div>
   `;
-}
-
-/* ── File upload ───────────────────────────────────────────────── */
-const MAX_FILES = 5;
-const MAX_SIZE  = 10 * 1024 * 1024; // 10MB
-const ALLOWED   = ['image/jpeg','image/png','application/pdf'];
-
-function handleFiles(fileList, key) {
-  const errEl = document.getElementById(`${key}-upload-error`);
-  errEl.classList.remove('visible');
-
-  const newFiles = Array.from(fileList);
-  let errors = [];
-
-  newFiles.forEach(f => {
-    if (state.files[key].length >= MAX_FILES) { errors.push(`Maximum ${MAX_FILES} files allowed.`); return; }
-    if (!ALLOWED.includes(f.type)) { errors.push(`"${f.name}" is not supported. Please upload JPG, PNG, or PDF.`); return; }
-    if (f.size > MAX_SIZE) { errors.push(`"${f.name}" exceeds the 10MB limit.`); return; }
-    if (state.files[key].find(x => x.name === f.name)) return; // dupe
-    state.files[key].push(f);
-  });
-
-  if (errors.length) {
-    errEl.textContent = errors[0];
-    errEl.classList.add('visible');
-  }
-
-  renderFileList(key);
-  // Reset file input so same file can be re-added after removal
-  document.getElementById(`${key}-file-input`).value = '';
-}
-
-function renderFileList(key) {
-  const listEl = document.getElementById(`${key}-upload-list`);
-  listEl.innerHTML = '';
-  state.files[key].forEach((f, i) => {
-    const ext = f.name.split('.').pop().toUpperCase();
-    const size = (f.size / 1024).toFixed(0) + ' KB';
-    const item = document.createElement('div');
-    item.className = 'upload-item';
-    item.innerHTML = `
-      <i class="ti ti-${ext === 'PDF' ? 'file-text' : 'photo'} upload-item-icon"></i>
-      <span class="upload-item-name">${escHtml(f.name)}</span>
-      <span class="upload-item-size">${size}</span>
-      <button class="upload-item-remove" onclick="removeFile('${key}', ${i})" aria-label="Remove file"><i class="ti ti-x"></i></button>
-    `;
-    listEl.appendChild(item);
-  });
-}
-
-function removeFile(key, idx) {
-  state.files[key].splice(idx, 1);
-  renderFileList(key);
-}
-
-function initDragDrop(zoneId, key) {
-  const zone = document.getElementById(zoneId);
-  if (!zone) return;
-  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
-  zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
-  zone.addEventListener('drop', e => {
-    e.preventDefault();
-    zone.classList.remove('drag-over');
-    handleFiles(e.dataTransfer.files, key);
-  });
 }
 
 /* ── Helpers ───────────────────────────────────────────────────── */
