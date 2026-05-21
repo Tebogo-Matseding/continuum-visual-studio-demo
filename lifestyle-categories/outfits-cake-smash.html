@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<link rel="icon" href="../images/nav-logo.webp">
+<title>Cake Smash Outfits — Continuum Visual Studio</title>
+<style>
+  /* ── RESET & BASE ─────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Century Gothic', 'Gill Sans', Futura, 'Trebuchet MS', sans-serif;
+    background: #fff;
+    color: #111;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { text-decoration: none; color: inherit; }
+  img { display: block; width: 100%; }
+
+  /* ── CSS VARIABLES ────────────────────────────────────────────── */
+  :root {
+    --black: #111;
+    --white: #fff;
+    --grey-light: #f5f5f5;
+    --grey-mid: #e8e8e8;
+    --grey-text: #666;
+    --grey-muted: #999;
+    --radius-sm: 12px;
+    --radius-md: 20px;
+    --radius-lg: 28px;
+    --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  /* ── NAV ──────────────────────────────────────────────────────── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.94);
+    backdrop-filter: blur(10px);
+    border-bottom: 0.5px solid var(--grey-mid);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 48px;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; font-size: 15px; letter-spacing: 0.12em; }
+  .nav-logo-img { height: 52px; width: auto; display: block; }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a { font-size: 13px; letter-spacing: 0.08em; color: #555; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--black); }
+  .nav-cta {
+    background: var(--black); color: var(--white);
+    border: none; padding: 10px 22px; border-radius: 999px;
+    font-size: 12px; letter-spacing: 0.1em; cursor: pointer;
+    font-family: inherit; transition: opacity 0.2s;
+  }
+  .nav-cta:hover { opacity: 0.8; }
+
+  /* HAMBURGER */
+  .hamburger {
+    display: none; flex-direction: column; justify-content: center;
+    align-items: flex-end; gap: 5px; width: 40px; height: 40px;
+    background: none; border: none; cursor: pointer; padding: 6px; z-index: 200; flex-shrink: 0;
+  }
+  .hamburger span {
+    display: block; height: 1.5px; background: #111; border-radius: 2px;
+    transition: transform 0.38s cubic-bezier(0.23,1,0.32,1), opacity 0.25s ease, width 0.3s ease;
+    transform-origin: center;
+  }
+  .hamburger span:nth-child(1) { width: 24px; }
+  .hamburger span:nth-child(2) { width: 16px; }
+  .hamburger span:nth-child(3) { width: 24px; }
+  .hamburger.is-open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); width: 24px; }
+  .hamburger.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .hamburger.is-open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); width: 24px; }
+
+  /* MOBILE MENU */
+  .mobile-menu {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 150;
+    background: #fff; display: flex; flex-direction: column; align-items: center;
+    justify-content: center; padding: 80px 40px 60px; gap: 0;
+    opacity: 0; pointer-events: none; transform: translateY(-16px);
+    transition: opacity 0.38s ease, transform 0.38s cubic-bezier(0.23,1,0.32,1);
+  }
+  .mobile-menu.is-open { opacity: 1; pointer-events: all; transform: translateY(0); }
+  .mobile-menu-link {
+    font-size: clamp(30px, 9vw, 44px); font-weight: 300; letter-spacing: 0.05em; color: #111;
+    padding: 14px 0; position: relative; display: block;
+    opacity: 0; transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, color 0.2s;
+  }
+  .mobile-menu.is-open .mobile-menu-link { opacity: 1; transform: translateY(0); }
+  .mobile-menu.is-open .mobile-menu-link:nth-child(1) { transition-delay: 0.07s; }
+  .mobile-menu.is-open .mobile-menu-link:nth-child(2) { transition-delay: 0.12s; }
+  .mobile-menu.is-open .mobile-menu-link:nth-child(3) { transition-delay: 0.17s; }
+  .mobile-menu.is-open .mobile-menu-link:nth-child(4) { transition-delay: 0.22s; }
+  .mobile-menu-link::after {
+    content: ''; position: absolute; bottom: 10px; left: 0;
+    width: 0; height: 1px; background: #111; transition: width 0.3s ease;
+  }
+  .mobile-menu-link:hover { opacity: 0.45; }
+  .mobile-menu-link:hover::after { width: 100%; }
+  .mobile-menu-divider {
+    width: 32px; height: 0.5px; background: #e0e0e0;
+    margin: 20px 0 24px; opacity: 0; transform: scaleX(0);
+    transition: opacity 0.3s ease 0.25s, transform 0.3s ease 0.25s;
+  }
+  .mobile-menu.is-open .mobile-menu-divider { opacity: 1; transform: scaleX(1); }
+  .mobile-menu-cta {
+    display: inline-block; background: #111; color: #fff !important;
+    border: 1.5px solid #111; padding: 14px 36px; border-radius: 999px;
+    font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase;
+    font-family: inherit; cursor: pointer;
+    opacity: 0; transform: translateY(8px);
+    transition: opacity 0.3s ease 0.29s, transform 0.3s ease 0.29s, background 0.2s;
+  }
+  .mobile-menu.is-open .mobile-menu-cta { opacity: 1; transform: translateY(0); }
+  .mobile-menu-cta:hover { opacity: 0.75 !important; }
+  .mobile-menu-cta::after { display: none !important; }
+  .mobile-menu-footer {
+    position: absolute; bottom: 28px;
+    font-size: 11px; color: #bbb; letter-spacing: 0.14em; text-transform: uppercase;
+    opacity: 0; transition: opacity 0.3s ease 0.35s;
+  }
+  .mobile-menu.is-open .mobile-menu-footer { opacity: 1; }
+  body.menu-open { overflow: hidden; }
+
+  /* PORTFOLIO DROPDOWN */
+  .nav-dropdown { position: relative; }
+  .nav-dropdown > button {
+    background: none; border: none; padding: 0;
+    font-size: 13px; letter-spacing: 0.08em; color: #555;
+    font-family: inherit; cursor: pointer;
+    display: flex; align-items: center; gap: 5px; transition: color 0.2s;
+  }
+  .nav-dropdown > button:hover { color: #111; }
+  .nav-dropdown > button .caret { font-size: 10px; transition: transform 0.2s; display: inline-block; }
+  .nav-dropdown.open > button .caret { transform: rotate(180deg); }
+  .dropdown-l1 {
+    display: none; position: absolute; top: calc(100% + 14px); left: 50%;
+    transform: translateX(-50%);
+    background: #fff; border: 0.5px solid #e5e5e5;
+    border-radius: 14px; box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+    min-width: 210px; padding: 8px; z-index: 200;
+  }
+  .nav-dropdown.open .dropdown-l1 { display: block; }
+  .dl1-item { position: relative; border-radius: 10px; }
+  .dl1-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 14px; cursor: pointer;
+    font-size: 12px; letter-spacing: 0.08em; color: #111;
+    border-radius: 10px; user-select: none; transition: background 0.15s;
+  }
+  .dl1-header:hover { background: #f5f5f5; }
+  .dl1-header .caret { font-size: 10px; color: #999; transition: transform 0.2s; display: inline-block; }
+  .dl1-item.open .dl1-header .caret { transform: rotate(180deg); }
+  .dl1-header a { flex: 1; color: inherit; font-size: inherit; letter-spacing: inherit; }
+  .dropdown-l2 { display: none; padding: 2px 0 6px 12px; }
+  .dl1-item.open .dropdown-l2 { display: block; }
+  .dl2-item { position: relative; border-radius: 8px; }
+  .dl2-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 10px; cursor: pointer;
+    font-size: 11px; letter-spacing: 0.07em; color: #555;
+    border-radius: 8px; user-select: none; transition: background 0.15s;
+  }
+  .dl2-header:hover { background: #f5f5f5; }
+  .dl2-header .caret { font-size: 10px; color: #bbb; transition: transform 0.2s; display: inline-block; }
+  .dl2-item.open .dl2-header .caret { transform: rotate(180deg); }
+  .dropdown-l3 { display: none; padding: 2px 0 4px 12px; }
+  .dl2-item.open .dropdown-l3 { display: block; }
+  .dropdown-l3 a {
+    display: block; padding: 7px 10px;
+    font-size: 11px; letter-spacing: 0.06em; color: #888;
+    border-radius: 6px; transition: background 0.15s, color 0.15s;
+  }
+  .dropdown-l3 a:hover { background: #f5f5f5; color: #111; }
+  .mobile-portfolio-toggle { cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+  .mobile-portfolio-toggle .caret { font-size: 10px; transition: transform 0.2s; }
+  .mobile-portfolio-toggle.open .caret { transform: rotate(180deg); }
+  .mobile-portfolio-panel { display: none; padding-left: 8px; }
+  .mobile-portfolio-panel.open { display: block; }
+  .mobile-sub-link {
+    display: block; padding: 10px 16px;
+    font-size: 13px; letter-spacing: 0.06em; color: #555;
+    border-radius: 8px; transition: background 0.15s;
+  }
+  .mobile-sub-link:hover { background: rgba(0,0,0,0.04); color: #111; }
+  .mobile-gallery-link { font-size: 12px; color: #999; padding: 7px 16px 7px 28px; }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .nav-cta { display: none; }
+    .hamburger { display: flex; }
+  }
+
+  /* ── PAGE HERO ────────────────────────────────────────────────── */
+  .page-hero {
+    padding: 80px 48px 64px; max-width: 1280px; margin: 0 auto;
+    border-bottom: 0.5px solid var(--grey-mid);
+  }
+  .page-hero-eyebrow {
+    font-size: 11px; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--grey-muted); margin-bottom: 20px;
+  }
+  .page-hero h1 {
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 300; letter-spacing: 0.02em; line-height: 1.1; margin-bottom: 20px;
+  }
+  .page-hero p { font-size: 16px; color: var(--grey-text); line-height: 1.8; max-width: 580px; }
+  .page-hero-back {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--grey-muted); margin-bottom: 40px;
+    transition: color 0.2s;
+  }
+  .page-hero-back:hover { color: var(--black); }
+  @media (max-width: 768px) { .page-hero { padding: 56px 20px 48px; } }
+
+  /* ── SECTION NAV (sticky TOC) ─────────────────────────────────── */
+  .cat-nav {
+    position: sticky; top: 57px; z-index: 90;
+    background: var(--grey-light);
+    backdrop-filter: blur(8px);
+    border-bottom: 0.5px solid var(--grey-mid);
+    overflow-x: auto; scrollbar-width: none;
+  }
+  .cat-nav::-webkit-scrollbar { display: none; }
+  .cat-nav-inner {
+    display: flex; gap: 0; max-width: 1280px; margin: 0 auto; padding: 0 48px;
+  }
+  .cat-nav-inner a {
+    font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--grey-muted); padding: 16px 20px; white-space: nowrap;
+    border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s;
+  }
+  .cat-nav-inner a:hover { color: var(--black); border-color: var(--black); }
+  @media (max-width: 768px) {
+    .cat-nav-inner { padding: 0 16px; }
+    .cat-nav-inner a { padding: 14px 14px; font-size: 11px; }
+  }
+
+  /* ── OUTFIT SECTIONS ──────────────────────────────────────────── */
+  .outfit-section {
+    max-width: 1280px; margin: 0 auto;
+    padding: 72px 48px;
+    border-bottom: 0.5px solid var(--grey-mid);
+  }
+  .outfit-section:last-child { border-bottom: none; }
+
+  /* Section header */
+  .outfit-section-header {
+    margin-bottom: 48px;
+  }
+  .outfit-section-label {
+    font-size: 11px; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--grey-muted); margin-bottom: 12px;
+  }
+  .outfit-section-title {
+    font-size: clamp(22px, 2.5vw, 32px);
+    font-weight: 300; letter-spacing: 0.03em; line-height: 1.2; margin-bottom: 12px;
+  }
+  .outfit-section-note {
+    font-size: 13px; color: var(--grey-muted); letter-spacing: 0.04em;
+  }
+  .outfit-section-note .badge {
+    display: inline-block; padding: 3px 10px; border-radius: 999px;
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; margin-left: 8px;
+    vertical-align: middle;
+  }
+  .badge-free { background: #f0f7f0; color: #4a7c4a; border: 0.5px solid #c4ddc4; }
+  .badge-hire { background: #f5f0ff; color: #6a4aaa; border: 0.5px solid #d4c4ee; }
+  .badge-accessories { background: #fff7f0; color: #aa7a4a; border: 0.5px solid #eeddcc; }
+
+  /* ── OUTFIT GRID ──────────────────────────────────────────────── */
+  .outfit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+  }
+
+  /* ── OUTFIT CARD ──────────────────────────────────────────────── */
+  .outfit-card {
+    background: var(--grey-light);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: transform var(--transition), box-shadow var(--transition);
+    cursor: default;
+  }
+  .outfit-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.09);
+  }
+  .outfit-card-img {
+    aspect-ratio: 3 / 4;
+    background: var(--grey-mid);
+    overflow: hidden;
+    position: relative;
+  }
+  .outfit-card-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform var(--transition), filter var(--transition);
+    filter: brightness(0.97);
+  }
+  .outfit-card:hover .outfit-card-img img {
+    transform: scale(1.04);
+    filter: brightness(1.02);
+  }
+  /* Placeholder when no image */
+  .outfit-card-img.placeholder {
+    display: flex; align-items: center; justify-content: center;
+  }
+  .outfit-card-img.placeholder::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(145deg, #efefef 0%, #f8f8f8 50%, #e8e8e8 100%);
+  }
+  /* Hide img tag while src is empty (placeholder state) */
+  .outfit-card-img.placeholder img,
+  .accessory-card-img.placeholder img { display: none; }
+
+  .outfit-card-body {
+    padding: 16px 18px 18px;
+  }
+  .outfit-card-name {
+    font-size: 13px; letter-spacing: 0.06em; color: var(--black);
+    margin-bottom: 6px; line-height: 1.3;
+  }
+  .outfit-card-type {
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--grey-muted);
+  }
+
+  /* ── ACCESSORIES ROW ──────────────────────────────────────────── */
+  .accessories-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 14px;
+  }
+  .accessory-card {
+    background: var(--grey-light);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    transition: transform var(--transition), box-shadow var(--transition);
+  }
+  .accessory-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.07);
+  }
+  .accessory-card-img {
+    aspect-ratio: 1 / 1;
+    background: var(--grey-mid);
+    overflow: hidden; position: relative;
+  }
+  .accessory-card-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform var(--transition); filter: brightness(0.97);
+  }
+  .accessory-card:hover .accessory-card-img img { transform: scale(1.05); }
+  .accessory-card-img.placeholder { display: flex; align-items: center; justify-content: center; }
+  .accessory-card-img.placeholder::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(145deg, #efefef 0%, #f8f8f8 50%, #e8e8e8 100%);
+  }
+  .accessory-card-body { padding: 12px 14px 14px; }
+  .accessory-card-name { font-size: 12px; letter-spacing: 0.06em; color: var(--black); }
+
+  /* ── NOTE BANNER ──────────────────────────────────────────────── */
+  .hire-note {
+    margin-top: 28px; padding: 18px 24px;
+    background: #fafafa; border: 0.5px solid var(--grey-mid);
+    border-radius: var(--radius-sm);
+    font-size: 13px; color: var(--grey-text); line-height: 1.7;
+  }
+  .hire-note strong { color: var(--black); }
+
+  /* ── CTA STRIP ────────────────────────────────────────────────── */
+  .cta-strip {
+    background: var(--black); color: var(--white);
+    text-align: center; padding: 80px 24px;
+  }
+  .cta-strip h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 300; margin-bottom: 16px; }
+  .cta-strip p { color: #aaa; font-size: 15px; line-height: 1.8; max-width: 520px; margin: 0 auto 36px; }
+  .btn-white {
+    background: var(--white); color: var(--black);
+    border: 1.5px solid var(--white); padding: 13px 32px;
+    border-radius: 999px; font-size: 12px; letter-spacing: 0.1em;
+    cursor: pointer; font-family: inherit; transition: opacity 0.2s;
+    display: inline-block; margin: 6px;
+  }
+  .btn-white:hover { opacity: 0.85; }
+  .btn-outline-white {
+    background: transparent; color: var(--white);
+    border: 1.5px solid rgba(255,255,255,0.4); padding: 13px 32px;
+    border-radius: 999px; font-size: 12px; letter-spacing: 0.1em;
+    cursor: pointer; font-family: inherit;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    display: inline-block; margin: 6px;
+  }
+  .btn-outline-white:hover { background: var(--white); color: var(--black); border-color: var(--white); }
+
+  /* ── FOOTER ───────────────────────────────────────────────────── */
+  footer {
+    background: #f2f2f2; padding: 32px 24px;
+    text-align: center; font-size: 12px; color: var(--grey-muted); letter-spacing: 0.08em;
+  }
+
+  /* ── RESPONSIVE ──────────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .outfit-section { padding: 56px 20px; }
+    .outfit-grid { grid-template-columns: repeat(2, 1fr); }
+    .accessories-row { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 480px) {
+    .outfit-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════ NAV -->
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <img src="../images/nav-logo.webp" alt="Continuum Visual Studio Logo" class="nav-logo-img"> CONTINUUM VISUAL STUDIO
+  </a>
+  <div class="nav-links">
+    <a href="../index.html">Services</a>
+    <a href="../index.html">Testimonials</a>
+    <div class="nav-dropdown" id="portfolioDropdown">
+      <button id="portfolioBtn" aria-haspopup="true" aria-expanded="false">
+        Portfolio <i class="ti ti-chevron-down caret" aria-hidden="true"></i>
+      </button>
+      <div class="dropdown-l1" role="menu">
+        <div class="dl1-item">
+          <div class="dl1-header">
+            <a href="../lifestyle-photography.html">Lifestyle Photography</a>
+            <i class="ti ti-chevron-down caret" aria-hidden="true"></i>
+          </div>
+          <div class="dropdown-l2">
+            <div class="dl2-item">
+              <div class="dl2-header">Maternity <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
+              <div class="dropdown-l3"><a href="gallery-maternity.html">Maternity Gallery</a></div>
+            </div>
+            <div class="dl2-item">
+              <div class="dl2-header">Cake Smash <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
+              <div class="dropdown-l3"><a href="gallery-cake-smash.html">Cake Smash Gallery</a></div>
+            </div>
+            <div class="dl2-item">
+              <div class="dl2-header">Birthday Shoots <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
+              <div class="dropdown-l3"><a href="gallery-birthday.html">Birthday Gallery</a></div>
+            </div>
+            <div class="dl2-item">
+              <div class="dl2-header">Weddings &amp; Events <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
+              <div class="dropdown-l3"><a href="gallery-weddings-events.html">Weddings &amp; Events Gallery</a></div>
+            </div>
+            <div class="dl2-item">
+              <div class="dl2-header">Outdoor <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
+              <div class="dropdown-l3"><a href="gallery-outdoor.html">Outdoor Gallery</a></div>
+            </div>
+            <div class="dl2-item">
+              <div class="dl2-header">Studio <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
+              <div class="dropdown-l3"><a href="gallery-studio.html">Studio Gallery</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="dl1-item">
+          <div class="dl1-header">
+            <a href="../corporate-commercial.html">Corporate &amp; Commercial</a>
+            <i class="ti ti-chevron-down caret" aria-hidden="true"></i>
+          </div>
+          <div class="dropdown-l2">
+            <div class="dl2-item">
+              <div class="dl2-header">Branding <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
+              <div class="dropdown-l3"><a href="../corporate-categories/gallery-branding.html">Branding Gallery</a></div>
+            </div>
+            <div class="dl2-item">
+              <div class="dl2-header">Corporate Events <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
+              <div class="dropdown-l3"><a href="../corporate-categories/gallery-corporate-events.html">Corporate Events Gallery</a></div>
+            </div>
+            <div class="dl2-item">
+              <div class="dl2-header">Fashion <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
+              <div class="dropdown-l3"><a href="../corporate-categories/gallery-fashion.html">Fashion Gallery</a></div>
+            </div>
+            <div class="dl2-item">
+              <div class="dl2-header">Headshots <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
+              <div class="dropdown-l3"><a href="../corporate-categories/gallery-headshots.html">Headshots Gallery</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="dl1-item">
+          <div class="dl1-header">
+            <a href="../videography-services.html">Videography</a>
+            <i class="ti ti-chevron-down caret" aria-hidden="true"></i>
+          </div>
+          <div class="dropdown-l2">
+            <div class="dl2-item">
+              <div class="dl2-header">Corporate Videos <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
+              <div class="dropdown-l3"><a href="../videography-categories/gallery-corporate-videos.html">Corporate Videos Gallery</a></div>
+            </div>
+            <div class="dl2-item">
+              <div class="dl2-header">Events Videos <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
+              <div class="dropdown-l3"><a href="../videography-categories/gallery-events-videos.html">Events Videos Gallery</a></div>
+            </div>
+            <div class="dl2-item">
+              <div class="dl2-header">Music Videos <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
+              <div class="dropdown-l3"><a href="../videography-categories/gallery-music-videos.html">Music Videos Gallery</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a href="#cta" class="nav-cta">Book A Session</a>
+  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU OVERLAY -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <a href="../index.html" class="mobile-menu-link">Services</a>
+  <div class="mobile-menu-link mobile-portfolio-toggle" id="mobilePortfolioToggle">
+    Portfolio <i class="ti ti-chevron-down caret" aria-hidden="true"></i>
+  </div>
+  <div class="mobile-portfolio-panel" id="mobilePortfolioPanel">
+    <a href="../lifestyle-photography.html" class="mobile-sub-link">— Lifestyle Photography</a>
+    <a href="gallery-maternity.html" class="mobile-sub-link mobile-gallery-link">↳ Maternity Gallery</a>
+    <a href="gallery-cake-smash.html" class="mobile-sub-link mobile-gallery-link">↳ Cake Smash Gallery</a>
+    <a href="gallery-birthday.html" class="mobile-sub-link mobile-gallery-link">↳ Birthday Gallery</a>
+    <a href="gallery-weddings-events.html" class="mobile-sub-link mobile-gallery-link">↳ Weddings &amp; Events Gallery</a>
+    <a href="gallery-outdoor.html" class="mobile-sub-link mobile-gallery-link">↳ Outdoor Gallery</a>
+    <a href="gallery-studio.html" class="mobile-sub-link mobile-gallery-link">↳ Studio Gallery</a>
+    <a href="../corporate-commercial.html" class="mobile-sub-link">— Corporate &amp; Commercial</a>
+    <a href="../corporate-categories/gallery-branding.html" class="mobile-sub-link mobile-gallery-link">↳ Branding Gallery</a>
+    <a href="../corporate-categories/gallery-corporate-events.html" class="mobile-sub-link mobile-gallery-link">↳ Corporate Events Gallery</a>
+    <a href="../corporate-categories/gallery-fashion.html" class="mobile-sub-link mobile-gallery-link">↳ Fashion Gallery</a>
+    <a href="../corporate-categories/gallery-headshots.html" class="mobile-sub-link mobile-gallery-link">↳ Headshots Gallery</a>
+    <a href="../videography-services.html" class="mobile-sub-link">— Videography</a>
+    <a href="../videography-categories/gallery-corporate-videos.html" class="mobile-sub-link mobile-gallery-link">↳ Corporate Videos Gallery</a>
+    <a href="../videography-categories/gallery-events-videos.html" class="mobile-sub-link mobile-gallery-link">↳ Events Videos Gallery</a>
+    <a href="../videography-categories/gallery-music-videos.html" class="mobile-sub-link mobile-gallery-link">↳ Music Videos Gallery</a>
+  </div>
+  <div class="mobile-menu-divider"></div>
+  <a href="#cta" class="mobile-menu-cta">Book A Session</a>
+  <span class="mobile-menu-footer">Kempton Park &bull; Johannesburg</span>
+</div>
+
+<!-- ════════════════════════════════════════════════════ PAGE HERO -->
+<div class="page-hero">
+  <a href="../lifestyle-photography.html#cakesmash" class="page-hero-back">
+    <i class="ti ti-arrow-left"></i> Back to Cake Smash Sessions
+  </a>
+  <p class="page-hero-eyebrow">02 — Lifestyle / Cake Smash</p>
+  <h1>Cake Smash<br>Outfits</h1>
+  <p>Choose from our curated outfit collection to complement your little one's cake smash session. Complimentary outfits are included with every booking — select a for-hire look for something extra special.</p>
+</div>
+
+<!-- ════════════════════════════════════════════════════ SECTION NAV -->
+<nav class="cat-nav" aria-label="Outfit categories">
+  <div class="cat-nav-inner">
+    <a href="#free-outfits">Free Outfits</a>
+    <a href="#hire-outfits">For Hire Outfits</a>
+    <a href="#accessories">Accessories</a>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════════════ OUTFITS -->
+<main>
+
+  <!-- ─── FREE OUTFITS ──────────────────────────────────────────── -->
+  <section class="outfit-section" id="free-outfits">
+    <div class="outfit-section-header">
+      <p class="outfit-section-label">01 — Cake Smash Outfits</p>
+      <h2 class="outfit-section-title">Complimentary Outfits <span class="badge badge-free">Included</span></h2>
+      <p class="outfit-section-note">The following outfits are included at no extra cost with your cake smash session booking.</p>
+    </div>
+    <div class="outfit-grid">
+
+      <!-- Black Suit -->
+      <div class="outfit-card">
+        <div class="outfit-card-img placeholder">
+          <img src="../lifestyle-categories/cake smash outfits/black suit (free)/blacksuit1.webp" alt="Black Suit">
+        </div>
+        <div class="outfit-card-body">
+          <p class="outfit-card-name">Black Suit</p>
+          <p class="outfit-card-type">Complimentary</p>
+        </div>
+      </div>
+
+      <!-- Butterfly -->
+      <div class="outfit-card">
+        <div class="outfit-card-img placeholder">
+          <img src="../lifestyle-categories/cake smash outfits/butterfly (free)/butterfly1.webp" alt="Butterfly">
+        </div>
+        <div class="outfit-card-body">
+          <p class="outfit-card-name">Butterfly</p>
+          <p class="outfit-card-type">Complimentary</p>
+        </div>
+      </div>
+
+      <!-- Cocomelon -->
+      <div class="outfit-card">
+        <div class="outfit-card-img placeholder">
+          <img src="../lifestyle-categories/cake smash outfits/cocomelon (free)/cocomelon1.webp" alt="Cocomelon">
+        </div>
+        <div class="outfit-card-body">
+          <p class="outfit-card-name">Cocomelon</p>
+          <p class="outfit-card-type">Complimentary</p>
+        </div>
+      </div>
+
+      <!-- Dusty Pink Dress -->
+      <div class="outfit-card">
+        <div class="outfit-card-img placeholder">
+          <img src="../lifestyle-categories/cake smash outfits/dusty pink dress (free)/dustypinkdress3.webp" alt="Dusty Pink Dress">
+        </div>
+        <div class="outfit-card-body">
+          <p class="outfit-card-name">Dusty Pink Dress</p>
+          <p class="outfit-card-type">Complimentary</p>
+        </div>
+      </div>
+
+      <!-- Grey Suit -->
+      <div class="outfit-card">
+        <div class="outfit-card-img placeholder">
+          <img src="../lifestyle-categories/cake smash outfits/grey suit (free)/greysuit1.webp" alt="Grey Suit">
+        </div>
+        <div class="outfit-card-body">
+          <p class="outfit-card-name">Grey Suit</p>
+          <p class="outfit-card-type">Complimentary</p>
+        </div>
+      </div>
+
+      <!-- Hot Pink Tutu -->
+      <div class="outfit-card">
+        <div class="outfit-card-img placeholder">
+          <img src="../lifestyle-categories/cake smash outfits/hot pink tutu dress (free)/hotpinktutudress2.webp" alt="Hot Pink Tutu">
+        </div>
+        <div class="outfit-card-body">
+          <p class="outfit-card-name">Hot Pink Tutu</p>
+          <p class="outfit-card-type">Complimentary</p>
+        </div>
+      </div>
+
+      <!-- Jungle -->
+      <div class="outfit-card">
+        <div class="outfit-card-img placeholder">
+          <img src="../lifestyle-categories/cake smash outfits/jungle (free)/jungle1.webp" alt="Jungle">
+        </div>
+        <div class="outfit-card-body">
+          <p class="outfit-card-name">Jungle</p>
+          <p class="outfit-card-type">Complimentary</p>
+        </div>
+      </div>
+
+      <!-- Pink Tutu Skirt -->
+      <div class="outfit-card">
+        <div class="outfit-card-img placeholder">
+          <img src="../lifestyle-categories/cake smash outfits/pink tutu (free)/pinktutu2.webp" alt="Pink Tutu Skirt">
+        </div>
+        <div class="outfit-card-body">
+          <p class="outfit-card-name">Pink Tutu Skirt</p>
+          <p class="outfit-card-type">Complimentary</p>
+        </div>
+      </div>
+
+      <!-- Smart Casual -->
+      <div class="outfit-card">
+        <div class="outfit-card-img placeholder">
+          <img src="../lifestyle-categories/cake smash outfits/smart casual (free)/smartcasual1.webp" alt="Smart Casual">
+        </div>
+        <div class="outfit-card-body">
+          <p class="outfit-card-name">Smart Casual</p>
+          <p class="outfit-card-type">Complimentary</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── FOR HIRE OUTFITS ───────────────────────────────────────── -->
+  <section class="outfit-section" id="hire-outfits">
+    <div class="outfit-section-header">
+      <p class="outfit-section-label">02 — Cake Smash Outfits</p>
+      <h2 class="outfit-section-title">For Hire Outfits <span class="badge badge-hire">Hire Fee Applies</span></h2>
+      <p class="outfit-section-note">Elevate your session with a premium outfit. A small hire fee applies — ask us for current pricing.</p>
+    </div>
+    <div class="outfit-grid">
+
+      <!-- Blue Suit -->
+      <div class="outfit-card">
+        <div class="outfit-card-img placeholder">
+          <img src="../lifestyle-categories/cake smash outfits/blue suit (hire)/bluesuit1.webp" alt="Blue Suit">
+        </div>
+        <div class="outfit-card-body">
+          <p class="outfit-card-name">Blue Suit</p>
+          <p class="outfit-card-type">For Hire</p>
+        </div>
+      </div>
+
+      <!-- Construction -->
+      <div class="outfit-card">
+        <div class="outfit-card-img placeholder">
+          <img src="../lifestyle-categories/cake smash outfits/construction (hire)/construction1.webp" alt="Construction">
+        </div>
+        <div class="outfit-card-body">
+          <p class="outfit-card-name">Construction</p>
+          <p class="outfit-card-type">For Hire</p>
+        </div>
+      </div>
+
+      <!-- Pink -->
+      <div class="outfit-card">
+        <div class="outfit-card-img placeholder">
+          <img src="../lifestyle-categories/cake smash outfits/pink (hire)/pink1.webp" alt="Pink">
+        </div>
+        <div class="outfit-card-body">
+          <p class="outfit-card-name">Pink</p>
+          <p class="outfit-card-type">For Hire</p>
+        </div>
+      </div>
+
+    </div>
+    <div class="hire-note">
+      <strong>Hire outfits</strong> are available for an additional fee. Please mention your preferred outfit when booking your session so we can confirm availability on your date.
+    </div>
+  </section>
+
+  <!-- ─── ACCESSORIES ────────────────────────────────────────────── -->
+  <section class="outfit-section" id="accessories">
+    <div class="outfit-section-header">
+      <p class="outfit-section-label">03 — Cake Smash Outfits</p>
+      <h2 class="outfit-section-title">Accessories <span class="badge badge-accessories">Add-Ons</span></h2>
+      <p class="outfit-section-note">Finishing touches to complete your little one's look.</p>
+    </div>
+    <div class="accessories-row">
+
+      <!-- Headband -->
+      <div class="accessory-card">
+        <div class="accessory-card-img placeholder">
+          <img src="../lifestyle-categories/cake smash outfits/headbands (free)/headbands1.webp" alt="Headband">
+        </div>
+        <div class="accessory-card-body">
+          <p class="accessory-card-name">Headband</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- ════════════════════════════════════════════════════ CTA -->
+<section class="cta-strip" id="cta">
+  <h2>Ready to Book Your Session?</h2>
+  <p>Let us know which outfit caught your eye and we'll make sure everything is ready for your little one's big day.</p>
+  <a href="#" class="btn-white">WhatsApp Us</a>
+  <a href="../lifestyle-photography.html#cakesmash" class="btn-outline-white">Back to Cake Smash</a>
+</section>
+
+<!-- ════════════════════════════════════════════════════ FOOTER -->
+<footer>
+  Continuum Visual Studio &bull; Kempton Park &bull; Johannesburg &bull; Photography &amp; Videography
+</footer>
+
+<script>
+  const hamburger  = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const menuLinks  = mobileMenu.querySelectorAll('a');
+  function openMenu() {
+    hamburger.classList.add('is-open'); mobileMenu.classList.add('is-open');
+    document.body.classList.add('menu-open'); hamburger.setAttribute('aria-expanded','true');
+  }
+  function closeMenu() {
+    hamburger.classList.remove('is-open'); mobileMenu.classList.remove('is-open');
+    document.body.classList.remove('menu-open'); hamburger.setAttribute('aria-expanded','false');
+  }
+  hamburger.addEventListener('click', () => mobileMenu.classList.contains('is-open') ? closeMenu() : openMenu());
+  menuLinks.forEach(link => link.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+</script>
+
+<script>
+  const portfolioBtn  = document.getElementById('portfolioBtn');
+  const portfolioDrop = document.getElementById('portfolioDropdown');
+  portfolioBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const isOpen = portfolioDrop.classList.toggle('open');
+    portfolioBtn.setAttribute('aria-expanded', isOpen);
+  });
+  document.addEventListener('click', function(e) {
+    if (!portfolioDrop.contains(e.target)) {
+      portfolioDrop.classList.remove('open');
+      portfolioBtn.setAttribute('aria-expanded', false);
+    }
+  });
+  document.querySelectorAll('.dl1-header').forEach(function(header) {
+    header.addEventListener('click', function(e) {
+      if (e.target.tagName === 'A') return;
+      e.stopPropagation();
+      header.closest('.dl1-item').classList.toggle('open');
+    });
+  });
+  document.querySelectorAll('.dl2-header').forEach(function(header) {
+    header.addEventListener('click', function(e) {
+      e.stopPropagation();
+      header.closest('.dl2-item').classList.toggle('open');
+    });
+  });
+  const mobileToggle = document.getElementById('mobilePortfolioToggle');
+  const mobilePanel  = document.getElementById('mobilePortfolioPanel');
+  if (mobileToggle) {
+    mobileToggle.addEventListener('click', function() {
+      mobileToggle.classList.toggle('open');
+      mobilePanel.classList.toggle('open');
+    });
+  }
+</script>
+
+<script>
+  /* Auto-remove placeholder class when an outfit/accessory image loads successfully.
+     To add an image: set src="path/to/your-image.jpg" on the <img> inside the card.
+     The placeholder gradient will disappear automatically once the image loads. */
+  document.querySelectorAll('.outfit-card-img img, .accessory-card-img img').forEach(function(img) {
+    function reveal() {
+      var wrap = img.parentElement;
+      wrap.classList.remove('placeholder');
+      img.style.display = '';
+    }
+    if (img.src && img.naturalWidth > 0) { reveal(); }
+    else { img.addEventListener('load', reveal); }
+  });
+</script>
+
+</body>
+</html>
