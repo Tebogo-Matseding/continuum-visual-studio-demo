@@ -981,17 +981,15 @@ function buildReview() {
     if (d.serviceType)  detailRows.push(row('Service Type', d.serviceType));
     if (d.numPeople)    detailRows.push(row('No. of People', d.numPeople));
     if (d.vision)       detailRows.push(row('Vision', d.vision));
-    if (d.files.length) detailRows.push(row('Uploaded Files', d.files.join(', ')));
   } else {
-    if (d.projectGoal)   detailRows.push(row('Project Goal', d.projectGoal));
-    if (d.usage.length)  detailRows.push(chipsRow(d.usage, 'Intended Usage'));
-    if (d.shootLocation) detailRows.push(row('Location', d.shootLocation));
-    if (d.teamSize)      detailRows.push(row('Team Size', d.teamSize));
-    if (d.deadline)      detailRows.push(row('Deadline', formatDate(d.deadline)));
-    if (d.production.length) detailRows.push(chipsRow(d.production, 'Production'));
-    if (d.projectScope)  detailRows.push(row('Project Scope', d.projectScope));
-    if (d.notes)         detailRows.push(row('Notes', d.notes));
-    if (d.files.length)  detailRows.push(row('Uploaded Files', d.files.join(', ')));
+    if (d.projectGoal)        detailRows.push(row('Project Goal', d.projectGoal));
+    if (d.usage?.length)      detailRows.push(chipsRow(d.usage, 'Intended Usage'));
+    if (d.shootLocation)      detailRows.push(row('Location', d.shootLocation));
+    if (d.teamSize)           detailRows.push(row('Team Size', d.teamSize));
+    if (d.deadline)           detailRows.push(row('Deadline', formatDate(d.deadline)));
+    if (d.production?.length) detailRows.push(chipsRow(d.production, 'Production'));
+    if (d.projectScope)       detailRows.push(row('Project Scope', d.projectScope));
+    if (d.notes)              detailRows.push(row('Notes', d.notes));
   }
   el.appendChild(reviewCard('Project Details', detailRows, 3));
 
