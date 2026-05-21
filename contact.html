@@ -753,7 +753,7 @@ const state = {
   services: [],
   details: {},
   contact: {},
-  files: {},
+  files: [],
   bookingRef: '',
   submitted: false
 };
@@ -959,8 +959,8 @@ function buildReview() {
   el.innerHTML = '';
 
   const isInd = state.clientType === 'individual';
-  const d = state.details;
-  const c = state.contact;
+  const d = state.details || {};
+  const c = state.contact || {};
 
   // Client type card
   el.appendChild(reviewCard('Inquiry Type', [
@@ -969,7 +969,7 @@ function buildReview() {
 
   // Services
   el.appendChild(reviewCard('Selected Services', [
-    chipsRow(state.services)
+    chipsRow(Array.isArray(state.services) ? state.services : [])
   ], 2));
 
   // Details
@@ -982,14 +982,14 @@ function buildReview() {
     if (d.numPeople)    detailRows.push(row('No. of People', d.numPeople));
     if (d.vision)       detailRows.push(row('Vision', d.vision));
   } else {
-    if (d.projectGoal)        detailRows.push(row('Project Goal', d.projectGoal));
-    if (d.usage?.length)      detailRows.push(chipsRow(d.usage, 'Intended Usage'));
-    if (d.shootLocation)      detailRows.push(row('Location', d.shootLocation));
-    if (d.teamSize)           detailRows.push(row('Team Size', d.teamSize));
-    if (d.deadline)           detailRows.push(row('Deadline', formatDate(d.deadline)));
-    if (d.production?.length) detailRows.push(chipsRow(d.production, 'Production'));
-    if (d.projectScope)       detailRows.push(row('Project Scope', d.projectScope));
-    if (d.notes)              detailRows.push(row('Notes', d.notes));
+    if (d.projectGoal)                        detailRows.push(row('Project Goal', d.projectGoal));
+    if (d.usage && d.usage.length)            detailRows.push(chipsRow(d.usage, 'Intended Usage'));
+    if (d.shootLocation)                      detailRows.push(row('Location', d.shootLocation));
+    if (d.teamSize)                           detailRows.push(row('Team Size', d.teamSize));
+    if (d.deadline)                           detailRows.push(row('Deadline', formatDate(d.deadline)));
+    if (d.production && d.production.length)  detailRows.push(chipsRow(d.production, 'Production'));
+    if (d.projectScope)                       detailRows.push(row('Project Scope', d.projectScope));
+    if (d.notes)                              detailRows.push(row('Notes', d.notes));
   }
   el.appendChild(reviewCard('Project Details', detailRows, 3));
 
@@ -1031,12 +1031,10 @@ function row(key, val) {
 }
 
 function chipsRow(arr, label) {
-  if (!arr || arr.length === 0) return '';
-  const chips = arr.map(v => `<span class="review-chip">${escHtml(v)}</span>`).join('');
-  if (label) {
-    return `<div class="review-row"><span class="review-key">${label}</span><span class="review-val"><div class="review-chips">${chips}</div></span></div>`;
-  }
-  return `<div class="review-row"><span class="review-key">Services</span><span class="review-val"><div class="review-chips">${chips}</div></span></div>`;
+  if (!Array.isArray(arr) || arr.length === 0) return '';
+  const chips = arr.map(v => `<span class="review-chip">${escHtml(String(v))}</span>`).join('');
+  const key = label || 'Services';
+  return `<div class="review-row"><span class="review-key">${key}</span><span class="review-val"><div class="review-chips">${chips}</div></span></div>`;
 }
 
 function escHtml(str) {
