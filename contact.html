@@ -882,7 +882,7 @@ function updateStepIndicator(n) {
 
 /* ── Step 2 validation ─────────────────────────────────────────── */
 function nextFromStep2() {
-  if (state.services.length === 0) {
+  if (!Array.isArray(state.services) || state.services.length === 0) {
     document.getElementById('service-error').classList.add('visible');
     return;
   }
@@ -1106,7 +1106,7 @@ function showSuccess(isInd) {
     business: 'Your business inquiry has been received. Our team will review your brief and be in touch shortly.'
   };
 
-  const hasWedding = state.services.some(s => s.toLowerCase().includes('wedding'));
+  const hasWedding = Array.isArray(state.services) && state.services.some(s => s.toLowerCase().includes('wedding'));
   let msg = msgs[isInd ? (hasWedding ? 'wedding' : 'individual') : 'business'];
 
   document.getElementById('success-message').textContent = msg;
