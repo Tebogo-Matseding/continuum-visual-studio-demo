@@ -279,13 +279,15 @@
   }
   .img-wrap:hover::after { background: rgba(0,0,0,0.06); }
   .img-wrap img,
-  .img-wrap video {
+  .img-wrap video,
+  .img-wrap iframe {
     transition: transform var(--transition);
     width: 100%; height: 100%; object-fit: cover;
-    display: block;
+    display: block; border: none;
   }
   .img-wrap:hover img,
-  .img-wrap:hover video { transform: scale(1.03); }
+  .img-wrap:hover video,
+  .img-wrap:hover iframe { transform: scale(1.03); }
 
   /* ── GALLERY LAYOUTS ──────────────────────────────────────────── */
 
@@ -393,7 +395,9 @@
 
 <!-- ════════════════════════════════════════ NAV -->
 <nav>
-  <a href="../index.html" class="nav-logo">CONTINUUM</a>
+  <a href="../index.html" class="nav-logo">
+    <img src="../images/nav-logo.webp" alt="Continuum Visual Studio Logo" class="nav-logo-img"> CONTINUUM VISUAL STUDIO
+  </a>
   <div class="nav-links">
     <a href="../index.html#services">Services</a>
     <a href="../about.html#testimonials" class="active">Testimonials</a>
@@ -559,142 +563,56 @@
 
 
 
-<!-- ════════════════════════════════════════ GALLERY -->
-<!--
-  HOW TO USE THIS GALLERY:
-  - Replace every IMAGE_URL_HERE with your actual image path or URL.
-  - Update each alt="" with a descriptive caption for SEO and accessibility.
-  - Add or remove image blocks freely — the layouts will adapt.
-  - You can reorder the layout blocks (g-hero, g-trio, g-split, etc.) in any order.
-
-  LAYOUT CLASSES AVAILABLE:
-  .g-hero       — one full-width tall image (great hero/opener)
-  .g-trio       — three equal columns
-  .g-duo        — two equal columns
-  .g-split      — asymmetric left-wide (2:1 ratio)
-  .g-split-r    — asymmetric right-wide (1:2 ratio)
-  .g-quad       — four equal columns (detail/strip shots)
-  .g-masonry    — two columns with tall/short variation + optional full-width
--->
 <section class="gallery-section">
 
   <div class="gallery-section-header">
     <h2>The Gallery</h2>
   </div>
 
-  <!-- Full-width opener -->
+  <!-- Full-width opener — Elcee Gweja: Monster -->
   <div class="g-hero">
     <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-  </div>
-
-  <!-- 3 equal -->
-  <div class="g-trio">
-    <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-    <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-    <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-  </div>
-
-  <!-- Asymmetric left-wide -->
-  <div class="g-split">
-    <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-    <div class="col-stack">
-      <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-      <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
+      <iframe src="https://www.youtube.com/embed/bvyEa5kRM9Q" title="Elcee Gweja — Monster" allowfullscreen></iframe>
     </div>
   </div>
 
-  <!-- 2 equal -->
+  <!-- 3 equal — Lage, Rhyma x2 -->
+  <div class="g-trio">
+    <div class="img-wrap">
+      <iframe src="https://www.youtube.com/embed/aHXvJdLRo7U" title="Lage — Suicide" allowfullscreen></iframe>
+    </div>
+    <div class="img-wrap">
+      <iframe src="https://www.youtube.com/embed/QnRna_BMZCI" title="Rhyma — One 4 You" allowfullscreen></iframe>
+    </div>
+    <div class="img-wrap">
+      <iframe src="https://www.youtube.com/embed/UgXYWHURv08" title="Rhyma — Don't Tell" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <!-- 2 equal — Rhyma x2 -->
   <div class="g-duo">
     <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
+      <iframe src="https://www.youtube.com/embed/EziIttF7oF0" title="Rhyma — Medusa" allowfullscreen></iframe>
+    </div>
     <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
+      <iframe src="https://www.youtube.com/embed/nzWwKmmaDbE" title="Rhyma — DIA" allowfullscreen></iframe>
+    </div>
   </div>
 
-  <!-- 4-column detail strip -->
+  <!-- 4-column strip — Madnyani x2, Elcee Gweja & Poptain, Latman Pace -->
   <div class="g-quad">
     <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-    <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-    <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-    <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-  </div>
-
-  <!-- Asymmetric right-wide -->
-  <div class="g-split-r">
-    <div class="col-stack">
-      <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-      <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
+      <iframe src="https://www.youtube.com/embed/Uj_ApJ0dmAs" title="Madnyani — Tafuta Hela" allowfullscreen></iframe>
     </div>
     <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-  </div>
-
-  <!-- Masonry with wide bottom -->
-  <div class="g-masonry">
-    <div class="img-tall">
-      <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
+      <iframe src="https://www.youtube.com/embed/mCqkHf1Ge_c" title="Madnyani — Tikisa" allowfullscreen></iframe>
     </div>
-    <div>
-      <div class="img-short">
-        <div class="img-wrap" style="margin-bottom:14px;">
-        <video src="" controls></video>
-      </div>
-      </div>
-      <div class="img-short">
-        <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-      </div>
+    <div class="img-wrap">
+      <iframe src="https://www.youtube.com/embed/Ln8lVlVaNh4" title="Elcee Gweja &amp; Poptain" allowfullscreen></iframe>
     </div>
-    <div class="img-wide">
-      <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
+    <div class="img-wrap">
+      <iframe src="https://www.youtube.com/embed/JspjhVH1oSo" title="Latman Pace" allowfullscreen></iframe>
     </div>
-  </div>
-
-  <!-- Final trio closer -->
-  <div class="g-trio">
-    <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-    <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-    <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
   </div>
 
 </section>

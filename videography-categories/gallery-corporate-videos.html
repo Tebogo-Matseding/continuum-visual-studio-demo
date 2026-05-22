@@ -279,13 +279,15 @@
   }
   .img-wrap:hover::after { background: rgba(0,0,0,0.06); }
   .img-wrap img,
-  .img-wrap video {
+  .img-wrap video,
+  .img-wrap iframe {
     transition: transform var(--transition);
     width: 100%; height: 100%; object-fit: cover;
-    display: block;
+    display: block; border: none;
   }
   .img-wrap:hover img,
-  .img-wrap:hover video { transform: scale(1.03); }
+  .img-wrap:hover video,
+  .img-wrap:hover iframe { transform: scale(1.03); }
 
   /* ── GALLERY LAYOUTS ──────────────────────────────────────────── */
 
@@ -564,119 +566,17 @@
     <h2>The Gallery</h2>
   </div>
 
-  <!-- Full-width opener -->
-  <div class="g-hero">
-    <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-  </div>
-
-  <!-- 3 equal -->
+  <!-- 3 equal columns — one per corporate video -->
   <div class="g-trio">
     <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-    <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-    <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-  </div>
-
-  <!-- Asymmetric left-wide -->
-  <div class="g-split">
-    <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-    <div class="col-stack">
-      <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-      <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-    </div>
-  </div>
-
-  <!-- 2 equal -->
-  <div class="g-duo">
-    <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-    <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-  </div>
-
-  <!-- 4-column detail strip -->
-  <div class="g-quad">
-    <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-    <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-    <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-    <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-  </div>
-
-  <!-- Asymmetric right-wide -->
-  <div class="g-split-r">
-    <div class="col-stack">
-      <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-      <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
+      <iframe src="https://www.youtube.com/embed/-OXSj45bDJc" title="Siyanda Resources — Company Introduction" allowfullscreen></iframe>
     </div>
     <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-  </div>
-
-  <!-- Masonry with wide bottom -->
-  <div class="g-masonry">
-    <div class="img-tall">
-      <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
+      <iframe src="https://www.youtube.com/embed/qZNxy-r1CSc" title="Odire Occupational Health — Marketing Video" allowfullscreen></iframe>
     </div>
-    <div>
-      <div class="img-short">
-        <div class="img-wrap" style="margin-bottom:14px;">
-        <video src="" controls></video>
-      </div>
-      </div>
-      <div class="img-short">
-        <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-      </div>
+    <div class="img-wrap">
+      <iframe src="https://www.youtube.com/embed/WTY_wk22e3Y" title="Africa Cosmos — Marketing Video" allowfullscreen></iframe>
     </div>
-    <div class="img-wide">
-      <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-    </div>
-  </div>
-
-  <!-- Final trio closer -->
-  <div class="g-trio">
-    <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-    <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
-    <div class="img-wrap">
-        <video src="" controls></video>
-      </div>
   </div>
 
 </section>

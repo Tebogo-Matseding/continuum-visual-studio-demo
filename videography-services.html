@@ -334,12 +334,42 @@
     position: relative;
     background: var(--black);
     overflow: hidden;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-md);
+    width: 100%;
   }
   .video-embed-slot iframe,
   .video-embed-slot video {
     width: 100%; height: 100%;
     border: none; display: block;
     object-fit: cover;
+  }
+
+  /* ── SINGLE VIDEO LAYOUT ──────────────────────────────────────── */
+  .layout-single {
+    display: flex;
+    justify-content: center;
+  }
+  .layout-single .video-embed-slot {
+    max-width: 560px;
+    width: 100%;
+  }
+
+  /* ── 2×2 VIDEO GRID LAYOUT ────────────────────────────────────── */
+  .layout-2x2-wrap {
+    display: flex;
+    justify-content: center;
+  }
+  .layout-2x2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    width: 100%;
+    max-width: 860px;
+  }
+  @media (max-width: 600px) {
+    .layout-2x2 { grid-template-columns: 1fr; }
+    .layout-single .video-embed-slot { max-width: 100%; }
   }
 
   /* ── EDITORIAL IMAGE LAYOUTS ──────────────────────────────────── */
@@ -660,22 +690,10 @@
       </div>
       <p class="category-desc">Professional corporate video production for company profiles, CEO messages, investor presentations, internal communications, and product explainers. Scripted or documentary-style — we handle concept, production, and post.</p>
     </div>
-    <!-- Layout A: Hero + 2 side — use video-card for stills with play icon -->
-    <div class="layout-a">
-      <div class="img-hero">
-        <div class="video-embed-slot">
-          <video src="" controls></video>
-        </div>
-      </div>
-      <div class="img-side">
-        <div class="video-embed-slot">
-          <video src="" controls></video>
-        </div>
-      </div>
-      <div class="img-side">
-        <div class="video-embed-slot">
-          <video src="" controls></video>
-        </div>
+    <!-- Single video -->
+    <div class="layout-single">
+      <div class="video-embed-slot">
+        <iframe src="https://www.youtube.com/embed/-OXSj45bDJc" title="Siyanda Resources — Company Introduction" allowfullscreen></iframe>
       </div>
     </div>
 
@@ -691,24 +709,25 @@
       </div>
       <p class="category-desc">Cinematic, high-energy, and visually distinctive music video production. We collaborate closely with artists and labels to create a visual language that amplifies the music — from concept and storyboard to final colour grade.</p>
     </div>
-    <!-- Layout C: Asymmetric 2:1 -->
-    <div class="layout-c">
-      <div class="img-primary">
+    <!-- Layout 2×2: 4 videos -->
+    <div class="layout-2x2-wrap">
+      <div class="layout-2x2">
         <div class="video-embed-slot">
-          <video src="" controls></video>
-        </div>
-      </div>
-      <div class="col-stack">
-        <div class="video-embed-slot">
-          <video src="" controls></video>
+          <iframe src="https://www.youtube.com/embed/bvyEa5kRM9Q" title="Elcee Gweja — Monster" allowfullscreen></iframe>
         </div>
         <div class="video-embed-slot">
-          <video src="" controls></video>
+          <iframe src="https://www.youtube.com/embed/QnRna_BMZCI" title="Rhyma — One 4 You" allowfullscreen></iframe>
+        </div>
+        <div class="video-embed-slot">
+          <iframe src="https://www.youtube.com/embed/nzWwKmmaDbE" title="Rhyma — DIA" allowfullscreen></iframe>
+        </div>
+        <div class="video-embed-slot">
+          <iframe src="https://www.youtube.com/embed/Uj_ApJ0dmAs" title="Madnyani — Tafuta Hela" allowfullscreen></iframe>
         </div>
       </div>
     </div>
 
-      <a href="videography-categories/gallery-music-videos.html" class="view-gallery-link">View Gallery</a>
+    <a href="videography-categories/gallery-music-videos.html" class="view-gallery-link">View Gallery</a>
   </section>
 
   <!-- ─── EVENT COVERAGE ───────────────────────────────────────── -->
@@ -720,27 +739,10 @@
       </div>
       <p class="category-desc">Full-day event videography for conferences, award ceremonies, product launches, festivals, and activations. Multi-camera setups, same-day highlight reels, and full uncut footage packages available.</p>
     </div>
-    <!-- Layout B: 3-column + wide -->
-    <div class="layout-b">
-      <div class="img-tall">
-        <div class="video-embed-slot">
-          <video src="" controls></video>
-        </div>
-      </div>
-      <div class="img-tall">
-        <div class="video-embed-slot">
-          <video src="" controls></video>
-        </div>
-      </div>
-      <div class="img-tall">
-        <div class="video-embed-slot">
-          <video src="" controls></video>
-        </div>
-      </div>
-      <div class="img-wide">
-        <div class="video-embed-slot">
-          <video src="" controls></video>
-        </div>
+    <!-- Single video -->
+    <div class="layout-single">
+      <div class="video-embed-slot">
+        <iframe src="https://www.youtube.com/embed/_q3pgwIVvI0" title="Wedding Highlight" allowfullscreen></iframe>
       </div>
     </div>
     <a href="videography-categories/gallery-events-videos.html" class="view-gallery-link">View Gallery</a>
