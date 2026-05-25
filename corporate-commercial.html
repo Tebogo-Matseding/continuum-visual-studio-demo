@@ -143,6 +143,18 @@
   .mobile-menu.is-open .mobile-menu-cta { opacity: 1; transform: translateY(0); }
   .mobile-menu-cta:hover { opacity: 0.75 !important; }
   .mobile-menu-cta::after { display: none !important; }
+  /* CTA row — equal-width buttons */
+  .mobile-menu-cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+  }
+  .mobile-menu-cta-row .mobile-menu-cta {
+    min-width: 160px;
+    text-align: center;
+  }
   .mobile-menu-footer {
     position: absolute; bottom: 28px;
     font-size: 11px; color: #bbb; letter-spacing: 0.14em; text-transform: uppercase;
@@ -632,12 +644,13 @@
             <div class="dl2-item">
               <div class="dl2-header">Music Videos <i class="ti ti-chevron-down caret" aria-hidden="true"></i></div>
               <div class="dropdown-l3"><a href="videography-categories/gallery-music-videos.html">Music Videos Gallery</a></div>
-            </div>
+             </div>
           </div>
         </div>
 
       </div>
     </div>
+    <a href="faqs.html">FAQs</a>
   </div>
   <a href="contact.html" class="nav-cta">Book A Session</a>
   <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
@@ -648,6 +661,7 @@
 <!-- MOBILE MENU OVERLAY -->
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Navigation menu">
   <a href="index.html#services" class="mobile-menu-link">Services</a>
+  <a href="index.html#testimonials" class="mobile-menu-link">Testimonials</a>
   <div class="mobile-menu-link mobile-portfolio-toggle" id="mobilePortfolioToggle">
     Portfolio <i class="ti ti-chevron-down caret" aria-hidden="true"></i>
   </div>
@@ -670,7 +684,14 @@
     <a href="videography-categories/gallery-music-videos.html" class="mobile-sub-link mobile-gallery-link">↳ Music Videos Gallery</a>
   </div>
   <div class="mobile-menu-divider"></div>
-  <a href="contact.html" class="mobile-menu-cta">Book A Session</a>
+  <div class="mobile-menu-cta-row">
+    <a href="contact.html" class="mobile-menu-cta">Book A Session</a>
+    <a href="faqs.html" class="mobile-menu-cta">FAQs</a>
+    <a href="https://wa.me/27716091605" class="mobile-menu-wa" target="_blank" rel="noopener">
+      <i class="ti ti-brand-whatsapp" aria-hidden="true"></i>
+      WhatsApp Us
+    </a>
+  </div>
   <span class="mobile-menu-footer">Kempton Park &bull; Johannesburg</span>
 </div>
 
