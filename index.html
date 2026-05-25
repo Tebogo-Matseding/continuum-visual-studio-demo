@@ -304,6 +304,48 @@
     justify-content: center;
     align-items: center;
   }
+  .mobile-menu-cta-row .mobile-menu-cta {
+    min-width: 160px;
+    text-align: center;
+  }
+
+  /* Close button inside mobile menu */
+  .mobile-menu-close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    padding: 6px;
+    z-index: 10;
+  }
+  .mobile-menu-close span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: #111;
+    border-radius: 2px;
+    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .mobile-menu-close span:nth-child(1) { transform: translateY(0.75px) rotate(45deg); }
+  .mobile-menu-close span:nth-child(2) { transform: translateY(-0.75px) rotate(-45deg); }
+  .mobile-menu-close:hover span { background: #555; }
+
+  /* Hide WhatsApp bubble when mobile menu is open */
+  body.menu-open .wa-bubble {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px) scale(0.95);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
 
   /* Bottom location tag */
   .mobile-menu-footer {
@@ -1263,6 +1305,10 @@
 
 <!-- MOBILE MENU OVERLAY -->
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
+    <span></span>
+    <span></span>
+  </button>
   <a href="#services"  class="mobile-menu-link">Services</a>
   <a href="#testimonials" class="mobile-menu-link">Testimonials</a>
   <div class="mobile-menu-link mobile-portfolio-toggle" id="mobilePortfolioToggle">
@@ -1289,7 +1335,7 @@
   <div class="mobile-menu-divider"></div>
   <div class="mobile-menu-cta-row">
     <a href="contact.html" class="mobile-menu-cta">Book A Session</a>
-    <a href="faqs.html" class="mobile-menu-link">FAQs</a>
+    <a href="faqs.html" class="mobile-menu-cta">FAQs</a>
     <a href="https://wa.me/27716091605" class="mobile-menu-wa" target="_blank" rel="noopener">
       <i class="ti ti-brand-whatsapp" aria-hidden="true"></i>
       WhatsApp Us
@@ -1851,9 +1897,10 @@
   })();
 
   // ── Hamburger / mobile menu ───────────────────────────────────
-  const hamburger  = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobileMenu');
-  const menuLinks  = mobileMenu.querySelectorAll('a');
+  const hamburger      = document.getElementById('hamburger');
+  const mobileMenu     = document.getElementById('mobileMenu');
+  const mobileMenuClose = document.getElementById('mobileMenuClose');
+  const menuLinks      = mobileMenu.querySelectorAll('a');
 
   function openMenu() {
     hamburger.classList.add('is-open');
@@ -1873,6 +1920,9 @@
   hamburger.addEventListener('click', () => {
     mobileMenu.classList.contains('is-open') ? closeMenu() : openMenu();
   });
+
+  // Close button inside the menu
+  mobileMenuClose.addEventListener('click', closeMenu);
 
   // Close when any menu link is clicked (smooth scroll takes over)
   menuLinks.forEach(link => link.addEventListener('click', closeMenu));
