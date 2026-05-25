@@ -373,6 +373,102 @@
   @media (max-width: 480px) {
     .outfit-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   }
+
+  /* ── VIEW-MORE HINT ───────────────────────────────────────────── */
+  .outfit-card { cursor: pointer; }
+  .outfit-card-img::after {
+    content: 'Double-click to view all';
+    position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+    background: rgba(0,0,0,0.55); color: #fff;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 999px; white-space: nowrap;
+    opacity: 0; transition: opacity 0.25s ease;
+    pointer-events: none; z-index: 2;
+  }
+  .outfit-card:hover .outfit-card-img::after { opacity: 1; }
+  .outfit-card.is-touch .outfit-card-img::after { content: 'Tap to view all'; }
+
+  /* ── LIGHTBOX OVERLAY ─────────────────────────────────────────── */
+  .lb-overlay {
+    position: fixed; inset: 0; z-index: 1000;
+    background: rgba(0,0,0,0.92);
+    display: flex; flex-direction: column;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .lb-overlay.is-open { opacity: 1; pointer-events: all; }
+  .lb-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 28px; flex-shrink: 0;
+  }
+  .lb-title {
+    color: #fff; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase;
+    font-weight: 300;
+  }
+  .lb-meta {
+    color: rgba(255,255,255,0.4); font-size: 11px; letter-spacing: 0.12em; margin-left: 14px;
+  }
+  .lb-close {
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    color: #fff; width: 38px; height: 38px; border-radius: 50%;
+    cursor: pointer; font-size: 18px; display: flex; align-items: center;
+    justify-content: center; transition: background 0.2s; flex-shrink: 0;
+  }
+  .lb-close:hover { background: rgba(255,255,255,0.2); }
+  .lb-track-wrap {
+    flex: 1; display: flex; align-items: center;
+    overflow: hidden; position: relative;
+  }
+  .lb-track {
+    display: flex; gap: 16px;
+    padding: 0 48px;
+    height: 100%;
+    align-items: center;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .lb-slide {
+    flex-shrink: 0;
+    height: calc(100vh - 160px);
+    max-height: 72vh;
+    aspect-ratio: 3 / 4;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #222;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  .lb-slide img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    user-select: none; -webkit-user-drag: none;
+  }
+  .lb-slide.lb-active { transform: scale(1.03); }
+  .lb-slide:not(.lb-active) { opacity: 0.5; }
+  .lb-btn {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    color: #fff; width: 44px; height: 44px; border-radius: 50%;
+    cursor: pointer; font-size: 20px; display: flex; align-items: center;
+    justify-content: center; transition: background 0.2s; z-index: 2;
+  }
+  .lb-btn:hover { background: rgba(255,255,255,0.22); }
+  .lb-btn-prev { left: 10px; }
+  .lb-btn-next { right: 10px; }
+  .lb-btn:disabled { opacity: 0.2; cursor: default; }
+  .lb-dots {
+    display: flex; justify-content: center; gap: 7px;
+    padding: 16px 0 22px; flex-shrink: 0;
+  }
+  .lb-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    cursor: pointer; transition: background 0.2s, transform 0.2s;
+    border: none;
+  }
+  .lb-dot.lb-active { background: #fff; transform: scale(1.3); }
+  @media (max-width: 600px) {
+    .lb-track { padding: 0 20px; gap: 10px; }
+    .lb-slide { height: calc(100vh - 180px); max-height: 60vh; }
+    .lb-btn { width: 36px; height: 36px; font-size: 16px; }
+  }
 </style>
 </head>
 <body>
@@ -664,6 +760,23 @@
 
 </main>
 
+<!-- ════════════════════════════════════════════════════ LIGHTBOX -->
+<div class="lb-overlay" id="lbOverlay" role="dialog" aria-modal="true" aria-label="Outfit gallery">
+  <div class="lb-header">
+    <div>
+      <span class="lb-title" id="lbTitle"></span>
+      <span class="lb-meta" id="lbMeta"></span>
+    </div>
+    <button class="lb-close" id="lbClose" aria-label="Close gallery">&#x2715;</button>
+  </div>
+  <div class="lb-track-wrap">
+    <button class="lb-btn lb-btn-prev" id="lbPrev" aria-label="Previous image">&#8592;</button>
+    <div class="lb-track" id="lbTrack"></div>
+    <button class="lb-btn lb-btn-next" id="lbNext" aria-label="Next image">&#8594;</button>
+  </div>
+  <div class="lb-dots" id="lbDots"></div>
+</div>
+
 <!-- ════════════════════════════════════════════════════ CTA -->
 <section class="cta-strip" id="cta">
   <h2>Ready to Book Your Session?</h2>
@@ -732,9 +845,7 @@
 </script>
 
 <script>
-  /* Auto-remove placeholder class when an outfit image loads successfully.
-     To add an image: set src="path/to/your-image.jpg" on the <img> inside the card.
-     The placeholder gradient will disappear automatically once the image loads. */
+  /* ── Placeholder reveal ─────────────────────────────────────────── */
   document.querySelectorAll('.outfit-card-img img').forEach(function(img) {
     function reveal() {
       var wrap = img.parentElement;
@@ -743,6 +854,186 @@
     }
     if (img.src && img.naturalWidth > 0) { reveal(); }
     else { img.addEventListener('load', reveal); }
+  });
+
+  /* ── Touch-device hint ──────────────────────────────────────────── */
+  if ('ontouchstart' in window) {
+    document.querySelectorAll('.outfit-card').forEach(function(c) {
+      c.classList.add('is-touch');
+    });
+  }
+
+  /* ── Per-card image gallery builder ────────────────────────────── */
+  function buildGalleryForCard(card) {
+    var img = card.querySelector('.outfit-card-img img');
+    if (!img || !img.src) return [];
+
+    var src = img.getAttribute('src');
+    var lastSlash = src.lastIndexOf('/');
+    var folder   = src.substring(0, lastSlash + 1);
+    var filename = src.substring(lastSlash + 1);
+
+    var extMatch = filename.match(/^(.*?)(\d+)(\.[^.]+)$/);
+    if (!extMatch) return [src];
+
+    var base = extMatch[1];
+    var ext  = extMatch[3];
+    var imgs = [];
+    for (var i = 1; i <= 10; i++) {
+      imgs.push(folder + base + i + ext);
+    }
+    return imgs;
+  }
+
+  /* ── Lightbox state ─────────────────────────────────────────────── */
+  var lbOverlay = document.getElementById('lbOverlay');
+  var lbTrack   = document.getElementById('lbTrack');
+  var lbTitle   = document.getElementById('lbTitle');
+  var lbMeta    = document.getElementById('lbMeta');
+  var lbDots    = document.getElementById('lbDots');
+  var lbPrev    = document.getElementById('lbPrev');
+  var lbNext    = document.getElementById('lbNext');
+  var lbClose   = document.getElementById('lbClose');
+
+  var lbImages = [];
+  var lbIndex  = 0;
+
+  function openLightbox(card) {
+    var nameEl = card.querySelector('.outfit-card-name');
+    var title  = nameEl ? nameEl.textContent : 'Outfit';
+
+    lbImages = buildGalleryForCard(card);
+    lbIndex  = 0;
+
+    lbTrack.innerHTML = '';
+    lbDots.innerHTML  = '';
+
+    lbImages.forEach(function(src, i) {
+      var slide = document.createElement('div');
+      slide.className = 'lb-slide';
+      slide.dataset.index = i;
+
+      var imgEl = document.createElement('img');
+      imgEl.alt = title + ' — image ' + (i + 1);
+      imgEl.addEventListener('load', function() {
+        slide.classList.remove('lb-loading');
+        updateMeta();
+      });
+      imgEl.addEventListener('error', function() {
+        slide.style.display = 'none';
+        var dot = lbDots.querySelector('[data-dot="' + i + '"]');
+        if (dot) dot.style.display = 'none';
+        updateMeta();
+        if (lbIndex === i) advanceToValid(1);
+      });
+      imgEl.src = src;
+      slide.appendChild(imgEl);
+      lbTrack.appendChild(slide);
+
+      var dot = document.createElement('button');
+      dot.className = 'lb-dot';
+      dot.setAttribute('aria-label', 'Go to image ' + (i + 1));
+      dot.dataset.dot = i;
+      dot.addEventListener('click', function() { goTo(i); });
+      lbDots.appendChild(dot);
+    });
+
+    lbTitle.textContent = title;
+    lbOverlay.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    goTo(0);
+  }
+
+  function closeLightbox() {
+    lbOverlay.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  function goTo(idx) {
+    lbIndex = idx;
+
+    lbTrack.querySelectorAll('.lb-slide').forEach(function(s, i) {
+      s.classList.toggle('lb-active', i === idx);
+    });
+    lbDots.querySelectorAll('.lb-dot').forEach(function(d, i) {
+      d.classList.toggle('lb-active', i === idx);
+    });
+
+    var activeSlide = lbTrack.querySelector('.lb-slide[data-index="' + idx + '"]');
+    if (activeSlide) {
+      var wrap       = lbTrack.parentElement;
+      var slideLeft  = activeSlide.offsetLeft;
+      var slideWidth = activeSlide.offsetWidth;
+      var wrapWidth  = wrap.offsetWidth;
+      var offset     = (wrapWidth / 2) - (slideLeft + slideWidth / 2);
+      lbTrack.style.transform = 'translateX(' + offset + 'px)';
+    }
+
+    updateMeta();
+    updateArrows();
+  }
+
+  function advanceToValid(dir) {
+    var slides = lbTrack.querySelectorAll('.lb-slide');
+    var next = lbIndex + dir;
+    while (next >= 0 && next < slides.length) {
+      if (slides[next].style.display !== 'none') { goTo(next); return; }
+      next += dir;
+    }
+  }
+
+  function updateMeta() {
+    var visible = Array.from(lbTrack.querySelectorAll('.lb-slide'))
+                       .filter(function(s) { return s.style.display !== 'none'; });
+    var pos = visible.findIndex(function(s) { return parseInt(s.dataset.index) === lbIndex; });
+    lbMeta.textContent = visible.length > 0 ? (pos + 1) + ' / ' + visible.length : '';
+  }
+
+  function updateArrows() {
+    var slides  = Array.from(lbTrack.querySelectorAll('.lb-slide'))
+                       .filter(function(s) { return s.style.display !== 'none'; });
+    var indices = slides.map(function(s) { return parseInt(s.dataset.index); });
+    var pos     = indices.indexOf(lbIndex);
+    lbPrev.disabled = pos <= 0;
+    lbNext.disabled = pos >= indices.length - 1;
+  }
+
+  /* ── Wire double-click / double-tap ─────────────────────────────── */
+  document.querySelectorAll('.outfit-card').forEach(function(card) {
+    card.addEventListener('dblclick', function() { openLightbox(card); });
+
+    var lastTap = 0;
+    card.addEventListener('touchend', function(e) {
+      var now = Date.now();
+      if (now - lastTap < 300) { e.preventDefault(); openLightbox(card); }
+      lastTap = now;
+    });
+  });
+
+  /* ── Controls ───────────────────────────────────────────────────── */
+  lbPrev.addEventListener('click', function() { advanceToValid(-1); });
+  lbNext.addEventListener('click', function() { advanceToValid(1); });
+  lbClose.addEventListener('click', closeLightbox);
+  lbOverlay.addEventListener('click', function(e) {
+    if (e.target === lbOverlay) closeLightbox();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (!lbOverlay.classList.contains('is-open')) return;
+    if (e.key === 'Escape')     closeLightbox();
+    if (e.key === 'ArrowRight') advanceToValid(1);
+    if (e.key === 'ArrowLeft')  advanceToValid(-1);
+  });
+
+  /* ── Swipe ──────────────────────────────────────────────────────── */
+  var swipeStartX = null;
+  lbOverlay.addEventListener('touchstart', function(e) {
+    swipeStartX = e.touches[0].clientX;
+  }, { passive: true });
+  lbOverlay.addEventListener('touchend', function(e) {
+    if (swipeStartX === null) return;
+    var dx = e.changedTouches[0].clientX - swipeStartX;
+    if (Math.abs(dx) > 50) { dx < 0 ? advanceToValid(1) : advanceToValid(-1); }
+    swipeStartX = null;
   });
 </script>
 

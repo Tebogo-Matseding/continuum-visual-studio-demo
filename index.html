@@ -270,6 +270,41 @@
   /* Remove the underline sweep from the CTA */
   .mobile-menu-cta::after { display: none !important; }
 
+  /* WhatsApp button — outlined pill, sits next to Book A Session */
+  .mobile-menu-wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: #111 !important;
+    border: 1.5px solid #ccc;
+    padding: 14px 36px;
+    border-radius: 999px;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-family: inherit;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s ease 0.34s, transform 0.3s ease 0.34s, border-color 0.2s;
+  }
+  .mobile-menu.is-open .mobile-menu-wa {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .mobile-menu-wa:hover { border-color: #111; }
+  .mobile-menu-wa::after { display: none !important; }
+
+  /* Wrap both CTAs in a row */
+  .mobile-menu-cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+  }
+
   /* Bottom location tag */
   .mobile-menu-footer {
     position: absolute;
@@ -408,7 +443,7 @@
     height: 100svh; /* uses small viewport height — excludes browser chrome on mobile */
     display: flex;
     align-items: flex-end;
-    justify-content: flex-start;
+    justify-content: center;
     padding: 0;
     overflow: hidden;
   }
@@ -434,21 +469,25 @@
     opacity: 1;
     transform: scale(1);
   }
-  /* Gradient — stronger at bottom-left for text legibility */
+  /* Gradient — centred vignette for text legibility */
   .hero-overlay {
     position: absolute;
     inset: 0;
-    background:
-      linear-gradient(to top,  rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.20) 45%, transparent 100%),
-      linear-gradient(to right, rgba(0,0,0,0.30) 0%, transparent 60%);
+    background: linear-gradient(to top, rgba(0,0,0,0.60) 0%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0.40) 100%);
     z-index: 1;
   }
-  /* Bottom-left hero content */
+  /* Centred hero content — sits just above the dot indicators */
   .hero-content {
-    position: relative;
+    position: absolute;
     z-index: 2;
-    padding: 0 56px 64px;
-    max-width: calc(100% - 40px);
+    bottom: 72px;
+    left: 0;
+    width: 100%;
+    padding: 0 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   .hero-studio-name {
     font-size: clamp(32px, 5.2vw, 78px);
@@ -485,8 +524,12 @@
     margin-top: 8px;
   }
   .hero-btn:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.9); }
-  /* Location badge */
+  /* Location badge — fixed bottom-left */
   .hero-location {
+    position: absolute;
+    bottom: 36px;
+    left: 56px;
+    z-index: 2;
     display: inline-flex;
     align-items: center;
     gap: 7px;
@@ -500,7 +543,7 @@
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: rgba(255,255,255,0.88);
-    margin-bottom: 24px;
+    margin-bottom: 0;
   }
   .hero-location-dot {
     width: 5px; height: 5px; border-radius: 50%;
@@ -521,10 +564,19 @@
   .hero-rule {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 16px;
     margin-bottom: 0;
   }
   .hero-rule::before {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 1px;
+    background: rgba(255,255,255,0.45);
+    flex-shrink: 0;
+  }
+  .hero-rule::after {
     content: '';
     display: block;
     width: 36px;
@@ -550,17 +602,36 @@
   }
   @media (max-width: 768px) {
     .hero-dots { display: none !important; }
-    .hero-content { padding: 0 24px 52px; }
-    .hero-studio-name { font-size: clamp(26px, 7.5vw, 44px); white-space: normal; }
-    .hero-slogan { font-size: 11px; letter-spacing: 0.22em; }
 
-    /* On mobile the nav is sticky and occupies real vertical space, so the
-       hero height must be reduced by the nav height to avoid overflowing the viewport */
+    /* Switch hero to flex column so everything stacks */
     .hero {
-      height: calc(100vh - 74px);    /* fallback for older browsers */
-      height: calc(100svh - 74px);   /* svh = small viewport height, excludes browser chrome */
+      height: calc(100vh - 74px);
+      height: calc(100svh - 74px);
       min-height: 480px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
+
+    /* Location badge — back in flow, centred */
+    .hero-location {
+      position: static;
+      font-size: 9.5px;
+      margin-bottom: 20px;
+    }
+
+    /* Text block — back in flow, centred */
+    .hero-content {
+      position: static;
+      bottom: auto;
+      padding: 0 24px;
+      text-align: center;
+      align-items: center;
+    }
+
+    .hero-studio-name { font-size: clamp(26px, 7.5vw, 44px); white-space: normal; }
+    .hero-slogan { font-size: 11px; letter-spacing: 0.22em; margin-bottom: 0; }
 
     /* Belt-and-suspenders: keep slides strictly inside the hero box */
     .hero-slider,
@@ -1214,7 +1285,13 @@
     <a href="videography-categories/gallery-music-videos.html" class="mobile-sub-link mobile-gallery-link">↳ Music Videos Gallery</a>
   </div>
   <div class="mobile-menu-divider"></div>
-  <a href="contact.html" class="mobile-menu-cta">Book A Session</a>
+  <div class="mobile-menu-cta-row">
+    <a href="contact.html" class="mobile-menu-cta">Book A Session</a>
+    <a href="https://wa.me/27716091605" class="mobile-menu-wa" target="_blank" rel="noopener">
+      <i class="ti ti-brand-whatsapp" aria-hidden="true"></i>
+      WhatsApp Us
+    </a>
+  </div>
   <span class="mobile-menu-footer">Gauteng &bull; South Africa</span>
 </div>
 
@@ -1243,18 +1320,16 @@
   <!-- Frosted overlay — images bleed through but text stays clear -->
   <div class="hero-overlay"></div>
 
-  <!-- Text content — bottom left -->
+  <!-- Location badge — bottom left -->
+  <div class="hero-location">
+    <span class="hero-location-dot"></span>
+    Gauteng &bull; South Africa
+  </div>
+
+  <!-- Text content — centred just above dots -->
   <div class="hero-content">
-    <div class="hero-location">
-      <span class="hero-location-dot"></span>
-      Gauteng &bull; South Africa
-    </div>
     <h1 class="hero-studio-name">Continuum Visual Studio</h1>
     <p class="hero-slogan">The Art of Definition</p>
-    <div class="hero-rule">
-      <span class="hero-category">Photography &amp; Videography</span>
-    </div>
-    <a href="contact.html" class="hero-btn">Book A Session</a>
   </div>
 
   <!-- Dot indicators -->
@@ -1265,7 +1340,7 @@
 <!-- ABOUT -->
 <section class="about" id="about">
   <h2>About The Studio</h2>
-  <p>Welcome to Continuum Visual Studio, a professional photography and videography studio proudly serving clients across Johannesburg, Kempton Park, and surrounding areas throughout Gauteng. Proudly backed by positive Google reviews, we specialise in corporate and commercial photography, lifestyle and private photoshoots, studio and on-location sessions, as well as professional videography services.</p>
+  <p>Welcome to Continuum Visual Studio, a photography and videography studio proudly serving clients across Kempton Park and surrounding areas throughout Gauteng. We specialise in corporate and commercial photography, lifestyle and private photoshoots, studio and on-location sessions, as well as creative videography services tailored for businesses, brands, families, and individuals. Our goal is to create high-quality visual content that captures real moments, strengthens brand identity, and delivers timeless memories through a professional and creative approach.</p>
 </section>
 
 <!-- SERVICES -->
@@ -1279,7 +1354,11 @@
       </div>
       <div class="service-body">
         <h3>Corporate &amp; Commercial</h3>
-        <p>Headshots, branding shoots, corporate events, website imagery, fashion campaigns, and business photography.</p>
+        <p>Headshots, branding shoots, corporate events, and fashion campaigns.</p>
+        <p>
+          We help businesses across Gauteng create professional visual content for branding, marketing, websites, and social media.
+          From corporate headshots and business events to commercial photography and branded content, we focus on delivering clean, high-quality visuals that help your brand stand out professionally.
+        </p>
         <a href="corporate-commercial.html" class="service-link">Explore Page</a>
       </div>
     </div>
@@ -1291,7 +1370,11 @@
       </div>
       <div class="service-body">
         <h3>Lifestyle Photography</h3>
-        <p>Cake smash shoots, maternity sessions, studio portraits, graduations, couples, birthdays, and outdoor family shoots.</p>
+        <p>Cake smash shoots, maternity sessions, birthday shoots, studio photography, wedding & events, and outdoor photography.</p>
+        <p>
+          We capture natural and meaningful moments through lifestyle photography sessions designed for individuals, couples, and families across Gauteng.
+          From maternity shoots to outdoor portraits, we focus on creating timeless images that feel authentic, relaxed, and personal.
+        </p>
         <a href="lifestyle-photography.html" class="service-link">Explore Page</a>
       </div>
     </div>
@@ -1303,7 +1386,11 @@
       </div>
       <div class="service-body">
         <h3>Videography Services</h3>
-        <p>Corporate videos, music videos, weddings, training videos, marketing content, and event coverage.</p>
+        <p>Corporate videos, music videos, weddings and event coverage.</p>
+        <p>
+          We create professional video content for brands, events, and personal milestones across Gauteng.
+          From corporate videos and promotional content to weddings and social media reels, our videography services are designed to tell your story with creativity and cinematic quality.
+        </p>
         <a href="videography-services.html" class="service-link">Explore Page</a>
       </div>
     </div>
@@ -1319,7 +1406,7 @@
     <div class="featured-row featured-row--cakesmash">
       <div class="featured-text">
         <h2>Cake Smash Photography</h2>
-        <p>Fun and creative cake smash photography sessions with custom themes, outfits, milk bath shoots, and beautiful birthday memories for little ones.</p>
+        <p>Fun and creative cake smash photography sessions designed to celebrate your little one's special milestone. We offer custom themes, outfit options, milk bath shoots, and professionally captured birthday memories in a fun and comfortable environment.</p>
         <img src="images/cakesmash3.webp" alt="Cake Smash Photography" class="featured-banner" loading="lazy"	decoding="async">
       </div>
       <div class="img-grid">
@@ -1345,7 +1432,7 @@
     <div class="featured-row featured-row--studio">
       <div class="featured-text">
         <h2>Studio Photography</h2>
-        <p>Controlled lighting, premium backdrops, and a fully equipped studio space — ideal for portraits, product photography, fashion shoots, and creative concepts.</p>
+        <p>Our fully equipped studio offers controlled lighting, premium backdrops, and a professional creative space ideal for portraits, product photography, fashion shoots, branding content, and custom creative concepts.</p>
         <img src="images/studio3.webp" alt="Studio Photography" class="featured-banner" loading="lazy"	decoding="async">
       </div>
       <div class="img-grid">
@@ -1362,7 +1449,7 @@
       </div>
       <div class="featured-text">
         <h2>Outdoor Photography</h2>
-        <p>Natural light sessions in parks, gardens, and scenic locations across Johannesburg — perfect for families, couples, lifestyle shoots, and brand content that breathes.</p>
+        <p>Natural light photography sessions in parks, gardens, and scenic outdoor locations across Gauteng, perfect for families, couples, lifestyle portraits, and creative brand content. We focus on capturing authentic moments, natural emotions, and relaxed storytelling in beautiful outdoor settings.</p>
         <img src="images/outdoor3.webp" alt="Outdoor Photography" class="featured-banner" loading="lazy"	decoding="async">
       </div>
     </div>
@@ -1593,11 +1680,12 @@
 
         <!-- ── 1. Brand / Studio ── -->
         <div class="footer-brand">
-          <span class="footer-brand-name">Continuum Visual Studio</span>
-          <p class="footer-brand-desc">
-            Photography &amp; Videography Studio.<br>
-            Corporate, Lifestyle &amp; Commercial Content<br>
-            crafted with intention and precision.
+          <span class="footer-col-label">Services</span>
+          <p class="footer-brand-desc" style="margin-top:10px;">
+            No 4 Fountainview<br>
+            10 Poplar Street<br>
+            Kempton Park<br>
+            <a href="tel:0716091605" style="color:inherit;">071 609 1605</a>
           </p>
           <div class="footer-location">
             <span class="footer-location-dot"></span>
@@ -1739,16 +1827,24 @@
 
   // ── Transparent nav scroll behaviour ─────────────────────────
   (function() {
-    var nav = document.getElementById('mainNav');
-    function updateNav() {
+    var nav    = document.getElementById('mainNav');
+    var hero   = document.querySelector('.hero');
+
+    function updateScroll() {
+      var bubble = document.querySelector('.wa-bubble');
+      var heroHeight = hero ? hero.offsetHeight : window.innerHeight;
+
       if (window.scrollY > 60) {
         nav.classList.add('nav-scrolled');
+        bubble && bubble.classList.add('wa-scrolled');
       } else {
         nav.classList.remove('nav-scrolled');
+        bubble && bubble.classList.remove('wa-scrolled');
       }
     }
-    window.addEventListener('scroll', updateNav, { passive: true });
-    updateNav(); // run on load in case page is already scrolled
+
+    window.addEventListener('scroll', updateScroll, { passive: true });
+    updateScroll();
   })();
 
   // ── Hamburger / mobile menu ───────────────────────────────────
@@ -1835,5 +1931,131 @@
   }
 </script>
 
+<!-- ── FLOATING WHATSAPP BUBBLE ───────────────────────────────── -->
+<style>
+  .wa-bubble {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(18px) saturate(180%);
+    -webkit-backdrop-filter: blur(18px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.30);
+    border-radius: 999px;
+    padding: 10px 20px 10px 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18), 0 1.5px 6px rgba(0,0,0,0.10);
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.25s cubic-bezier(0.23,1,0.32,1),
+                box-shadow 0.25s ease,
+                background 0.35s ease,
+                border-color 0.35s ease;
+    animation: wa-float 3.2s ease-in-out infinite;
+  }
+  .wa-bubble:hover {
+    transform: translateY(-4px) scale(1.03);
+    background: rgba(255, 255, 255, 0.24);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22), 0 2px 8px rgba(0,0,0,0.12);
+  }
+  /* Gentle float animation */
+  @keyframes wa-float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-6px); }
+  }
+  .wa-bubble:hover { animation-play-state: paused; }
+
+  /* Image avatar */
+  .wa-bubble-img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    flex-shrink: 0;
+    box-sizing: border-box;
+  }
+
+  /* Text stack */
+  .wa-bubble-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .wa-bubble-label {
+    font-family: 'Century Gothic', 'Gill Sans', Futura, 'Trebuchet MS', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.70);
+    line-height: 1;
+  }
+  .wa-bubble-name {
+    font-family: 'Century Gothic', 'Gill Sans', Futura, 'Trebuchet MS', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: #fff;
+    line-height: 1.2;
+  }
+
+  /* Pulse ring */
+  .wa-bubble::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 999px;
+    border: 1.5px solid rgba(255,255,255,0.22);
+    animation: wa-pulse 2.8s ease-out infinite;
+    pointer-events: none;
+  }
+  @keyframes wa-pulse {
+    0%   { opacity: 0.7; transform: scale(1); }
+    70%  { opacity: 0;   transform: scale(1.08); }
+    100% { opacity: 0;   transform: scale(1.08); }
+  }
+
+  /* Scrolled — dark state matching nav-cta */
+  .wa-bubble.wa-scrolled {
+    background: #111 !important;
+    border-color: #111 !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.22), 0 2px 8px rgba(0,0,0,0.14) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  .wa-bubble.wa-scrolled:hover {
+    background: #333 !important;
+    border-color: #333 !important;
+  }
+  .wa-bubble.wa-scrolled .wa-bubble-label { color: rgba(255,255,255,0.55) !important; }
+  .wa-bubble.wa-scrolled .wa-bubble-name  { color: #fff !important; }
+  .wa-bubble.wa-scrolled .wa-bubble-img   { border-color: rgba(255,255,255,0.25) !important; }
+  .wa-bubble.wa-scrolled::before          { border-color: rgba(255,255,255,0.10) !important; }
+
+  @media (max-width: 480px) {
+    .wa-bubble {
+      bottom: 20px;
+      right: 16px;
+      padding: 8px 16px 8px 8px;
+      gap: 10px;
+    }
+    .wa-bubble-img { width: 38px; height: 38px; padding: 5px; }
+    .wa-bubble-label { font-size: 9.5px; }
+    .wa-bubble-name  { font-size: 12px; }
+  }
+</style>
+
+<a class="wa-bubble" href="https://wa.me/27716091605" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
+  <!-- ↓ Replace the src with your WhatsApp profile image path -->
+  <img class="wa-bubble-img" src="images/whatsapp.webp" alt="WhatsApp">
+  <div class="wa-bubble-text">
+    <span class="wa-bubble-label">Chat with us</span>
+    <span class="wa-bubble-name">WhatsApp Us</span>
+  </div>
+</a>
 </body>
 </html>
