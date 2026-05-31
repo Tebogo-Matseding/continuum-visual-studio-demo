@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<link rel="icon" href="images/nav-logo.webp">
+<title>Page Not Found — Continuum Visual Studio</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: hidden; }
+  body { font-family: 'Century Gothic', 'Gill Sans', Futura, 'Trebuchet MS', sans-serif; background: #fff; color: #111; overflow-x: hidden; }
+  a { text-decoration: none; color: inherit; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    transition: padding 0.4s ease;
+  }
+  nav.nav-scrolled { padding: 14px 40px; }
+
+  .nav-logo { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+  .nav-logo-icon {
+    width: 50px; height: 50px;
+    background: rgba(255,255,255,0.14);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border: 1px solid rgba(255,255,255,0.28);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+  nav.nav-scrolled .nav-logo-icon {
+    background: rgba(255,255,255,0.78);
+    border-color: rgba(255,255,255,0.6);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+  .nav-logo-img {
+    height: 50px; width: auto; display: block;
+    filter: brightness(0) invert(1);
+    transition: filter 0.4s ease;
+  }
+  nav.nav-scrolled .nav-logo-img { filter: none; }
+  .nav-logo-text { display: flex; flex-direction: column; gap: 1px; flex-shrink: 0; }
+  .nav-logo-text .logo-main {
+    font-size: 14px; font-weight: 400; letter-spacing: 0.2em;
+    text-transform: uppercase; color: #fff; line-height: 1;
+    transition: color 0.4s ease;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.2);
+    white-space: nowrap;
+  }
+  .nav-logo-text .logo-sub {
+    font-size: 10px; font-weight: 300; letter-spacing: 0.28em;
+    text-transform: uppercase; color: rgba(255,255,255,0.6); line-height: 1;
+    transition: color 0.4s ease;
+    white-space: nowrap;
+  }
+  nav.nav-scrolled .logo-main { color: #111; text-shadow: none; }
+  nav.nav-scrolled .logo-sub  { color: #888; }
+
+
+
+  .nav-cta {
+    background: rgba(255,255,255,0.14);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.35);
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-size: 12px; letter-spacing: 0.1em;
+    cursor: pointer; font-family: inherit;
+    transition: background 0.25s, color 0.25s, border-color 0.25s, box-shadow 0.25s;
+    text-shadow: 0 1px 5px rgba(0,0,0,0.18);
+  }
+  .nav-cta:hover { background: rgba(255,255,255,0.28); box-shadow: 0 4px 18px rgba(0,0,0,0.14); }
+  nav.nav-scrolled .nav-cta { background: #111; color: #fff; border-color: #111; backdrop-filter: none; text-shadow: none; }
+  nav.nav-scrolled .nav-cta:hover { background: #333; }
+
+  /* ── HAMBURGER ── */
+  .hamburger {
+    display: none; flex-direction: column; justify-content: center;
+    align-items: flex-end; gap: 5px; width: 40px; height: 40px;
+    background: none; border: none; cursor: pointer; padding: 6px;
+    z-index: 200; flex-shrink: 0;
+  }
+  .hamburger span {
+    display: block; height: 1.5px; background: #111; border-radius: 2px;
+    transition: transform 0.38s cubic-bezier(0.23,1,0.32,1), opacity 0.25s ease, width 0.3s ease;
+    transform-origin: center;
+  }
+  .hamburger span:nth-child(1) { width: 24px; }
+  .hamburger span:nth-child(2) { width: 16px; }
+  .hamburger span:nth-child(3) { width: 24px; }
+  .hamburger.is-open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); width: 24px; }
+  .hamburger.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .hamburger.is-open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); width: 24px; }
+
+  /* ── MOBILE MENU ── */
+  .mobile-menu {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: 150; background: #fff;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 80px 40px 60px; gap: 0;
+    opacity: 0; pointer-events: none; transform: translateY(-16px);
+    transition: opacity 0.38s ease, transform 0.38s cubic-bezier(0.23,1,0.32,1);
+  }
+  .mobile-menu.is-open { opacity: 1; pointer-events: all; transform: translateY(0); }
+  .mobile-menu-link {
+    font-size: clamp(30px, 9vw, 44px); font-weight: 300; letter-spacing: 0.05em;
+    color: #111; padding: 14px 0; display: block;
+    opacity: 0; transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, color 0.2s;
+  }
+  .mobile-menu.is-open .mobile-menu-link { opacity: 1; transform: translateY(0); }
+  .mobile-menu.is-open .mobile-menu-link:nth-child(1) { transition-delay: 0.07s; }
+  .mobile-menu.is-open .mobile-menu-link:nth-child(2) { transition-delay: 0.12s; }
+  .mobile-menu.is-open .mobile-menu-link:nth-child(3) { transition-delay: 0.17s; }
+  .mobile-menu.is-open .mobile-menu-link:nth-child(4) { transition-delay: 0.22s; }
+  .mobile-menu-link:hover { opacity: 0.45; }
+  .mobile-menu-divider {
+    width: 32px; height: 0.5px; background: #e0e0e0;
+    margin: 20px 0 24px; opacity: 0; transform: scaleX(0);
+    transition: opacity 0.3s ease 0.25s, transform 0.3s ease 0.25s;
+  }
+  .mobile-menu.is-open .mobile-menu-divider { opacity: 1; transform: scaleX(1); }
+  .mobile-menu-cta {
+    display: inline-block; background: #111; color: #fff !important;
+    border: 1.5px solid #111; padding: 14px 36px; border-radius: 999px;
+    font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase;
+    font-family: inherit; cursor: pointer;
+    opacity: 0; transform: translateY(8px);
+    transition: opacity 0.3s ease 0.29s, transform 0.3s ease 0.29s, background 0.2s;
+  }
+  .mobile-menu.is-open .mobile-menu-cta { opacity: 1; transform: translateY(0); }
+  .mobile-menu-cta:hover { opacity: 0.75 !important; }
+  .mobile-menu-close {
+    position: absolute; top: 24px; right: 24px; width: 40px; height: 40px;
+    background: none; border: none; cursor: pointer;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 6px; z-index: 10;
+  }
+  .mobile-menu-close span {
+    display: block; width: 22px; height: 1.5px; background: #111; border-radius: 2px;
+    transition: transform 0.3s cubic-bezier(0.23,1,0.32,1);
+  }
+  .mobile-menu-close span:nth-child(1) { transform: translateY(0.75px) rotate(45deg); }
+  .mobile-menu-close span:nth-child(2) { transform: translateY(-0.75px) rotate(-45deg); }
+  .mobile-menu-close:hover span { background: #555; }
+  .mobile-menu-footer {
+    position: absolute; bottom: 28px; font-size: 11px; color: #bbb;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    opacity: 0; transition: opacity 0.3s ease 0.35s;
+  }
+  .mobile-menu.is-open .mobile-menu-footer { opacity: 1; }
+  body.menu-open { overflow: hidden; }
+
+  /* ── HERO / SLIDER ── */
+  .hero {
+    position: relative;
+    height: 100vh; height: 100svh;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .hero-slider { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+  .hero-slide {
+    position: absolute; inset: 0;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    opacity: 0; will-change: opacity;
+    transform: scale(1.04);
+    transition: opacity 1.6s ease, transform 6s ease;
+  }
+  .hero-slide.active { opacity: 1; transform: scale(1); }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.50) 100%);
+    z-index: 1;
+  }
+
+
+  /* ── 404 CONTENT OVERLAY ── */
+  .error-content {
+    position: relative; z-index: 2;
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center; padding: 0 24px;
+    gap: 0;
+    width: 100%;
+  }
+  .error-code {
+    font-size: clamp(96px, 18vw, 180px);
+    font-weight: 200;
+    letter-spacing: 0.06em;
+    color: #fff;
+    line-height: 1;
+    text-shadow: 0 4px 48px rgba(0,0,0,0.3);
+    opacity: 0.92;
+  }
+  .error-rule {
+    display: flex; align-items: center; gap: 18px;
+    margin: 18px 0 24px;
+  }
+  .error-rule::before,
+  .error-rule::after {
+    content: ''; display: block; width: 48px; height: 1px;
+    background: rgba(255,255,255,0.4); flex-shrink: 0;
+  }
+  .error-label {
+    font-size: 11px; font-weight: 300; letter-spacing: 0.38em;
+    text-transform: uppercase; color: rgba(255,255,255,0.6);
+  }
+  .error-title {
+    font-size: clamp(22px, 3.5vw, 38px);
+    font-weight: 200; letter-spacing: 0.06em;
+    color: #fff; margin-bottom: 16px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.25);
+  }
+  .error-desc {
+    font-size: clamp(13px, 1.2vw, 15px);
+    font-weight: 300; letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.65); line-height: 1.8;
+    max-width: 480px; margin-bottom: 44px;
+  }
+
+  /* ── ACTION BUTTONS ── */
+  .error-actions {
+    display: flex; flex-wrap: wrap; gap: 14px; justify-content: center;
+    margin-bottom: 40px;
+  }
+  .btn-back {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #fff; color: #111;
+    border: 1.5px solid #fff;
+    padding: 13px 28px; border-radius: 999px;
+    font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+    font-family: inherit; cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .btn-back:hover { opacity: 0.85; }
+  .btn-home {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent; color: #fff;
+    border: 1.5px solid rgba(255,255,255,0.55);
+    padding: 13px 28px; border-radius: 999px;
+    font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+    font-family: inherit; cursor: pointer;
+    transition: background 0.25s, border-color 0.25s, color 0.25s;
+  }
+  .btn-home:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.9); }
+
+  /* ── CONTACT CHIPS ── */
+  .error-contact-label {
+    font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: rgba(255,255,255,0.4); margin-bottom: 14px;
+  }
+  .error-contact-chips {
+    display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
+  }
+  .contact-chip {
+    display: inline-flex; align-items: center; gap: 9px;
+    background: rgba(255,255,255,0.10);
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 999px;
+    padding: 10px 20px;
+    font-size: 12px; letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.9);
+    transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
+  }
+  .contact-chip:hover {
+    background: rgba(255,255,255,0.20);
+    border-color: rgba(255,255,255,0.45);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+  .contact-chip i { font-size: 16px; }
+  .contact-chip--wa { border-color: rgba(37,211,102,0.45); }
+  .contact-chip--wa:hover { background: rgba(37,211,102,0.15); border-color: rgba(37,211,102,0.7); }
+  .contact-chip--wa i { color: #25d366; }
+  .contact-chip--email i { color: rgba(255,255,255,0.7); }
+
+  /* ── LOCATION BADGE ── */
+  .hero-location {
+    position: absolute; bottom: 36px; left: 56px; z-index: 2;
+    display: inline-flex; align-items: center; gap: 7px;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.22); border-radius: 999px;
+    padding: 5px 14px 5px 10px;
+    font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(255,255,255,0.88);
+  }
+  .hero-location-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.6); flex-shrink: 0; }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    nav {
+      position: sticky; top: 0; padding: 12px 18px !important;
+      background: #fff !important; backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      border-bottom: 0.5px solid #e5e5e5 !important;
+      box-shadow: none !important; transition: none !important;
+    }
+    nav .nav-logo-icon { background: transparent !important; border: none !important; box-shadow: none !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; width: auto !important; height: auto !important; border-radius: 0 !important; }
+    nav .nav-logo-img  { filter: none !important; height: 44px !important; }
+    nav .logo-main { color: #111 !important; text-shadow: none !important; }
+    nav .logo-sub  { color: #888 !important; }
+    .hamburger { display: flex; }
+    .hamburger span { background: #111; }
+    .hero { height: calc(100vh - 74px); height: calc(100svh - 74px); min-height: 480px; }
+    .hero-location { display: none; }
+    .error-code { font-size: clamp(80px, 22vw, 120px); }
+  }
+  @media (max-width: 480px) {
+    .hero { height: calc(100vh - 68px); height: calc(100svh - 68px); min-height: 420px; }
+    .error-actions { flex-direction: column; align-items: center; }
+    .error-contact-chips { flex-direction: column; align-items: center; }
+    .contact-chip { width: 100%; max-width: 280px; justify-content: center; }
+  }
+
+  @media (max-width: 480px) {
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-icon">
+      <img src="images/nav-logo.webp" alt="Continuum Visual Studio Logo" class="nav-logo-img">
+    </div>
+    <div class="nav-logo-text">
+      <span class="logo-main">Continuum</span>
+      <span class="logo-sub">Visual Studio</span>
+    </div>
+  </a>
+  <a href="contact.html" class="nav-cta">Book A Session</a>
+  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
+    <span></span><span></span>
+  </button>
+  <a href="index.html" class="mobile-menu-link">Home</a>
+  <div class="mobile-menu-divider"></div>
+  <a href="contact.html" class="mobile-menu-cta">Book A Session</a>
+  <span class="mobile-menu-footer">Gauteng &bull; South Africa</span>
+</div>
+
+<!-- HERO WITH SLIDER -->
+<section class="hero">
+
+  <div class="hero-slider" id="heroSlider">
+    <div class="hero-slide active" style="background-image: url('images/slide1.webp');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide2.webp');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide3.webp');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide4.webp');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide5.webp');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide6.webp');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide7.webp');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide8.webp');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide9.webp');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide10.webp');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide11.webp');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide12.webp');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide13.webp');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide14.webp');"></div>
+    <div class="hero-slide" style="background-image: url('images/slide15.webp');"></div>
+  </div>
+
+  <div class="hero-overlay"></div>
+
+  <!-- Location badge -->
+  <div class="hero-location">
+    <span class="hero-location-dot"></span>
+    Gauteng &bull; South Africa
+  </div>
+
+  <!-- 404 Content -->
+  <div class="error-content">
+    <div class="error-code">404</div>
+
+    <div class="error-rule">
+      <span class="error-label">Page Not Found</span>
+    </div>
+
+    <h1 class="error-title">This shot didn't develop</h1>
+    <p class="error-desc">The page you're looking for may have moved, been renamed, or no longer exists. Let's get you back on track.</p>
+
+    <div class="error-actions">
+      <a href="javascript:history.back()" class="btn-back">
+        <i class="ti ti-arrow-left" aria-hidden="true"></i>
+        Go Back
+      </a>
+      <a href="index.html" class="btn-home">
+        <i class="ti ti-home" aria-hidden="true"></i>
+        Back to Home
+      </a>
+    </div>
+
+    <p class="error-contact-label">Need further help?</p>
+    <div class="error-contact-chips">
+      <a href="https://wa.me/27716091605" class="contact-chip contact-chip--wa" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+        <i class="ti ti-brand-whatsapp" aria-hidden="true"></i>
+        WhatsApp Us
+      </a>
+      <a href="mailto:info@continuumvs.co.za" class="contact-chip contact-chip--email" aria-label="Send us an email">
+        <i class="ti ti-mail" aria-hidden="true"></i>
+        info@continuumvs.co.za
+      </a>
+    </div>
+  </div>
+
+
+</section>
+
+
+<script>
+  // ── Hero image slider ─────────────────────────────────────────
+  (function() {
+    const slides   = document.querySelectorAll('.hero-slide');
+    let current    = 0;
+    let timer;
+
+    const dots = [];
+
+    function goTo(n) {
+      slides[current].classList.remove('active');
+      current = (n + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      clearInterval(timer);
+      timer = setInterval(next, 5000);
+    }
+
+    function next() { goTo(current + 1); }
+    timer = setInterval(next, 5000);
+  })();
+
+  // ── Transparent nav scroll behaviour ─────────────────────────
+  (function() {
+    var nav = document.getElementById('mainNav');
+    function updateScroll() {
+      if (window.scrollY > 60) {
+        nav.classList.add('nav-scrolled');
+      } else {
+        nav.classList.remove('nav-scrolled');
+      }
+    }
+    window.addEventListener('scroll', updateScroll, { passive: true });
+    updateScroll();
+  })();
+
+  // ── Hamburger / mobile menu ───────────────────────────────────
+  const hamburger       = document.getElementById('hamburger');
+  const mobileMenu      = document.getElementById('mobileMenu');
+  const mobileMenuClose = document.getElementById('mobileMenuClose');
+  const menuLinks       = mobileMenu.querySelectorAll('a');
+
+  function openMenu()  { hamburger.classList.add('is-open'); mobileMenu.classList.add('is-open'); document.body.classList.add('menu-open'); hamburger.setAttribute('aria-expanded','true'); }
+  function closeMenu() { hamburger.classList.remove('is-open'); mobileMenu.classList.remove('is-open'); document.body.classList.remove('menu-open'); hamburger.setAttribute('aria-expanded','false'); }
+
+  hamburger.addEventListener('click', () => mobileMenu.classList.contains('is-open') ? closeMenu() : openMenu());
+  mobileMenuClose.addEventListener('click', closeMenu);
+  menuLinks.forEach(link => link.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+</script>
+
+</body>
+</html>

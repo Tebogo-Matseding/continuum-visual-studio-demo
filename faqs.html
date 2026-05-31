@@ -42,8 +42,12 @@
     display: flex; align-items: center; justify-content: space-between;
     padding: 18px 48px;
   }
-  .nav-logo { display: flex; align-items: center; gap: 10px; font-size: 15px; letter-spacing: 0.12em; }
-  .nav-logo-img { height: 52px; width: auto; display: block; }
+  .nav-logo { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+  .nav-logo-icon { width: 44px; height: 44px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .nav-logo-img { height: 44px; width: auto; display: block; }
+  .nav-logo-text { display: flex; flex-direction: column; gap: 1px; flex-shrink: 0; }
+  .nav-logo-text .logo-main { font-size: 13px; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: #111; line-height: 1; white-space: nowrap; }
+  .nav-logo-text .logo-sub  { font-size: 10px; font-weight: 300; letter-spacing: 0.28em; text-transform: uppercase; color: #888; line-height: 1; white-space: nowrap; }
   .nav-links { display: flex; gap: 32px; }
   .nav-links a { font-size: 13px; letter-spacing: 0.08em; color: #555; transition: color 0.2s; }
   .nav-links a:hover, .nav-links a.active { color: var(--black); }
@@ -428,7 +432,13 @@
 <!-- ════════════════════════════════════════════════════ NAV -->
 <nav>
   <a href="index.html" class="nav-logo">
-     <img src="images/nav-logo.webp" alt="Continuum Visual Studio Logo" class="nav-logo-img"> CONTINUUM VISUAL STUDIO
+    <div class="nav-logo-icon">
+      <img src="images/nav-logo.webp" alt="Continuum Visual Studio Logo" class="nav-logo-img">
+    </div>
+    <div class="nav-logo-text">
+      <span class="logo-main">Continuum</span>
+      <span class="logo-sub">Visual Studio</span>
+    </div>
   </a>
   <div class="nav-links">
     <a href="index.html#services">Services</a>
