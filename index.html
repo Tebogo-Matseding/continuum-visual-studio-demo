@@ -570,10 +570,12 @@
   .hero-btn:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.9); }
   /* Location badge — fixed bottom-left */
   .hero-location {
-    position: absolute;
-    bottom: 36px;
-    left: 56px;
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
     z-index: 2;
+    margin-top: 20px;
     display: inline-flex;
     align-items: center;
     gap: 7px;
@@ -662,7 +664,8 @@
     .hero-location {
       position: static;
       font-size: 9.5px;
-      margin-bottom: 20px;
+      margin-top: 16px;
+      margin-bottom: 0;
     }
 
     /* Text block — back in flow, centred */
@@ -1372,15 +1375,14 @@
   <div class="hero-overlay"></div>
 
   <!-- Location badge — bottom left -->
-  <div class="hero-location">
-    <span class="hero-location-dot"></span>
-    Gauteng &bull; South Africa
-  </div>
-
   <!-- Text content — centred just above dots -->
   <div class="hero-content">
     <h1 class="hero-studio-name">Continuum Visual Studio</h1>
     <p class="hero-slogan">The Art of Definition</p>
+    <div class="hero-location">
+      <span class="hero-location-dot"></span>
+      Gauteng &bull; South Africa
+    </div>
   </div>
 
   <!-- Dot indicators -->
@@ -1731,7 +1733,7 @@
 
         <!-- ── 1. Brand / Studio ── -->
         <div class="footer-brand">
-          <span class="footer-col-label">Studio</span>
+          <span class="footer-col-label">Contact Us</span>
           <p class="footer-brand-desc" style="margin-top:10px;">
             No 4 Fountainview<br>
             10 Poplar Street<br>

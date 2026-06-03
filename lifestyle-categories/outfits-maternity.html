@@ -977,7 +977,7 @@
 
         <!-- 1. Address + Map -->
         <div class="footer-brand">
-          <span class="footer-col-label">Studio</span>
+          <span class="footer-col-label">Contact Us</span>
           <p class="footer-brand-desc" style="margin-top:10px;">
             No 4 Fountainview<br>
             10 Poplar Street<br>
@@ -1234,6 +1234,183 @@
   if (typeof GLightbox !== 'undefined') {
     GLightbox({ selector: '.glightbox' });
   }
+</script>
+
+<script>
+  /* ── Placeholder reveal ─────────────────────────────────────────── */
+  document.querySelectorAll('.outfit-card-img img, .accessory-card-img img').forEach(function(img) {
+    function reveal() {
+      var wrap = img.parentElement;
+      wrap.classList.remove('placeholder');
+      img.style.display = '';
+    }
+    if (img.src && img.naturalWidth > 0) { reveal(); }
+    else { img.addEventListener('load', reveal); }
+  });
+
+  /* ── Touch-device hint ──────────────────────────────────────────── */
+  if ('ontouchstart' in window) {
+    document.querySelectorAll('.outfit-card, .accessory-card').forEach(function(c) {
+      c.classList.add('is-touch');
+    });
+  }
+
+  /* ── Per-card image sets ────────────────────────────────────────── */
+  function buildGalleryForCard(card) {
+    var img = card.querySelector('.outfit-card-img img, .accessory-card-img img');
+    if (!img || !img.src) return [];
+    var src = img.getAttribute('src');
+    var lastSlash = src.lastIndexOf('/');
+    var folder = src.substring(0, lastSlash + 1);
+    var filename = src.substring(lastSlash + 1);
+    var extMatch = filename.match(/^(.*?)(\d+)(\.[^.]+)$/);
+    if (!extMatch) return [src];
+    var base = extMatch[1];
+    var ext  = extMatch[3];
+    var imgs = [];
+    for (var i = 1; i <= 10; i++) {
+      imgs.push(folder + base + i + ext);
+    }
+    return imgs;
+  }
+
+  /* ── Lightbox state ─────────────────────────────────────────────── */
+  var lbOverlay = document.getElementById('lbOverlay');
+  var lbTrack   = document.getElementById('lbTrack');
+  var lbTitle   = document.getElementById('lbTitle');
+  var lbMeta    = document.getElementById('lbMeta');
+  var lbDots    = document.getElementById('lbDots');
+  var lbPrev    = document.getElementById('lbPrev');
+  var lbNext    = document.getElementById('lbNext');
+  var lbClose   = document.getElementById('lbClose');
+
+  var lbImages  = [];
+  var lbIndex   = 0;
+  var lbLoaded  = {};
+
+  function openLightbox(card) {
+    var name   = card.querySelector('.outfit-card-name, .accessory-card-name');
+    var title  = name ? name.textContent : 'Outfit';
+
+    lbImages = buildGalleryForCard(card);
+    lbIndex  = 0;
+    lbLoaded = {};
+
+    lbTrack.innerHTML = '';
+    lbDots.innerHTML  = '';
+
+    lbImages.forEach(function(src, i) {
+      var slide = document.createElement('div');
+      slide.className = 'lb-slide';
+      slide.dataset.index = i;
+
+      var imgEl = document.createElement('img');
+      imgEl.alt = title + ' — image ' + (i + 1);
+      imgEl.addEventListener('load', function() {
+        lbLoaded[i] = true;
+        slide.classList.remove('lb-loading');
+        updateMeta();
+      });
+      imgEl.addEventListener('error', function() {
+        slide.style.display = 'none';
+        var dot = lbDots.querySelector('[data-dot="' + i + '"]');
+        if (dot) dot.style.display = 'none';
+        updateMeta();
+        if (lbIndex === i) advanceToValid(1);
+      });
+      imgEl.src = src;
+      slide.appendChild(imgEl);
+      lbTrack.appendChild(slide);
+
+      var dot = document.createElement('button');
+      dot.className = 'lb-dot';
+      dot.setAttribute('aria-label', 'Go to image ' + (i + 1));
+      dot.dataset.dot = i;
+      dot.addEventListener('click', function() { goTo(i); });
+      lbDots.appendChild(dot);
+    });
+
+    lbTitle.textContent = title;
+    lbOverlay.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    goTo(0);
+  }
+
+  function closeLightbox() {
+    lbOverlay.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  function goTo(idx) {
+    lbIndex = idx;
+    var slides = lbTrack.querySelectorAll('.lb-slide');
+    slides.forEach(function(s, i) { s.classList.toggle('lb-active', i === idx); });
+    var dots = lbDots.querySelectorAll('.lb-dot');
+    dots.forEach(function(d, i) { d.classList.toggle('lb-active', i === idx); });
+    var activeSlide = lbTrack.querySelector('.lb-slide[data-index="' + idx + '"]');
+    if (activeSlide) {
+      var wrap = lbTrack.parentElement;
+      var trackOffset = (wrap.offsetWidth / 2) - (activeSlide.offsetLeft + activeSlide.offsetWidth / 2);
+      lbTrack.style.transform = 'translateX(' + trackOffset + 'px)';
+    }
+    updateMeta();
+    updateArrows();
+  }
+
+  function advanceToValid(dir) {
+    var slides = lbTrack.querySelectorAll('.lb-slide');
+    var next = lbIndex + dir;
+    while (next >= 0 && next < slides.length) {
+      if (slides[next].style.display !== 'none') { goTo(next); return; }
+      next += dir;
+    }
+  }
+
+  function updateMeta() {
+    var visible = Array.from(lbTrack.querySelectorAll('.lb-slide'))
+                       .filter(function(s) { return s.style.display !== 'none'; });
+    var pos = visible.findIndex(function(s) { return parseInt(s.dataset.index) === lbIndex; });
+    lbMeta.textContent = visible.length > 0 ? (pos + 1) + ' / ' + visible.length : '';
+  }
+
+  function updateArrows() {
+    var slides = Array.from(lbTrack.querySelectorAll('.lb-slide'))
+                      .filter(function(s) { return s.style.display !== 'none'; });
+    var indices = slides.map(function(s) { return parseInt(s.dataset.index); });
+    var pos = indices.indexOf(lbIndex);
+    lbPrev.disabled = pos <= 0;
+    lbNext.disabled = pos >= indices.length - 1;
+  }
+
+  document.querySelectorAll('.outfit-card, .accessory-card').forEach(function(card) {
+    card.addEventListener('click', function() { openLightbox(card); });
+  });
+
+  lbPrev.addEventListener('click', function() { advanceToValid(-1); });
+  lbNext.addEventListener('click', function() { advanceToValid(1); });
+
+  lbClose.addEventListener('click', closeLightbox);
+  lbOverlay.addEventListener('click', function(e) {
+    if (e.target === lbOverlay) closeLightbox();
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (!lbOverlay.classList.contains('is-open')) return;
+    if (e.key === 'Escape')      closeLightbox();
+    if (e.key === 'ArrowRight')  advanceToValid(1);
+    if (e.key === 'ArrowLeft')   advanceToValid(-1);
+  });
+
+  var swipeStartX = null;
+  lbOverlay.addEventListener('touchstart', function(e) {
+    swipeStartX = e.touches[0].clientX;
+  }, { passive: true });
+  lbOverlay.addEventListener('touchend', function(e) {
+    if (swipeStartX === null) return;
+    var dx = e.changedTouches[0].clientX - swipeStartX;
+    if (Math.abs(dx) > 50) { dx < 0 ? advanceToValid(1) : advanceToValid(-1); }
+    swipeStartX = null;
+  });
 </script>
 
 </body>
